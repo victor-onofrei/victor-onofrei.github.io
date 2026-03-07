@@ -42,7 +42,7 @@
     header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-start;
       margin-bottom: 20px;
       gap: 12px;
       flex-wrap: wrap;
@@ -66,6 +66,13 @@
       border: 1px solid rgba(52,211,153,0.6);
       background: radial-gradient(circle at top left, rgba(45,212,191,0.25), transparent 55%);
       color: var(--accent);
+    }
+
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
     }
 
     .meta {
@@ -93,7 +100,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 16px;
     }
 
     .sort-wrap label {
@@ -293,14 +299,13 @@
       <div class="title">
         <span class="pill">Discogs catalog</span>
       </div>
-      <div class="meta">
-        <span><strong>120</strong> releases</span>
-      </div>
-    </header>
-
-    <div class="sort-wrap">
-      <label for="sort">Sort by</label>
-      <select id="sort" aria-label="Sort collection">
+      <div class="header-right">
+        <div class="meta">
+          <span><strong>120</strong> releases</span>
+        </div>
+        <div class="sort-wrap">
+          <label for="sort">Sort by</label>
+          <select id="sort" aria-label="Sort collection">
         <option value="artist">Artist</option>
         <option value="release_asc">Release year (oldest first)</option>
         <option value="release_desc">Release year (newest first)</option>
@@ -308,8 +313,10 @@
         <option value="master_desc">Master year (newest first)</option>
         <option value="added_asc">Date added (oldest first)</option>
         <option value="added_desc">Date added (newest first)</option>
-      </select>
-    </div>
+          </select>
+        </div>
+      </div>
+    </header>
 
     <main class="grid" id="grid">
       <article class="card" data-artist="2Pac" data-release-year="2020" data-master-year="1995" data-date-added="2022-05-07T10:31:59-07:00">
