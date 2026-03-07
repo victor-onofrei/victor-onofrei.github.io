@@ -68,10 +68,9 @@
       color: var(--accent);
     }
 
-    .header-right {
+    .header-left {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
       gap: 8px;
     }
 
@@ -257,12 +256,6 @@
         border-radius: 20px;
         padding: 14px 12px 18px;
       }
-      header {
-        align-items: flex-start;
-      }
-      .header-right {
-        flex-shrink: 0;
-      }
       .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
@@ -302,25 +295,25 @@
 <body>
   <div class="shell">
     <header>
-      <div class="title">
-        <span class="pill">Discogs catalog</span>
-      </div>
-      <div class="header-right">
-        <div class="meta">
-          <span><strong>120</strong> releases</span>
+      <div class="header-left">
+        <div class="title">
+          <span class="pill">Discogs catalog</span>
         </div>
         <div class="sort-wrap">
           <label for="sort">Sort by</label>
           <select id="sort" aria-label="Sort collection">
-        <option value="artist">Artist</option>
-        <option value="release_asc">Release year (oldest first)</option>
-        <option value="release_desc">Release year (newest first)</option>
-        <option value="master_asc">Master year (oldest first)</option>
-        <option value="master_desc">Master year (newest first)</option>
-        <option value="added_asc">Date added (oldest first)</option>
-        <option value="added_desc">Date added (newest first)</option>
+            <option value="artist">Artist</option>
+            <option value="release_asc">Release year (oldest first)</option>
+            <option value="release_desc">Release year (newest first)</option>
+            <option value="master_asc">Master year (oldest first)</option>
+            <option value="master_desc">Master year (newest first)</option>
+            <option value="added_asc">Date added (oldest first)</option>
+            <option value="added_desc">Date added (newest first)</option>
           </select>
         </div>
+      </div>
+      <div class="meta">
+        <span><strong>120</strong> releases</span>
       </div>
     </header>
 
