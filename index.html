@@ -42,10 +42,10 @@
     header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: baseline;
       margin-bottom: 20px;
       gap: 12px;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
     }
 
     .title {
@@ -68,15 +68,7 @@
       color: var(--accent);
     }
 
-    .header-left {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 0;
-    }
-
     .meta {
-      flex-shrink: 0;
       font-size: 0.8rem;
       color: var(--muted);
       text-align: right;
@@ -101,11 +93,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 16px;
     }
 
     .sort-wrap label {
       font-size: 0.8rem;
       color: var(--muted);
+      white-space: nowrap;
     }
 
     .sort-wrap select {
@@ -297,27 +291,26 @@
 <body>
   <div class="shell">
     <header>
-      <div class="header-left">
-        <div class="title">
-          <span class="pill">Discogs catalog</span>
-        </div>
-        <div class="sort-wrap">
-          <label for="sort">Sort by</label>
-          <select id="sort" aria-label="Sort collection">
-            <option value="artist">Artist</option>
-            <option value="release_asc">Release year (oldest first)</option>
-            <option value="release_desc">Release year (newest first)</option>
-            <option value="master_asc">Master year (oldest first)</option>
-            <option value="master_desc">Master year (newest first)</option>
-            <option value="added_asc">Date added (oldest first)</option>
-            <option value="added_desc">Date added (newest first)</option>
-          </select>
-        </div>
+      <div class="title">
+        <span class="pill">Discogs catalog</span>
       </div>
       <div class="meta">
         <span><strong>120</strong> releases</span>
       </div>
     </header>
+
+    <div class="sort-wrap">
+      <label for="sort">Sort by</label>
+      <select id="sort" aria-label="Sort collection">
+        <option value="artist">Artist</option>
+        <option value="release_asc">Release year (oldest first)</option>
+        <option value="release_desc">Release year (newest first)</option>
+        <option value="master_asc">Master year (oldest first)</option>
+        <option value="master_desc">Master year (newest first)</option>
+        <option value="added_asc">Date added (oldest first)</option>
+        <option value="added_desc">Date added (newest first)</option>
+      </select>
+    </div>
 
     <main class="grid" id="grid">
       <article class="card" data-artist="2Pac" data-release-year="2020" data-master-year="1995" data-date-added="2022-05-07T10:31:59-07:00">
