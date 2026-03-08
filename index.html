@@ -205,29 +205,35 @@
       overflow: hidden;
     }
 
+    /* Line 3: artist — reserved so card has fixed 5-line layout */
     .title-text {
       font-size: 0.8rem;
       color: var(--muted);
       margin-top: 2px;
+      min-height: 1.25em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    /* Line 4: years */
     .year-text {
       font-size: 0.75rem;
       color: var(--muted);
       margin-top: 2px;
+      min-height: 1.25em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       opacity: 0.9;
     }
 
+    /* Line 5: genre */
     .genre-text {
       font-size: 0.72rem;
       color: var(--muted);
       margin-top: 2px;
+      min-height: 1.25em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -662,6 +668,7 @@
         <div class="info">
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/9239171" target="_blank" rel="noopener noreferrer">Wassermusik · Feuerwerksmusik</a></div>
           <div class="title-text">Georg Friedrich Händel, Concertgebouworkest, Eduard van Beinum, Bernard Haitink</div>
+          <div class="year-text"></div>
           <div class="genre-text">Baroque</div>
         </div>
       </article>
