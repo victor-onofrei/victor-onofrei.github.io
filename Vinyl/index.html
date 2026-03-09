@@ -241,6 +241,27 @@
       opacity: 0.9;
     }
 
+    .separator {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 2px 4px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      margin-bottom: 2px;
+      user-select: none;
+    }
+
+    .separator-label {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: .04em;
+      min-width: 2rem;
+      text-align: center;
+    }
+
     .title-link {
       color: inherit;
       text-decoration: none;
@@ -292,6 +313,12 @@
       .card:nth-child(12n+1) {
         break-before: page;
         page-break-before: always;
+      }
+      .separator {
+        border-bottom-color: #e5e7eb;
+      }
+      .separator-label {
+        color: #16a34a;
       }
     }
   </style>
@@ -1650,7 +1677,31 @@
   if (!grid || !select) return;
   var cards = [].slice.call(grid.querySelectorAll(".card"));
 
+  function getSepKey(card, key) {
+    if (key === "artist") {
+      var a = (card.getAttribute("data-artist") || "").trim();
+      if (!a) return "#";
+      var ch = a.charAt(0).toUpperCase();
+      return /[0-9]/.test(ch) ? "#" : ch;
+    }
+    if (key === "release") {
+      return card.getAttribute("data-release-year") || "?";
+    }
+    if (key === "master") {
+      return card.getAttribute("data-master-year") || "?";
+    }
+    if (key === "added") {
+      var d = card.getAttribute("data-date-added") || "";
+      return d ? d.slice(0, 4) : "?";
+    }
+    return null;
+  }
+
   function sortCards() {
+    [].slice.call(grid.querySelectorAll(".separator")).forEach(function(s) {
+      grid.removeChild(s);
+    });
+
     var value = select.value;
     var key = value.replace(/_(asc|desc)$/, "");
     var dir = value.endsWith("_desc") ? -1 : 1;
@@ -1684,10 +1735,29 @@
       return 0;
     });
 
-    cards.forEach(function(c) { grid.appendChild(c); });
+    var useSeparators = (key === "artist" || key === "release" || key === "master" || key === "added");
+    var lastKey = null;
+    cards.forEach(function(c) {
+      if (useSeparators) {
+        var separatorKey = getSepKey(c, key);
+        if (separatorKey !== lastKey) {
+          var separatorEl = document.createElement("div");
+          separatorEl.className = "separator";
+          separatorEl.setAttribute("aria-hidden", "true");
+          var label = document.createElement("span");
+          label.className = "separator-label";
+          label.textContent = separatorKey;
+          separatorEl.appendChild(label);
+          grid.appendChild(separatorEl);
+          lastKey = separatorKey;
+        }
+      }
+      grid.appendChild(c);
+    });
   }
 
   select.addEventListener("change", sortCards);
+  sortCards();
 })();
   </script>
 </body>
