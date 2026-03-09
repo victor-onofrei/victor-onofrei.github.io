@@ -90,6 +90,38 @@
       font-weight: 550;
     }
 
+    .title-breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 4px 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,0.6);
+      background: radial-gradient(circle at top left, rgba(45,212,191,0.25), transparent 55%);
+    }
+    .title-breadcrumb a {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .title-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    .title-breadcrumb-sep {
+      color: rgba(52,211,153,0.6);
+      font-size: 0.65rem;
+      user-select: none;
+    }
+    .title-breadcrumb-current {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--accent);
+      padding-right: 6px;
+    }
+
     .sort-wrap {
       display: flex;
       align-items: center;
@@ -327,7 +359,11 @@
   <div class="shell">
     <header>
       <div class="title">
-        <span class="pill">Discogs catalog</span>
+        <nav class="title-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Projects</a>
+          <span class="title-breadcrumb-sep" aria-hidden="true">&gt;</span>
+          <span class="title-breadcrumb-current">Discogs catalog</span>
+        </nav>
       </div>
       <div class="meta">
         <span><strong>120</strong> records</span>
