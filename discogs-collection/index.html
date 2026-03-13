@@ -126,7 +126,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 16px;
     }
 
     .sort-wrap label {
@@ -148,8 +147,9 @@
     .controls {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: baseline;
       gap: 16px 20px;
+      margin-bottom: 10px;
     }
 
     .folder-wrap {
@@ -395,7 +395,7 @@
         </nav>
       </div>
       <div class="meta">
-        <span><strong>136</strong> records</span>
+        <span><strong>136</strong> releases</span>
       </div>
     </header>
 
@@ -1929,6 +1929,7 @@
       var fid = card.getAttribute("data-folder-id") || "";
       card.style.display = (value === "" || fid === value) ? "" : "none";
     });
+    sortCards();
   }
 
   if (folderSelect) folderSelect.addEventListener("change", filterByFolder);
@@ -1994,7 +1995,8 @@
     var useSeparators = (key === "artist" || key === "release" || key === "master" || key === "added");
     var lastKey = null;
     cards.forEach(function(c) {
-      if (useSeparators) {
+      var isVisible = c.style.display !== "none";
+      if (useSeparators && isVisible) {
         var separatorKey = getSepKey(c, key);
         if (separatorKey !== lastKey) {
           var separatorEl = document.createElement("div");
