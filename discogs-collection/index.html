@@ -145,6 +145,35 @@
       cursor: pointer;
     }
 
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px 20px;
+    }
+
+    .folder-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .folder-wrap label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .folder-wrap select {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.95);
+      color: var(--text);
+      cursor: pointer;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -366,25 +395,28 @@
         </nav>
       </div>
       <div class="meta">
-        <span><strong>120</strong> records</span>
+        <span><strong>136</strong> records</span>
       </div>
     </header>
 
-    <div class="sort-wrap">
-      <label for="sort">Sort by</label>
-      <select id="sort" aria-label="Sort collection">
-        <option value="artist">Artist</option>
-        <option value="added_desc">Date added (newest first)</option>
-        <option value="added_asc">Date added (oldest first)</option>
-        <option value="release_desc">Release year (newest first)</option>
-        <option value="release_asc">Release year (oldest first)</option>
-        <option value="master_desc">Master year (newest first)</option>
-        <option value="master_asc">Master year (oldest first)</option>
-      </select>
+    <div class="controls">
+      <div class="sort-wrap">
+        <label for="sort">Sort by</label>
+        <select id="sort" aria-label="Sort collection">
+          <option value="artist">Artist</option>
+          <option value="added_desc">Date added (newest first)</option>
+          <option value="added_asc">Date added (oldest first)</option>
+          <option value="release_desc">Release year (newest first)</option>
+          <option value="release_asc">Release year (oldest first)</option>
+          <option value="master_desc">Master year (newest first)</option>
+          <option value="master_asc">Master year (oldest first)</option>
+        </select>
+      </div>
+
     </div>
 
     <main class="grid" id="grid">
-      <article class="card" data-artist="2Pac" data-release-year="2020" data-master-year="1995" data-date-added="2022-05-07T10:31:59-07:00">
+      <article class="card" data-artist="2Pac" data-release-year="2020" data-master-year="1995" data-date-added="2022-05-07T10:31:59-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/14855141" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/DF_wNKNNQ0rmut5tSJZL20afXTKDyAQqqG4Tk5cTTYc/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0ODU1/MTQxLTE2Mjc5MjAw/ODctNTYzMC5qcGVn.jpeg" alt="2Pac – Me Against The World"></div>
         </a>
@@ -392,10 +424,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/14855141" target="_blank" rel="noopener noreferrer">Me Against The World</a></div>
           <div class="title-text">2Pac</div>
           <div class="year-text">1995 · 2020</div>
-          <div class="genre-text">Conscious</div>
+          <div class="genre-text">Vinyl · Conscious</div>
         </div>
       </article>
-      <article class="card" data-artist="2Pac" data-release-year="2021" data-master-year="2007" data-date-added="2022-12-27T14:06:43-08:00">
+      <article class="card" data-artist="2Pac" data-release-year="2021" data-master-year="2007" data-date-added="2022-12-27T14:06:43-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/19584049" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Jskzw0yG1OgsUAYjor9dkh-F2Db0Zj-5Qqts5ZRe9So/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5NTg0/MDQ5LTE2NzU4NjQy/ODAtNDAyNC5qcGVn.jpeg" alt="2Pac – The Best Of 2Pac - Part 1: Thug"></div>
         </a>
@@ -403,10 +435,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/19584049" target="_blank" rel="noopener noreferrer">The Best Of 2Pac - Part 1: Thug</a></div>
           <div class="title-text">2Pac</div>
           <div class="year-text">2007 · 2021</div>
-          <div class="genre-text">Gangsta</div>
+          <div class="genre-text">Vinyl · Gangsta</div>
         </div>
       </article>
-      <article class="card" data-artist="Antonio Vivaldi, Festival Strings Lucerne, Rudolf Baumgartner" data-release-year="1967" data-master-year="" data-date-added="2025-08-20T14:57:43-07:00">
+      <article class="card" data-artist="3rei Sud Est" data-release-year="2002" data-master-year="2002" data-date-added="2025-05-17T16:01:44-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/1264803" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/GFjOYVVgy4Wez5q8uM51remC89_O8epwlP3GF1Y2III/rs:fit/g:sm/q:90/h:600/w:589/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjQ4/MDMtMTY0MjkzMTI5/MS01OTA2LmpwZWc.jpeg" alt="3rei Sud Est – Top"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1264803" target="_blank" rel="noopener noreferrer">Top</a></div>
+          <div class="title-text">3rei Sud Est</div>
+          <div class="year-text">2002</div>
+          <div class="genre-text">CD · Europop</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Antonio Vivaldi, Festival Strings Lucerne, Rudolf Baumgartner" data-release-year="1967" data-master-year="" data-date-added="2025-08-20T14:57:43-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/12081998" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Q2jVxpPxpNLpxoPLdy9hd-kXldEgb4J_i4P1v9FiNy0/rs:fit/g:sm/q:90/h:552/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMDgx/OTk4LTE1Mjc5MzQ4/OTktMjIwMy5qcGVn.jpeg" alt="Antonio Vivaldi, Festival Strings Lucerne, Rudolf Baumgartner – Die Vier Jahreszeiten &amp; Concerto Grosso Op. 3 Nr. 11 D-moll, P.V. 250"></div>
         </a>
@@ -414,10 +457,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/12081998" target="_blank" rel="noopener noreferrer">Die Vier Jahreszeiten &amp; Concerto Grosso Op. 3 Nr. 11 D-moll, P.V. 250</a></div>
           <div class="title-text">Antonio Vivaldi, Festival Strings Lucerne, Rudolf Baumgartner</div>
           <div class="year-text">1967</div>
-          <div class="genre-text">Baroque</div>
+          <div class="genre-text">Vinyl · Baroque</div>
         </div>
       </article>
-      <article class="card" data-artist="Arctic Monkeys" data-release-year="2007" data-master-year="2007" data-date-added="2025-12-04T08:19:32-08:00">
+      <article class="card" data-artist="Arctic Monkeys" data-release-year="2007" data-master-year="2007" data-date-added="2025-12-04T08:19:32-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/958460" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/IJ9xP9SqH6qRnhyrli-g4vEG14Jxfa1NR-IshLANLaA/rs:fit/g:sm/q:90/h:579/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk1ODQ2/MC0xNjE2OTI1NDgx/LTkzODkuanBlZw.jpeg" alt="Arctic Monkeys – Favourite Worst Nightmare"></div>
         </a>
@@ -425,10 +468,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/958460" target="_blank" rel="noopener noreferrer">Favourite Worst Nightmare</a></div>
           <div class="title-text">Arctic Monkeys</div>
           <div class="year-text">2007</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Avril Lavigne" data-release-year="2023" data-master-year="2002" data-date-added="2023-09-28T06:33:39-07:00">
+      <article class="card" data-artist="Avril Lavigne" data-release-year="2023" data-master-year="2002" data-date-added="2023-09-28T06:33:39-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/25902124" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/aMPGBvdLih3oR9GE-wbUwn0DVUIX_KBshCjv9JS3IOI/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1OTAy/MTI0LTE2ODAwMzY4/NTAtNDk2Ni5qcGVn.jpeg" alt="Avril Lavigne – Let Go"></div>
         </a>
@@ -436,10 +479,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/25902124" target="_blank" rel="noopener noreferrer">Let Go</a></div>
           <div class="title-text">Avril Lavigne</div>
           <div class="year-text">2002 · 2023</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Avril Lavigne" data-release-year="2017" data-master-year="2007" data-date-added="2023-10-20T13:14:51-07:00">
+      <article class="card" data-artist="Avril Lavigne" data-release-year="2017" data-master-year="2007" data-date-added="2023-10-20T13:14:51-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10988023" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/E2XOJVcCInHy_Q24Vp9CL_AXuAJGtQPlNAE9rv_JSwE/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwOTg4/MDIzLTE2MjkwNDkx/ODQtOTgxMC5qcGVn.jpeg" alt="Avril Lavigne – The Best Damn Thing"></div>
         </a>
@@ -447,10 +490,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10988023" target="_blank" rel="noopener noreferrer">The Best Damn Thing</a></div>
           <div class="title-text">Avril Lavigne</div>
           <div class="year-text">2007 · 2017</div>
-          <div class="genre-text">Pop Punk</div>
+          <div class="genre-text">Vinyl · Pop Punk</div>
         </div>
       </article>
-      <article class="card" data-artist="Avril Lavigne" data-release-year="2017" data-master-year="2004" data-date-added="2022-09-14T02:54:11-07:00">
+      <article class="card" data-artist="Avril Lavigne" data-release-year="2017" data-master-year="2004" data-date-added="2022-09-14T02:54:11-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10996016" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/DNrr5BzmwmbE4Ln49Ko-cCPeHihGuLe_j4UfCU7bQSQ/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwOTk2/MDE2LTE3NTQ0MTY2/MDUtNTU0NC5qcGVn.jpeg" alt="Avril Lavigne – Under My Skin"></div>
         </a>
@@ -458,10 +501,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10996016" target="_blank" rel="noopener noreferrer">Under My Skin</a></div>
           <div class="title-text">Avril Lavigne</div>
           <div class="year-text">2004 · 2017</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Bloc Party" data-release-year="2018" data-master-year="2005" data-date-added="2023-01-25T11:25:15-08:00">
+      <article class="card" data-artist="Blank &amp; Jones" data-release-year="2008" data-master-year="2008" data-date-added="2025-05-17T15:49:36-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/1362811" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/CkEy62ZXpjT7bQiHnPmkbfJgais8I1t9_EbRn2XfV9Y/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzNjI4/MTEtMTQxODA2MDUy/NS00MjU2LmpwZWc.jpeg" alt="Blank &amp; Jones – The Logic Of Pleasure"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1362811" target="_blank" rel="noopener noreferrer">The Logic Of Pleasure</a></div>
+          <div class="title-text">Blank &amp; Jones</div>
+          <div class="year-text">2008</div>
+          <div class="genre-text">CD · Progressive Trance</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Bloc Party" data-release-year="2018" data-master-year="2005" data-date-added="2023-01-25T11:25:15-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/12619479" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/8OTb_dh4NZL0m7sU_uFh6mk9DLjv1eMIBVBARKZoRT8/rs:fit/g:sm/q:90/h:600/w:559/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjE5/NDc5LTE1MzkyMDY4/MjItNDI3My5qcGVn.jpeg" alt="Bloc Party – Silent Alarm"></div>
         </a>
@@ -469,10 +523,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/12619479" target="_blank" rel="noopener noreferrer">Silent Alarm</a></div>
           <div class="title-text">Bloc Party</div>
           <div class="year-text">2005 · 2018</div>
-          <div class="genre-text">Indie Rock</div>
+          <div class="genre-text">Vinyl · Indie Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Bob Marley &amp; The Wailers" data-release-year="2015" data-master-year="1984" data-date-added="2023-05-15T11:50:25-07:00">
+      <article class="card" data-artist="Bob Marley &amp; The Wailers" data-release-year="2007" data-master-year="2007" data-date-added="2025-05-17T16:04:05-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/1881375" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/1JM60Ikfi-nMTWMP_wXrpg4udWv8DZXif5Ur6yBGOtQ/rs:fit/g:sm/q:90/h:299/w:283/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4ODEz/NzUtMTMxMTA2MTM0/MC5qcGVn.jpeg" alt="Bob Marley &amp; The Wailers – A Legend - 50 Reggae Classics"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1881375" target="_blank" rel="noopener noreferrer">A Legend - 50 Reggae Classics</a></div>
+          <div class="title-text">Bob Marley &amp; The Wailers</div>
+          <div class="year-text">2007</div>
+          <div class="genre-text">CD · Reggae</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Bob Marley &amp; The Wailers" data-release-year="2015" data-master-year="1984" data-date-added="2023-05-15T11:50:25-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/4418438" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/KKZdvpp6clCzTNxIuMA5GC8vnp1dS6-AMuRdG9cB1BY/rs:fit/g:sm/q:90/h:590/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ0MTg0/MzgtMTY2NDM1NTE4/MS04MzA3LmpwZWc.jpeg" alt="Bob Marley &amp; The Wailers – Legend - The Best Of Bob Marley And The Wailers"></div>
         </a>
@@ -480,10 +545,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/4418438" target="_blank" rel="noopener noreferrer">Legend - The Best Of Bob Marley And The Wailers</a></div>
           <div class="title-text">Bob Marley &amp; The Wailers</div>
           <div class="year-text">1984 · 2015</div>
-          <div class="genre-text">Reggae</div>
+          <div class="genre-text">Vinyl · Reggae</div>
         </div>
       </article>
-      <article class="card" data-artist="Bobby Caldwell" data-release-year="1978" data-master-year="1978" data-date-added="2022-02-10T02:17:05-08:00">
+      <article class="card" data-artist="Bob Sinclar, Sly &amp; Robbie" data-release-year="2010" data-master-year="2010" data-date-added="2025-05-17T15:46:38-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/4653841" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/qYkNgGmxWcCs-D8eP6AZ9ILOgcqavq3Cz5of80fvdkI/rs:fit/g:sm/q:90/h:400/w:400/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ2NTM4/NDEtMTU0NDk4Njc0/Ni0yOTc5LmpwZWc.jpeg" alt="Bob Sinclar, Sly &amp; Robbie – Made In Jamaïca"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/4653841" target="_blank" rel="noopener noreferrer">Made In Jamaïca</a></div>
+          <div class="title-text">Bob Sinclar, Sly &amp; Robbie</div>
+          <div class="year-text">2010</div>
+          <div class="genre-text">CD · Progressive House</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Bobby Caldwell" data-release-year="1978" data-master-year="1978" data-date-added="2022-02-10T02:17:05-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/3835003" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/c2HnV7yJ0sbnzjG9cJZDOjysaTyAMlbdcUPYX1fX_Hc/rs:fit/g:sm/q:90/h:491/w:491/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM4MzUw/MDMtMTM0NjI1OTM3/OC01MzYzLmpwZWc.jpeg" alt="Bobby Caldwell – Bobby Caldwell"></div>
         </a>
@@ -491,10 +567,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/3835003" target="_blank" rel="noopener noreferrer">Bobby Caldwell</a></div>
           <div class="title-text">Bobby Caldwell</div>
           <div class="year-text">1978</div>
-          <div class="genre-text">Rhythm &amp; Blues</div>
+          <div class="genre-text">Vinyl · Rhythm &amp; Blues</div>
         </div>
       </article>
-      <article class="card" data-artist="Bullet For My Valentine" data-release-year="2024" data-master-year="2005" data-date-added="2025-11-25T03:16:25-08:00">
+      <article class="card" data-artist="Bullet For My Valentine" data-release-year="2024" data-master-year="2005" data-date-added="2025-11-25T03:16:25-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/32429079" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/-_Yh3nzTJFaSzOcja7iuPI3yejDAEQPbzXa_IJnlT-0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNDI5/MDc5LTE3MzI4ODk3/NTAtMjcyMS5qcGVn.jpeg" alt="Bullet For My Valentine – The Poison"></div>
         </a>
@@ -502,10 +578,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/32429079" target="_blank" rel="noopener noreferrer">The Poison</a></div>
           <div class="title-text">Bullet For My Valentine</div>
           <div class="year-text">2005 · 2024</div>
-          <div class="genre-text">Metalcore</div>
+          <div class="genre-text">Vinyl · Metalcore</div>
         </div>
       </article>
-      <article class="card" data-artist="Calvin Harris" data-release-year="2017" data-master-year="2017" data-date-added="2026-01-28T11:17:45-08:00">
+      <article class="card" data-artist="Calvin Harris" data-release-year="2017" data-master-year="2017" data-date-added="2026-01-28T11:17:45-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/36342901" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/o9k36Qxs1K3apzq3v1CcAHZS4BfezoH1cMSo1A0lfE0/rs:fit/g:sm/q:90/h:600/w:589/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM2MzQy/OTAxLTE3Njk2Mjc2/MTctNTI1NS5qcGVn.jpeg" alt="Calvin Harris – Funk Wav Bounces Vol. 1"></div>
         </a>
@@ -513,10 +589,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/36342901" target="_blank" rel="noopener noreferrer">Funk Wav Bounces Vol. 1</a></div>
           <div class="title-text">Calvin Harris</div>
           <div class="year-text">2017</div>
-          <div class="genre-text">Dance-pop</div>
+          <div class="genre-text">Vinyl · Dance-pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Calvin Harris" data-release-year="2018" data-master-year="2009" data-date-added="2026-02-17T11:33:20-08:00">
+      <article class="card" data-artist="Calvin Harris" data-release-year="2018" data-master-year="2009" data-date-added="2026-02-17T11:33:20-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/11972886" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/KmbzleEkbx8stqei8A9hSD65OGQECWlZ9P6Gi2OBTqE/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExOTcy/ODg2LTE2ODc4Mzg4/ODMtMTk3OC5qcGVn.jpeg" alt="Calvin Harris – Ready For The Weekend"></div>
         </a>
@@ -524,10 +600,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/11972886" target="_blank" rel="noopener noreferrer">Ready For The Weekend</a></div>
           <div class="title-text">Calvin Harris</div>
           <div class="year-text">2009 · 2018</div>
-          <div class="genre-text">House</div>
+          <div class="genre-text">Vinyl · House</div>
         </div>
       </article>
-      <article class="card" data-artist="Carl Philipp Emanuel Bach, Kammerorchester Carl Philipp Emanuel Bach, Staatskapelle Berlin, Hartmut Haenchen" data-release-year="1989" data-master-year="1987" data-date-added="2022-02-20T13:24:49-08:00">
+      <article class="card" data-artist="Carl Philipp Emanuel Bach, Kammerorchester Carl Philipp Emanuel Bach, Staatskapelle Berlin, Hartmut Haenchen" data-release-year="1989" data-master-year="1987" data-date-added="2022-02-20T13:24:49-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/17961448" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/XCe5bjLcp10ZUJswd1RCUysJ7JTSwKAoDm3a8sML4_M/rs:fit/g:sm/q:90/h:600/w:589/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3OTYx/NDQ4LTE2MTY0MzI5/MjUtMTY0OS5qcGVn.jpeg" alt="Carl Philipp Emanuel Bach, Kammerorchester Carl Philipp Emanuel Bach, Staatskapelle Berlin, Hartmut Haenchen – Berliner Sinfonien"></div>
         </a>
@@ -535,10 +611,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/17961448" target="_blank" rel="noopener noreferrer">Berliner Sinfonien</a></div>
           <div class="title-text">Carl Philipp Emanuel Bach, Kammerorchester Carl Philipp Emanuel Bach, Staatskapelle Berlin, Hartmut Haenchen</div>
           <div class="year-text">1987 · 1989</div>
-          <div class="genre-text">Classical</div>
+          <div class="genre-text">Vinyl · Classical</div>
         </div>
       </article>
-      <article class="card" data-artist="Carpenters" data-release-year="1976" data-master-year="1976" data-date-added="2022-03-19T05:59:08-07:00">
+      <article class="card" data-artist="Carpenters" data-release-year="1976" data-master-year="1976" data-date-added="2022-03-19T05:59:08-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/7569343" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/9cLObNUTcN6G74bTE0gOtrKmT3rkN7-zpK0WISpBQZo/rs:fit/g:sm/q:90/h:600/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc1Njkz/NDMtMTU0NjcwNjAz/MS0zOTk4LmpwZWc.jpeg" alt="Carpenters – A Kind Of Hush"></div>
         </a>
@@ -546,10 +622,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/7569343" target="_blank" rel="noopener noreferrer">A Kind Of Hush</a></div>
           <div class="title-text">Carpenters</div>
           <div class="year-text">1976</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Carpenters" data-release-year="2024" data-master-year="2024" data-date-added="2024-12-08T10:57:15-08:00">
+      <article class="card" data-artist="Carpenters" data-release-year="2024" data-master-year="2024" data-date-added="2024-12-08T10:57:15-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/32427027" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/qyhB4HsiOjsixAMLXibg-oLmUY47q4e681lUWo1_Z8c/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNDI3/MDI3LTE3NDc1ODg4/NDUtMTAzNS5qcGVn.jpeg" alt="Carpenters – Christmas Once More"></div>
         </a>
@@ -557,10 +633,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/32427027" target="_blank" rel="noopener noreferrer">Christmas Once More</a></div>
           <div class="title-text">Carpenters</div>
           <div class="year-text">2024</div>
-          <div class="genre-text">Ballad</div>
+          <div class="genre-text">Vinyl · Ballad</div>
         </div>
       </article>
-      <article class="card" data-artist="Carpenters" data-release-year="1978" data-master-year="1978" data-date-added="2026-02-24T03:03:21-08:00">
+      <article class="card" data-artist="Carpenters" data-release-year="1978" data-master-year="1978" data-date-added="2026-02-24T03:03:21-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/2234873" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/IY0KbeIEhneejc6pB9EXRiYoy9RSdnxaggOtUVUhHMo/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyMzQ4/NzMtMTU2MTU1ODQ5/OC04NjAyLmpwZWc.jpeg" alt="Carpenters – Ticket To Ride"></div>
         </a>
@@ -568,10 +644,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/2234873" target="_blank" rel="noopener noreferrer">Ticket To Ride</a></div>
           <div class="title-text">Carpenters</div>
           <div class="year-text">1978</div>
-          <div class="genre-text">Soft Rock</div>
+          <div class="genre-text">Vinyl · Soft Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Chris Rea" data-release-year="2018" data-master-year="2001" data-date-added="2024-09-16T10:05:20-07:00">
+      <article class="card" data-artist="Chris Rea" data-release-year="2018" data-master-year="2001" data-date-added="2024-09-16T10:05:20-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/12695308" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/SWHWZi5Nb8DAsSkOe0x0r43jHVv24nlOIcLmtGPkatM/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNjk1/MzA4LTE2NDU4OTky/NzMtNDY2NC5qcGVn.jpeg" alt="Chris Rea – The Very Best Of"></div>
         </a>
@@ -579,10 +655,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/12695308" target="_blank" rel="noopener noreferrer">The Very Best Of</a></div>
           <div class="title-text">Chris Rea</div>
           <div class="year-text">2001 · 2018</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Chvrches" data-release-year="2015" data-master-year="2015" data-date-added="2025-01-09T13:15:38-08:00">
+      <article class="card" data-artist="Chvrches" data-release-year="2015" data-master-year="2015" data-date-added="2025-01-09T13:15:38-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/7492658" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/IQeJTXSgsSUbBckAZSOEbFsF_RX6KQ5XhV8bJRJzuuk/rs:fit/g:sm/q:90/h:400/w:400/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc0OTI2/NTgtMTQ0MjU5OTA5/NC0zNzA5LmpwZWc.jpeg" alt="Chvrches – Every Open Eye"></div>
         </a>
@@ -590,10 +666,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/7492658" target="_blank" rel="noopener noreferrer">Every Open Eye</a></div>
           <div class="title-text">Chvrches</div>
           <div class="year-text">2015</div>
-          <div class="genre-text">Synth-pop</div>
+          <div class="genre-text">Vinyl · Synth-pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Common" data-release-year="2005" data-master-year="2005" data-date-added="2023-11-18T13:06:24-08:00">
+      <article class="card" data-artist="Common" data-release-year="2005" data-master-year="2005" data-date-added="2023-11-18T13:06:24-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/471196" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/gCkbkyrNyN09RXzpReEicK8SK3fXsOUf-b1x2TJ8B44/rs:fit/g:sm/q:90/h:600/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ3MTE5/Ni0xNzI3NDY5NTU0/LTQ1NTIuanBlZw.jpeg" alt="Common – Be"></div>
         </a>
@@ -601,10 +677,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/471196" target="_blank" rel="noopener noreferrer">Be</a></div>
           <div class="title-text">Common</div>
           <div class="year-text">2005</div>
-          <div class="genre-text">Conscious</div>
+          <div class="genre-text">Vinyl · Conscious</div>
         </div>
       </article>
-      <article class="card" data-artist="Craig David" data-release-year="2018" data-master-year="2000" data-date-added="2023-10-20T12:40:13-07:00">
+      <article class="card" data-artist="Craig David" data-release-year="2018" data-master-year="2000" data-date-added="2023-10-20T12:40:13-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/11507122" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/JfOC6R6Im96zQmV4siGtNZC8V3xjL3BXGxM2l0S6RiI/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNTA3/MTIyLTE1MTc1NzQ0/ODItNzc4Ny5qcGVn.jpeg" alt="Craig David – Born To Do It"></div>
         </a>
@@ -612,10 +688,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/11507122" target="_blank" rel="noopener noreferrer">Born To Do It</a></div>
           <div class="title-text">Craig David</div>
           <div class="year-text">2000 · 2018</div>
-          <div class="genre-text">UK Garage</div>
+          <div class="genre-text">Vinyl · UK Garage</div>
         </div>
       </article>
-      <article class="card" data-artist="Dabeull" data-release-year="2024" data-master-year="2024" data-date-added="2025-09-27T00:58:31-07:00">
+      <article class="card" data-artist="Dabeull" data-release-year="2024" data-master-year="2024" data-date-added="2025-09-27T00:58:31-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/30355934" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/mPGlDxPkcBau0gDiAIaCDsHv5brFfEjilsZF0XlA8fs/rs:fit/g:sm/q:90/h:600/w:571/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMwMzU1/OTM0LTE3MTUwOTAx/MTAtNjg4NS5qcGVn.jpeg" alt="Dabeull – Analog Love"></div>
         </a>
@@ -623,10 +699,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/30355934" target="_blank" rel="noopener noreferrer">Analog Love</a></div>
           <div class="title-text">Dabeull</div>
           <div class="year-text">2024</div>
-          <div class="genre-text">Disco</div>
+          <div class="genre-text">Vinyl · Disco</div>
         </div>
       </article>
-      <article class="card" data-artist="David Gray" data-release-year="2016" data-master-year="2016" data-date-added="2025-01-09T12:41:33-08:00">
+      <article class="card" data-artist="David Gray" data-release-year="2016" data-master-year="2016" data-date-added="2025-01-09T12:41:33-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/9302771" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/BaH5njhh9ZlaBeCm_zqkYTd_5nA3uetkidaLpu4T0qE/rs:fit/g:sm/q:90/h:590/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkzMDI3/NzEtMTY1MDQ1ODM5/MC0xNTU1LmpwZWc.jpeg" alt="David Gray – The Best Of David Gray"></div>
         </a>
@@ -634,10 +710,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/9302771" target="_blank" rel="noopener noreferrer">The Best Of David Gray</a></div>
           <div class="title-text">David Gray</div>
           <div class="year-text">2016</div>
-          <div class="genre-text">Folk Rock</div>
+          <div class="genre-text">Vinyl · Folk Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Dire Straits" data-release-year="2022" data-master-year="1988" data-date-added="2023-12-06T23:57:30-08:00">
+      <article class="card" data-artist="Dire Straits" data-release-year="2022" data-master-year="1988" data-date-added="2023-12-06T23:57:30-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/23605763" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/KjJHEH4P79-xMl7f_rvnX0P1A5tT2RjxYGAhXaMiy8Y/rs:fit/g:sm/q:90/h:586/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzNjA1/NzYzLTE2NzIxNTkw/NTItNTU5OS5qcGVn.jpeg" alt="Dire Straits – Money For Nothing"></div>
         </a>
@@ -645,10 +721,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/23605763" target="_blank" rel="noopener noreferrer">Money For Nothing</a></div>
           <div class="title-text">Dire Straits</div>
           <div class="year-text">1988 · 2022</div>
-          <div class="genre-text">Blues Rock</div>
+          <div class="genre-text">Vinyl · Blues Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Disclosure (3)" data-release-year="2020" data-master-year="2015" data-date-added="2022-09-06T15:15:09-07:00">
+      <article class="card" data-artist="Disclosure (3)" data-release-year="2020" data-master-year="2015" data-date-added="2022-09-06T15:15:09-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/17934277" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/tQchbto4nJ1sFUAgjhBixYcd7xInfQwvlFMUTk3Uj4E/rs:fit/g:sm/q:90/h:600/w:595/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3OTM0/Mjc3LTE2MTYyNjk2/NzAtNjMyOS5qcGVn.jpeg" alt="Disclosure (3) – Caracal"></div>
         </a>
@@ -656,10 +732,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/17934277" target="_blank" rel="noopener noreferrer">Caracal</a></div>
           <div class="title-text">Disclosure (3)</div>
           <div class="year-text">2015 · 2020</div>
-          <div class="genre-text">House</div>
+          <div class="genre-text">Vinyl · House</div>
         </div>
       </article>
-      <article class="card" data-artist="Disclosure (3)" data-release-year="2013" data-master-year="2013" data-date-added="2023-06-21T12:03:18-07:00">
+      <article class="card" data-artist="Disclosure (3)" data-release-year="2013" data-master-year="2013" data-date-added="2023-06-21T12:03:18-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/4618675" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/exjkBUGwU0w9bKDlKMQh506T1eCs7ovJigYJ2wGt260/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ2MTg2/NzUtMTY5OTQxNDkz/OS05ODA2LmpwZWc.jpeg" alt="Disclosure (3) – Settle"></div>
         </a>
@@ -667,10 +743,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/4618675" target="_blank" rel="noopener noreferrer">Settle</a></div>
           <div class="title-text">Disclosure (3)</div>
           <div class="year-text">2013</div>
-          <div class="genre-text">House</div>
+          <div class="genre-text">Vinyl · House</div>
         </div>
       </article>
-      <article class="card" data-artist="Elvis Presley" data-release-year="1990" data-master-year="1986" data-date-added="2022-02-20T13:37:23-08:00">
+      <article class="card" data-artist="Elvis Presley" data-release-year="1990" data-master-year="1986" data-date-added="2022-02-20T13:37:23-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/18451159" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Gp0WQx0hQdJ52dsvIbalg_8bE8K2dEi_y1O1NAvtY84/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4NDUx/MTU5LTE2MTkzNDA5/OTUtNDQ5MS5qcGVn.jpeg" alt="Elvis Presley – Rock-And-Roll"></div>
         </a>
@@ -678,10 +754,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/18451159" target="_blank" rel="noopener noreferrer">Rock-And-Roll</a></div>
           <div class="title-text">Elvis Presley</div>
           <div class="year-text">1986 · 1990</div>
-          <div class="genre-text">Rock &amp; Roll</div>
+          <div class="genre-text">Vinyl · Rock &amp; Roll</div>
         </div>
       </article>
-      <article class="card" data-artist="Erykah Badu" data-release-year="2016" data-master-year="1997" data-date-added="2022-06-09T12:04:03-07:00">
+      <article class="card" data-artist="Erykah Badu" data-release-year="2016" data-master-year="1997" data-date-added="2022-06-09T12:04:03-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/9401499" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/N465QTjmrDFelpW5394e8qvL6LB8owbGhIe3ne2uG9U/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk0MDE0/OTktMTQ4MDM1OTEx/OC00ODYxLmpwZWc.jpeg" alt="Erykah Badu – Baduizm"></div>
         </a>
@@ -689,10 +765,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/9401499" target="_blank" rel="noopener noreferrer">Baduizm</a></div>
           <div class="title-text">Erykah Badu</div>
           <div class="year-text">1997 · 2016</div>
-          <div class="genre-text">Neo Soul</div>
+          <div class="genre-text">Vinyl · Neo Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="FKJ (French Kiwi Juice)" data-release-year="2014" data-master-year="2014" data-date-added="2022-05-03T04:30:57-07:00">
+      <article class="card" data-artist="Faithless" data-release-year="2010" data-master-year="2010" data-date-added="2025-05-17T16:04:50-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/15315937" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/BQvWqgIvAi6O0HCbewwGciq1a2ELM08vYdz9dkjl9Ks/rs:fit/g:sm/q:90/h:600/w:593/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1MzE1/OTM3LTE2ODUwMzU4/NTUtOTUzMy5qcGVn.jpeg" alt="Faithless – The Dance"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/15315937" target="_blank" rel="noopener noreferrer">The Dance</a></div>
+          <div class="title-text">Faithless</div>
+          <div class="year-text">2010</div>
+          <div class="genre-text">CD · House</div>
+        </div>
+      </article>
+      <article class="card" data-artist="FKJ (French Kiwi Juice)" data-release-year="2014" data-master-year="2014" data-date-added="2022-05-03T04:30:57-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/6305481" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/okiw98iO67OjRBrDUNY6ASIK_X8bJB69hRAyNE-fZdY/rs:fit/g:sm/q:90/h:350/w:350/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYzMDU0/ODEtMTQxNjA2Mjk0/MS00NjM3LmpwZWc.jpeg" alt="FKJ (French Kiwi Juice) – Take Off"></div>
         </a>
@@ -700,10 +787,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/6305481" target="_blank" rel="noopener noreferrer">Take Off</a></div>
           <div class="title-text">FKJ (French Kiwi Juice)</div>
           <div class="year-text">2014</div>
-          <div class="genre-text">Hip Hop</div>
+          <div class="genre-text">Vinyl · Hip Hop</div>
         </div>
       </article>
-      <article class="card" data-artist="FKJ (French Kiwi Juice)" data-release-year="2013" data-master-year="2013" data-date-added="2022-03-05T09:38:29-08:00">
+      <article class="card" data-artist="FKJ (French Kiwi Juice)" data-release-year="2013" data-master-year="2013" data-date-added="2022-03-05T09:38:29-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/5045057" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/NKd-76vMhS7uEVw4xpk_9yHqjjd3pw80pdHbrqp_FNU/rs:fit/g:sm/q:90/h:600/w:590/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUwNDUw/NTctMTcxNjMwMTc0/Ni03MzEwLmpwZWc.jpeg" alt="FKJ (French Kiwi Juice) – Time For A Change"></div>
         </a>
@@ -711,10 +798,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/5045057" target="_blank" rel="noopener noreferrer">Time For A Change</a></div>
           <div class="title-text">FKJ (French Kiwi Juice)</div>
           <div class="year-text">2013</div>
-          <div class="genre-text">Electro House</div>
+          <div class="genre-text">Vinyl · Electro House</div>
         </div>
       </article>
-      <article class="card" data-artist="Folamour" data-release-year="2023" data-master-year="2023" data-date-added="2025-07-20T15:52:40-07:00">
+      <article class="card" data-artist="Folamour" data-release-year="2023" data-master-year="2023" data-date-added="2025-07-20T15:52:40-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/29005822" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/BT3gCZQI-pr6wnWDLtP1_X9rV0SYvObluJiz76l3A-U/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MDA1/ODIyLTE3MDA4MzE4/OTEtNzMyOS5qcGVn.jpeg" alt="Folamour – Manifesto"></div>
         </a>
@@ -722,10 +809,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/29005822" target="_blank" rel="noopener noreferrer">Manifesto</a></div>
           <div class="title-text">Folamour</div>
           <div class="year-text">2023</div>
-          <div class="genre-text">House</div>
+          <div class="genre-text">Vinyl · House</div>
         </div>
       </article>
-      <article class="card" data-artist="Georg Friedrich Händel, Concertgebouworkest, Eduard van Beinum, Bernard Haitink" data-release-year="" data-master-year="" data-date-added="2026-01-09T03:04:46-08:00">
+      <article class="card" data-artist="Freemasons" data-release-year="2009" data-master-year="2007" data-date-added="2025-05-17T15:56:03-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/18983905" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/JFPa_W5_cGx791UotSrOP8zbHQD9IC9lOazgW7BH8as/rs:fit/g:sm/q:90/h:532/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4OTgz/OTA1LTE2MjI2Mzg4/NTItMzQ4Ny5qcGVn.jpeg" alt="Freemasons – Unmixed"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/18983905" target="_blank" rel="noopener noreferrer">Unmixed</a></div>
+          <div class="title-text">Freemasons</div>
+          <div class="year-text">2007 · 2009</div>
+          <div class="genre-text">CD · House</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Georg Friedrich Händel, Concertgebouworkest, Eduard van Beinum, Bernard Haitink" data-release-year="" data-master-year="" data-date-added="2026-01-09T03:04:46-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/9239171" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/H9DwM6d4m-D6S320zSo0zBVKcjwVe7ydg_f7mdTHY40/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTkyMzkx/NzEtMTQ3NzE3MDEx/NC03OTMxLmpwZWc.jpeg" alt="Georg Friedrich Händel, Concertgebouworkest, Eduard van Beinum, Bernard Haitink – Wassermusik · Feuerwerksmusik"></div>
         </a>
@@ -733,10 +831,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/9239171" target="_blank" rel="noopener noreferrer">Wassermusik · Feuerwerksmusik</a></div>
           <div class="title-text">Georg Friedrich Händel, Concertgebouworkest, Eduard van Beinum, Bernard Haitink</div>
           <div class="year-text"></div>
-          <div class="genre-text">Baroque</div>
+          <div class="genre-text">Vinyl · Baroque</div>
         </div>
       </article>
-      <article class="card" data-artist="Gerry &amp; The Pacemakers" data-release-year="1977" data-master-year="1977" data-date-added="2022-04-27T05:18:58-07:00">
+      <article class="card" data-artist="Gerry &amp; The Pacemakers" data-release-year="1977" data-master-year="1977" data-date-added="2022-04-27T05:18:58-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/1881079" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Sh8LuUKwjyIfANVe_U6cqy9afK7hE33KqVL-CIU6_p0/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4ODEw/NzktMTY2Nzk0MDg2/Ni0zMDQ4LmpwZWc.jpeg" alt="Gerry &amp; The Pacemakers – The Best Of Gerry And The Pacemakers"></div>
         </a>
@@ -744,10 +842,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1881079" target="_blank" rel="noopener noreferrer">The Best Of Gerry And The Pacemakers</a></div>
           <div class="title-text">Gerry &amp; The Pacemakers</div>
           <div class="year-text">1977</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Golan (2)" data-release-year="2021" data-master-year="" data-date-added="2025-04-23T03:17:52-07:00">
+      <article class="card" data-artist="Golan (2)" data-release-year="2021" data-master-year="" data-date-added="2025-04-23T03:17:52-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/22062289" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Zh0hs9b6218SgWHV8DLG8m7gVx5rP4BSfvGbCCQjMq4/rs:fit/g:sm/q:90/h:522/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyMDYy/Mjg5LTE2NDQyMzg3/MDctNTA1Ny5qcGVn.jpeg" alt="Golan (2) –  1"></div>
         </a>
@@ -755,10 +853,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/22062289" target="_blank" rel="noopener noreferrer"> 1</a></div>
           <div class="title-text">Golan (2)</div>
           <div class="year-text">2021</div>
-          <div class="genre-text">Synth-pop</div>
+          <div class="genre-text">Vinyl · Synth-pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Guns N' Roses" data-release-year="2020" data-master-year="2004" data-date-added="2022-11-13T11:52:17-08:00">
+      <article class="card" data-artist="Grimus (2)" data-release-year="2008" data-master-year="" data-date-added="2025-05-17T15:50:56-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/3651587" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/7u_ycx24sRz7N6JwU3yWcCjRPWCuJJx3z-QGERgLS18/rs:fit/g:sm/q:90/h:458/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM2NTE1/ODctMTMzOTY1Nzg0/OC02MjIwLmpwZWc.jpeg" alt="Grimus (2) – Panikon"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/3651587" target="_blank" rel="noopener noreferrer">Panikon</a></div>
+          <div class="title-text">Grimus (2)</div>
+          <div class="year-text">2008</div>
+          <div class="genre-text">CD · Alternative Rock</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Guns N' Roses" data-release-year="2020" data-master-year="2004" data-date-added="2022-11-13T11:52:17-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/15964384" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/TPngngZnCMih8uNJ2mJeZoOY8teVrYEG7i1XfdHu29g/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1OTY0/Mzg0LTE2MTMyMzky/MTAtODYxOS5qcGVn.jpeg" alt="Guns N' Roses – Greatest Hits"></div>
         </a>
@@ -766,10 +875,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/15964384" target="_blank" rel="noopener noreferrer">Greatest Hits</a></div>
           <div class="title-text">Guns N' Roses</div>
           <div class="year-text">2004 · 2020</div>
-          <div class="genre-text">Hard Rock</div>
+          <div class="genre-text">Vinyl · Hard Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Harriet Beecher Stowe" data-release-year="1986" data-master-year="1986" data-date-added="2026-02-24T03:20:46-08:00">
+      <article class="card" data-artist="Gustav Mahler" data-release-year="2011" data-master-year="" data-date-added="2025-05-17T15:55:22-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/32882148" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/ual7C_26xouOw3MoZ-Ox3P_kfaUonSaB7RcE34hy0XI/rs:fit/g:sm/q:90/h:559/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyODgy/MTQ4LTE3MzcyMzM0/MjItOTA4OS5qcGVn.jpeg" alt="Gustav Mahler – Simfonia A V-a În Do Diez Minor"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/32882148" target="_blank" rel="noopener noreferrer">Simfonia A V-a În Do Diez Minor</a></div>
+          <div class="title-text">Gustav Mahler</div>
+          <div class="year-text">2011</div>
+          <div class="genre-text">CD · Classical</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Harriet Beecher Stowe" data-release-year="1986" data-master-year="1986" data-date-added="2026-02-24T03:20:46-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/4006318" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Z-xnPYd5Jg-int2QkY9fwmkQATAKjbLvkei1kG8lpXI/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQwMDYz/MTgtMTM1MjcxMTI5/Mi03MjM5LmpwZWc.jpeg" alt="Harriet Beecher Stowe – Coliba Unchiului Tom"></div>
         </a>
@@ -777,10 +897,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/4006318" target="_blank" rel="noopener noreferrer">Coliba Unchiului Tom</a></div>
           <div class="title-text">Harriet Beecher Stowe</div>
           <div class="year-text">1986</div>
-          <div class="genre-text">Story</div>
+          <div class="genre-text">Vinyl · Story</div>
         </div>
       </article>
-      <article class="card" data-artist="Harry Styles" data-release-year="2022" data-master-year="2022" data-date-added="2023-12-06T23:56:55-08:00">
+      <article class="card" data-artist="Harry Styles" data-release-year="2022" data-master-year="2022" data-date-added="2023-12-06T23:56:55-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/23330279" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/mlyn46pJLKqT0Rzz2ZdtLBFNC7ri7oRxvzyV0JUdMgQ/rs:fit/g:sm/q:90/h:600/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzMzMw/Mjc5LTE2NTMzMzAz/NjMtNTIzNS5qcGVn.jpeg" alt="Harry Styles – Harry's House"></div>
         </a>
@@ -788,10 +908,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/23330279" target="_blank" rel="noopener noreferrer">Harry's House</a></div>
           <div class="title-text">Harry Styles</div>
           <div class="year-text">2022</div>
-          <div class="genre-text">Indie Pop</div>
+          <div class="genre-text">Vinyl · Indie Pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Imogen Heap" data-release-year="2019" data-master-year="2005" data-date-added="2023-07-12T12:54:59-07:00">
+      <article class="card" data-artist="Imogen Heap" data-release-year="2019" data-master-year="2005" data-date-added="2023-07-12T12:54:59-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/15671278" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/UQiDsOqcQlk7rS6m53UtD4kOribpssCuy4W-7pEDojM/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1Njcx/Mjc4LTE2NDA1MDAy/NDQtNjc1OC5qcGVn.jpeg" alt="Imogen Heap – Speak For Yourself"></div>
         </a>
@@ -799,10 +919,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/15671278" target="_blank" rel="noopener noreferrer">Speak For Yourself</a></div>
           <div class="title-text">Imogen Heap</div>
           <div class="year-text">2005 · 2019</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Iron Maiden" data-release-year="2014" data-master-year="1984" data-date-added="2022-07-01T04:12:14-07:00">
+      <article class="card" data-artist="Iron Maiden" data-release-year="2014" data-master-year="1984" data-date-added="2022-07-01T04:12:14-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/6228397" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/OtS-5NiFh4HNbvm_V7n2ekEVI1ZWZBYlw9U7toLJRh8/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYyMjgz/OTctMTc0MTYxNjk5/Ny02NDA1LmpwZWc.jpeg" alt="Iron Maiden – Powerslave"></div>
         </a>
@@ -810,10 +930,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/6228397" target="_blank" rel="noopener noreferrer">Powerslave</a></div>
           <div class="title-text">Iron Maiden</div>
           <div class="year-text">1984 · 2014</div>
-          <div class="genre-text">Heavy Metal</div>
+          <div class="genre-text">Vinyl · Heavy Metal</div>
         </div>
       </article>
-      <article class="card" data-artist="Jamiroquai" data-release-year="2022" data-master-year="2006" data-date-added="2023-06-10T10:13:54-07:00">
+      <article class="card" data-artist="The Jackson 5" data-release-year="2005" data-master-year="2005" data-date-added="2025-05-17T16:01:12-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/19937965" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/d2ZxoKrKjFs-q4U5dz29uOH97e9eV4nbgcvhnfQseyQ/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5OTM3/OTY1LTE2NTM3MjY4/NjUtMzIzNi5qcGVn.jpeg" alt="The Jackson 5 – Gold"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/19937965" target="_blank" rel="noopener noreferrer">Gold</a></div>
+          <div class="title-text">The Jackson 5</div>
+          <div class="year-text">2005</div>
+          <div class="genre-text">CD · Soul</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Jamiroquai" data-release-year="2022" data-master-year="2006" data-date-added="2023-06-10T10:13:54-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/25337980" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2p_ig_po8v8Tyaj6UoGHfeh751dECAaO080J332YqgA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1MzM3/OTgwLTE2ODM5MjQ0/NjItODMxNy5qcGVn.jpeg" alt="Jamiroquai – High Times (Singles 1992–2006)"></div>
         </a>
@@ -821,10 +952,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/25337980" target="_blank" rel="noopener noreferrer">High Times (Singles 1992–2006)</a></div>
           <div class="title-text">Jamiroquai</div>
           <div class="year-text">2006 · 2022</div>
-          <div class="genre-text">Acid Jazz</div>
+          <div class="genre-text">Vinyl · Acid Jazz</div>
         </div>
       </article>
-      <article class="card" data-artist="Jason Mraz" data-release-year="2021" data-master-year="2001" data-date-added="2022-02-15T11:12:53-08:00">
+      <article class="card" data-artist="Jason Mraz" data-release-year="2021" data-master-year="2001" data-date-added="2022-02-15T11:12:53-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/20877187" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/33tkq9Ndw04XzUrFcwnUTas1mNGovUln8EHZ7eUcpRw/rs:fit/g:sm/q:90/h:450/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwODc3/MTg3LTE2MzYyMjA5/MjUtMzIwMy5qcGVn.jpeg" alt="Jason Mraz – Jason Mraz Live &amp; Acoustic 2001 20th Anniversary Edition"></div>
         </a>
@@ -832,10 +963,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/20877187" target="_blank" rel="noopener noreferrer">Jason Mraz Live &amp; Acoustic 2001 20th Anniversary Edition</a></div>
           <div class="title-text">Jason Mraz</div>
           <div class="year-text">2001 · 2021</div>
-          <div class="genre-text">Rock</div>
+          <div class="genre-text">Vinyl · Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Jason Mraz" data-release-year="2023" data-master-year="2012" data-date-added="2025-09-26T13:57:55-07:00">
+      <article class="card" data-artist="Jason Mraz" data-release-year="2023" data-master-year="2012" data-date-added="2025-09-26T13:57:55-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/27763083" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2MK4pRiPG329_YVWj5DBzISF4FGijyiJ-lPcoGDpshs/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3NzYz/MDgzLTE3MDgyODcw/ODctNjUyMy5qcGVn.jpeg" alt="Jason Mraz – Love Is A Four Letter Word"></div>
         </a>
@@ -843,10 +974,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/27763083" target="_blank" rel="noopener noreferrer">Love Is A Four Letter Word</a></div>
           <div class="title-text">Jason Mraz</div>
           <div class="year-text">2012 · 2023</div>
-          <div class="genre-text">Soft Rock</div>
+          <div class="genre-text">Vinyl · Soft Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Jason Mraz" data-release-year="2022" data-master-year="2005" data-date-added="2024-12-21T14:22:40-08:00">
+      <article class="card" data-artist="Jason Mraz" data-release-year="2022" data-master-year="2005" data-date-added="2024-12-21T14:22:40-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/23976680" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/9n1V9NlqtGahs1ICrNzyJb2YVQuvkE8G69sySMwfabg/rs:fit/g:sm/q:90/h:600/w:567/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzOTc2/NjgwLTE2NTg2MDAy/ODYtNjYwNy5qcGVn.jpeg" alt="Jason Mraz – Mr. A-Z"></div>
         </a>
@@ -854,10 +985,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/23976680" target="_blank" rel="noopener noreferrer">Mr. A-Z</a></div>
           <div class="title-text">Jason Mraz</div>
           <div class="year-text">2005 · 2022</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Jason Mraz" data-release-year="2017" data-master-year="2002" data-date-added="2025-01-19T12:36:36-08:00">
+      <article class="card" data-artist="Jason Mraz" data-release-year="2017" data-master-year="2002" data-date-added="2025-01-19T12:36:36-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/11160165" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/U8NvUIEQJoftvcKnC8XdxCczqAn5Bf_NabzDABArf_A/rs:fit/g:sm/q:90/h:578/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMTYw/MTY1LTE1NTkzMTYx/MDgtMzkzOC5qcGVn.jpeg" alt="Jason Mraz – Waiting For My Rocket To Come"></div>
         </a>
@@ -865,10 +996,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/11160165" target="_blank" rel="noopener noreferrer">Waiting For My Rocket To Come</a></div>
           <div class="title-text">Jason Mraz</div>
           <div class="year-text">2002 · 2017</div>
-          <div class="genre-text">Soft Rock</div>
+          <div class="genre-text">Vinyl · Soft Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Jason Mraz" data-release-year="2015" data-master-year="2008" data-date-added="2024-03-16T01:53:18-07:00">
+      <article class="card" data-artist="Jason Mraz" data-release-year="2015" data-master-year="2008" data-date-added="2024-03-16T01:53:18-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/7027577" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/7lCvhomzkxJQo-3X2eFZtAZ5ZCkLRCTYpmzLVXxmTsU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTcwMjc1/NzctMTYxNTU3OTI1/Mi03NjQ3LmpwZWc.jpeg" alt="Jason Mraz – We Sing, We Dance, We Steal Things"></div>
         </a>
@@ -876,10 +1007,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/7027577" target="_blank" rel="noopener noreferrer">We Sing, We Dance, We Steal Things</a></div>
           <div class="title-text">Jason Mraz</div>
           <div class="year-text">2008 · 2015</div>
-          <div class="genre-text">Acoustic</div>
+          <div class="genre-text">Vinyl · Acoustic</div>
         </div>
       </article>
-      <article class="card" data-artist="Jimi Hendrix" data-release-year="1990" data-master-year="1980" data-date-added="2022-02-20T13:20:28-08:00">
+      <article class="card" data-artist="Jimi Hendrix" data-release-year="1990" data-master-year="1980" data-date-added="2022-02-20T13:20:28-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/1313618" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/tVAaNSSgstiMd93HdHQGtJC3iIxn_rtDi8T9ccoaBrw/rs:fit/g:sm/q:90/h:573/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMTM2/MTgtMTM2MTMyMDM2/MC00MTUzLmpwZWc.jpeg" alt="Jimi Hendrix – April 26, 1969, Live In Los Angeles Forum CA., U.S.A."></div>
         </a>
@@ -887,10 +1018,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1313618" target="_blank" rel="noopener noreferrer">April 26, 1969, Live In Los Angeles Forum CA., U.S.A.</a></div>
           <div class="title-text">Jimi Hendrix</div>
           <div class="year-text">1980 · 1990</div>
-          <div class="genre-text">Psychedelic Rock</div>
+          <div class="genre-text">Vinyl · Psychedelic Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="The Jimi Hendrix Experience" data-release-year="2016" data-master-year="1968" data-date-added="2022-02-10T04:57:12-08:00">
+      <article class="card" data-artist="The Jimi Hendrix Experience" data-release-year="2016" data-master-year="1968" data-date-added="2022-02-10T04:57:12-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8394977" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/0HwjnnsE9twNHqJ1bJSxztmDrL7hneE5clAnD9CqaKY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgzOTQ5/NzctMTQ2MDc5Mzk4/OS03MzU5LmpwZWc.jpeg" alt="The Jimi Hendrix Experience – Smash Hits"></div>
         </a>
@@ -898,10 +1029,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8394977" target="_blank" rel="noopener noreferrer">Smash Hits</a></div>
           <div class="title-text">The Jimi Hendrix Experience</div>
           <div class="year-text">1968 · 2016</div>
-          <div class="genre-text">Blues Rock</div>
+          <div class="genre-text">Vinyl · Blues Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Johann Strauss Jr., Solisten Der Wiener Volksoper, Chor Der Wiener Volksoper, Wiener Volksopernorchester, Erich Binder" data-release-year="1984" data-master-year="1984" data-date-added="2025-08-20T15:04:01-07:00">
+      <article class="card" data-artist="Johann Strauss Jr., Solisten Der Wiener Volksoper, Chor Der Wiener Volksoper, Wiener Volksopernorchester, Erich Binder" data-release-year="1984" data-master-year="1984" data-date-added="2025-08-20T15:04:01-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8081720" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2VU1jngYag1KlXKbLg5HnXlVmp74un2sdYbcQyXTPRE/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgwODE3/MjAtMTQ1NDg1ODE5/My00MzkzLmpwZWc.jpeg" alt="Johann Strauss Jr., Solisten Der Wiener Volksoper, Chor Der Wiener Volksoper, Wiener Volksopernorchester, Erich Binder – Die Fledermaus"></div>
         </a>
@@ -909,10 +1040,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8081720" target="_blank" rel="noopener noreferrer">Die Fledermaus</a></div>
           <div class="title-text">Johann Strauss Jr., Solisten Der Wiener Volksoper, Chor Der Wiener Volksoper, Wiener Volksopernorchester, Erich Binder</div>
           <div class="year-text">1984</div>
-          <div class="genre-text">Romantic</div>
+          <div class="genre-text">Vinyl · Romantic</div>
         </div>
       </article>
-      <article class="card" data-artist="John Legend" data-release-year="2021" data-master-year="2006" data-date-added="2022-02-10T02:18:50-08:00">
+      <article class="card" data-artist="John Legend" data-release-year="2021" data-master-year="2006" data-date-added="2022-02-10T02:18:50-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/21117508" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/JA_JmQsct1_yBu1fW0REBJGnVO4qdUm7LMf_smMvQeY/rs:fit/g:sm/q:90/h:588/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMTE3/NTA4LTE2Mzc4NDk4/NzMtOTIyMi5qcGVn.jpeg" alt="John Legend – Once Again"></div>
         </a>
@@ -920,10 +1051,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/21117508" target="_blank" rel="noopener noreferrer">Once Again</a></div>
           <div class="title-text">John Legend</div>
           <div class="year-text">2006 · 2021</div>
-          <div class="genre-text">Contemporary R&amp;B</div>
+          <div class="genre-text">Vinyl · Contemporary R&amp;B</div>
         </div>
       </article>
-      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2009" data-date-added="2023-07-14T12:04:58-07:00">
+      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2009" data-date-added="2023-07-14T12:04:58-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10280116" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/wVe5gP0a8vD_qlEgQo20Y5jvgmURrBLuCJKPhTYu-Iw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwMjgw/MTE2LTE1NjQ5NDA0/NjktNjQ5My5qcGVn.jpeg" alt="John Mayer – Battle Studies"></div>
         </a>
@@ -931,10 +1062,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10280116" target="_blank" rel="noopener noreferrer">Battle Studies</a></div>
           <div class="title-text">John Mayer</div>
           <div class="year-text">2009 · 2017</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="John Mayer" data-release-year="2010" data-master-year="2006" data-date-added="2023-07-14T12:03:40-07:00">
+      <article class="card" data-artist="John Mayer" data-release-year="2010" data-master-year="2006" data-date-added="2023-07-14T12:03:40-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/19175407" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/qtCPKmZgihVorzCBdtcW1GQKoA0-b7G8yVEIAEnwypI/rs:fit/g:sm/q:90/h:600/w:589/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5MTc1/NDA3LTE2MjM5NDcx/NDAtNjcyNS5qcGVn.jpeg" alt="John Mayer – Continuum"></div>
         </a>
@@ -942,10 +1073,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/19175407" target="_blank" rel="noopener noreferrer">Continuum</a></div>
           <div class="title-text">John Mayer</div>
           <div class="year-text">2006 · 2010</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2003" data-date-added="2022-12-25T10:13:09-08:00">
+      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2003" data-date-added="2022-12-25T10:13:09-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10247281" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2QLkIw0yyRabYEFViSrwrwr7vxS5Suz4_TMprD6r2QM/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwMjQ3/MjgxLTE1NjQ5NDAy/ODUtMjQ5OS5qcGVn.jpeg" alt="John Mayer – Heavier Things"></div>
         </a>
@@ -953,10 +1084,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10247281" target="_blank" rel="noopener noreferrer">Heavier Things</a></div>
           <div class="title-text">John Mayer</div>
           <div class="year-text">2003 · 2017</div>
-          <div class="genre-text">Blues Rock</div>
+          <div class="genre-text">Vinyl · Blues Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2001" data-date-added="2022-12-15T02:34:40-08:00">
+      <article class="card" data-artist="John Mayer" data-release-year="2002" data-master-year="1999" data-date-added="2026-01-15T04:37:47-08:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/29486371" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/Hkne6ZszMDK0K4wcw9A51yA4ufOTQlvh9XRs7uvFOKs/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5NDg2/MzcxLTE3MDUyNDQz/NjEtNjc4Ni5qcGVn.jpeg" alt="John Mayer – Inside Wants Out"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/29486371" target="_blank" rel="noopener noreferrer">Inside Wants Out</a></div>
+          <div class="title-text">John Mayer</div>
+          <div class="year-text">1999 · 2002</div>
+          <div class="genre-text">CD · Alternative Rock</div>
+        </div>
+      </article>
+      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2001" data-date-added="2022-12-15T02:34:40-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10587346" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/MqQlTOXjujRQzhzSVqxK3OkVinrnWYyWY9HIYDK84oI/rs:fit/g:sm/q:90/h:500/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwNTg3/MzQ2LTE1MTQyODk3/ODEtMzI1NC5qcGVn.jpeg" alt="John Mayer – Room For Squares"></div>
         </a>
@@ -964,10 +1106,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10587346" target="_blank" rel="noopener noreferrer">Room For Squares</a></div>
           <div class="title-text">John Mayer</div>
           <div class="year-text">2001 · 2017</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="John Mayer" data-release-year="2021" data-master-year="2021" data-date-added="2022-07-26T05:39:12-07:00">
+      <article class="card" data-artist="John Mayer" data-release-year="2021" data-master-year="2021" data-date-added="2022-07-26T05:39:12-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/19499326" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/cYL0TuOqJ_OViJkszcApCNLou-YYuSBE4kux_aSJs6c/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5NDk5/MzI2LTE2MjkzMTAw/NzEtODQxNC5qcGVn.jpeg" alt="John Mayer – Sob Rock"></div>
         </a>
@@ -975,10 +1117,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/19499326" target="_blank" rel="noopener noreferrer">Sob Rock</a></div>
           <div class="title-text">John Mayer</div>
           <div class="year-text">2021</div>
-          <div class="genre-text">Indie Pop</div>
+          <div class="genre-text">Vinyl · Indie Pop</div>
         </div>
       </article>
-      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2017" data-date-added="2022-09-12T02:50:47-07:00">
+      <article class="card" data-artist="John Mayer" data-release-year="2017" data-master-year="2017" data-date-added="2022-09-12T02:50:47-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10349736" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/ivgtsPY80qGNfszoSZaEX0WqBn3j22que9aW5LHmKJM/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwMzQ5/NzM2LTE0OTU3ODky/NTktMjY1OS5qcGVn.jpeg" alt="John Mayer – The Search For Everything"></div>
         </a>
@@ -986,10 +1128,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10349736" target="_blank" rel="noopener noreferrer">The Search For Everything</a></div>
           <div class="title-text">John Mayer</div>
           <div class="year-text">2017</div>
-          <div class="genre-text">Rock</div>
+          <div class="genre-text">Vinyl · Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Joni Eareckson Tada, Joni's Kids" data-release-year="1985" data-master-year="1985" data-date-added="2025-11-19T02:43:01-08:00">
+      <article class="card" data-artist="Joni Eareckson Tada, Joni's Kids" data-release-year="1985" data-master-year="1985" data-date-added="2025-11-19T02:43:01-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/2191816" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/J0CAMJzQmO9qONiRze6NKCuVZ0KUUjVdWaYYZoRBqs4/rs:fit/g:sm/q:90/h:477/w:475/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxOTE4/MTYtMTMxNjkxODc0/OC5qcGVn.jpeg" alt="Joni Eareckson Tada, Joni's Kids – I've Got Wheels"></div>
         </a>
@@ -997,10 +1139,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/2191816" target="_blank" rel="noopener noreferrer">I've Got Wheels</a></div>
           <div class="title-text">Joni Eareckson Tada, Joni's Kids</div>
           <div class="year-text">1985</div>
-          <div class="genre-text">Religious</div>
+          <div class="genre-text">Vinyl · Religious</div>
         </div>
       </article>
-      <article class="card" data-artist="Kaytranada" data-release-year="2020" data-master-year="2019" data-date-added="2023-10-20T13:11:51-07:00">
+      <article class="card" data-artist="Kaytranada" data-release-year="2020" data-master-year="2019" data-date-added="2023-10-20T13:11:51-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/15461907" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/xyNZPWWPV5Hw3vnQHP-IMYyVd_jRLdtYLClXYCGPEBQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1NDYx/OTA3LTE2MDM3MDkx/NzUtNDg3MC5qcGVn.jpeg" alt="Kaytranada – Bubba"></div>
         </a>
@@ -1008,10 +1150,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/15461907" target="_blank" rel="noopener noreferrer">Bubba</a></div>
           <div class="title-text">Kaytranada</div>
           <div class="year-text">2019 · 2020</div>
-          <div class="genre-text">Contemporary R&amp;B</div>
+          <div class="genre-text">Vinyl · Contemporary R&amp;B</div>
         </div>
       </article>
-      <article class="card" data-artist="Kcik" data-release-year="2026" data-master-year="" data-date-added="2026-03-02T12:50:57-08:00">
+      <article class="card" data-artist="Kcik" data-release-year="2026" data-master-year="" data-date-added="2026-03-02T12:50:57-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/36661966" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/9nAEVXy8B8ALSyKjXKJMmh9M3CLX4GEnFo7oaxdXlhY/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM2NjYx/OTY2LTE3NzI0ODIw/NDctNjExMy5qcGVn.jpeg" alt="Kcik – The Best Of Kcik Vol. 1"></div>
         </a>
@@ -1019,10 +1161,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/36661966" target="_blank" rel="noopener noreferrer">The Best Of Kcik Vol. 1</a></div>
           <div class="title-text">Kcik</div>
           <div class="year-text">2026</div>
-          <div class="genre-text">Deep House</div>
+          <div class="genre-text">Lathe Cut · Deep House</div>
         </div>
       </article>
-      <article class="card" data-artist="Kylie Minogue" data-release-year="2019" data-master-year="2019" data-date-added="2026-02-18T00:29:13-08:00">
+      <article class="card" data-artist="Kylie Minogue" data-release-year="2019" data-master-year="2019" data-date-added="2026-02-18T00:29:13-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/13813224" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/4AJoFA_WnV-AZEvizZjdkH0EI1inYLunEI4EiwJGtas/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzODEz/MjI0LTE3MTAxOTQz/ODItNDI0Ni5qcGVn.jpeg" alt="Kylie Minogue – Step Back In Time (The Definitive Collection)"></div>
         </a>
@@ -1030,10 +1172,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/13813224" target="_blank" rel="noopener noreferrer">Step Back In Time (The Definitive Collection)</a></div>
           <div class="title-text">Kylie Minogue</div>
           <div class="year-text">2019</div>
-          <div class="genre-text">Synth-pop</div>
+          <div class="genre-text">Vinyl · Synth-pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Lana Del Rey" data-release-year="2012" data-master-year="2012" data-date-added="2026-01-23T07:06:18-08:00">
+      <article class="card" data-artist="Lana Del Rey" data-release-year="2012" data-master-year="2012" data-date-added="2026-01-23T07:06:18-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/3354383" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/XJwYS7pdc3sELepYbBfW2DPOjDYXxpKOFLwsDC073DE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzNTQz/ODMtMTc2NjUzMTU2/OC03MDg0LmpwZWc.jpeg" alt="Lana Del Rey – Born To Die"></div>
         </a>
@@ -1041,10 +1183,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/3354383" target="_blank" rel="noopener noreferrer">Born To Die</a></div>
           <div class="title-text">Lana Del Rey</div>
           <div class="year-text">2012</div>
-          <div class="genre-text">Baroque Pop</div>
+          <div class="genre-text">Vinyl · Baroque Pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Led Zeppelin" data-release-year="2020" data-master-year="1969" data-date-added="2024-10-18T02:37:57-07:00">
+      <article class="card" data-artist="Led Zeppelin" data-release-year="2020" data-master-year="1969" data-date-added="2024-10-18T02:37:57-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/19502752" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/jkKBZm4Ag9YWIkloipLdRe6OcnyU_9Y8UkWOgWk4w84/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5NTAy/NzUyLTE2NzgxODgy/NjQtNDUzMC5qcGVn.jpeg" alt="Led Zeppelin – Led Zeppelin II"></div>
         </a>
@@ -1052,10 +1194,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/19502752" target="_blank" rel="noopener noreferrer">Led Zeppelin II</a></div>
           <div class="title-text">Led Zeppelin</div>
           <div class="year-text">1969 · 2020</div>
-          <div class="genre-text">Blues Rock</div>
+          <div class="genre-text">Vinyl · Blues Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="The Libertines" data-release-year="2018" data-master-year="2007" data-date-added="2022-05-03T04:42:56-07:00">
+      <article class="card" data-artist="The Libertines" data-release-year="2018" data-master-year="2007" data-date-added="2022-05-03T04:42:56-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/12252954" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/g8MKqh3Y07bNM1xyubjflqi3EtSaP0XM8kzJ8WuwIwk/rs:fit/g:sm/q:90/h:593/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjUy/OTU0LTE1MzI2Mzk2/NDEtMjQ2OC5qcGVn.jpeg" alt="The Libertines – Time For Heroes - The Best Of The Libertines"></div>
         </a>
@@ -1063,10 +1205,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/12252954" target="_blank" rel="noopener noreferrer">Time For Heroes - The Best Of The Libertines</a></div>
           <div class="title-text">The Libertines</div>
           <div class="year-text">2007 · 2018</div>
-          <div class="genre-text">Indie Rock</div>
+          <div class="genre-text">Vinyl · Indie Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="London Elektricity" data-release-year="2021" data-master-year="2011" data-date-added="2026-02-19T12:41:29-08:00">
+      <article class="card" data-artist="London Elektricity" data-release-year="2021" data-master-year="2011" data-date-added="2026-02-19T12:41:29-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/21128863" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/z8tWXT9WxtNlve7eoibFgnIgoRtrkFK768mbep3CuGs/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMTI4/ODYzLTE2Mzc5MzQ4/OTYtNjY5NC5qcGVn.jpeg" alt="London Elektricity – Yikes!"></div>
         </a>
@@ -1074,10 +1216,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/21128863" target="_blank" rel="noopener noreferrer">Yikes!</a></div>
           <div class="title-text">London Elektricity</div>
           <div class="year-text">2011 · 2021</div>
-          <div class="genre-text">Drum n Bass</div>
+          <div class="genre-text">Vinyl · Drum n Bass</div>
         </div>
       </article>
-      <article class="card" data-artist="Loyle Carner" data-release-year="2025" data-master-year="2025" data-date-added="2025-12-31T00:56:54-08:00">
+      <article class="card" data-artist="Loyle Carner" data-release-year="2025" data-master-year="2025" data-date-added="2025-12-31T00:56:54-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/34377454" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Gb1cp7OOWeF3-2FAKWSib8VCM-2lxEw1Ka6zh3mF9CU/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0Mzc3/NDU0LTE3NTA5NDcy/NTAtNzM2Ny5qcGVn.jpeg" alt="Loyle Carner – Hopefully!"></div>
         </a>
@@ -1085,10 +1227,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/34377454" target="_blank" rel="noopener noreferrer">Hopefully!</a></div>
           <div class="title-text">Loyle Carner</div>
           <div class="year-text">2025</div>
-          <div class="genre-text">Hip Hop</div>
+          <div class="genre-text">Vinyl · Hip Hop</div>
         </div>
       </article>
-      <article class="card" data-artist="Loyle Carner" data-release-year="2022" data-master-year="2022" data-date-added="2025-05-24T07:56:09-07:00">
+      <article class="card" data-artist="Loyle Carner" data-release-year="2022" data-master-year="2022" data-date-added="2025-05-24T07:56:09-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/24861332" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/sLP9Abw1ERF3n6A1sfsJt-J-m1LR3Oie_dUrUmR_1No/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0ODYx/MzMyLTE2NzA2ODMz/NjAtMTkxNi5qcGVn.jpeg" alt="Loyle Carner – Hugo"></div>
         </a>
@@ -1096,10 +1238,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/24861332" target="_blank" rel="noopener noreferrer">Hugo</a></div>
           <div class="title-text">Loyle Carner</div>
           <div class="year-text">2022</div>
-          <div class="genre-text">Hip Hop</div>
+          <div class="genre-text">Vinyl · Hip Hop</div>
         </div>
       </article>
-      <article class="card" data-artist="Ludwig van Beethoven, André Cluytens, Berliner Philharmoniker" data-release-year="1974" data-master-year="1963" data-date-added="2026-02-24T03:06:52-08:00">
+      <article class="card" data-artist="Ludwig van Beethoven, André Cluytens, Berliner Philharmoniker" data-release-year="1974" data-master-year="1963" data-date-added="2026-02-24T03:06:52-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/1056907" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/aV6zId_X9o6-8RamU2e-hy1mlkm3DTpjKCYdpHmEMqw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwNTY5/MDctMTIwOTkyMTk2/MC5qcGVn.jpeg" alt="Ludwig van Beethoven, André Cluytens, Berliner Philharmoniker – Symphony No.6 In F - 'Pastoral'"></div>
         </a>
@@ -1107,10 +1249,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1056907" target="_blank" rel="noopener noreferrer">Symphony No.6 In F - 'Pastoral'</a></div>
           <div class="title-text">Ludwig van Beethoven, André Cluytens, Berliner Philharmoniker</div>
           <div class="year-text">1963 · 1974</div>
-          <div class="genre-text">Classical</div>
+          <div class="genre-text">Vinyl · Classical</div>
         </div>
       </article>
-      <article class="card" data-artist="Lùisa" data-release-year="2021" data-master-year="2021" data-date-added="2025-10-22T16:47:38-07:00">
+      <article class="card" data-artist="Lùisa" data-release-year="2021" data-master-year="2021" data-date-added="2025-10-22T16:47:38-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/21138286" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/PnKQRi4HNRNAQm9sEq9CFuugGjSDusGCQPtSGsSf4Qo/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxMTM4/Mjg2LTE2MzgwMDM1/ODctNTIzNS5qcGVn.jpeg" alt="Lùisa – New Woman"></div>
         </a>
@@ -1118,10 +1260,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/21138286" target="_blank" rel="noopener noreferrer">New Woman</a></div>
           <div class="title-text">Lùisa</div>
           <div class="year-text">2021</div>
-          <div class="genre-text">Acoustic</div>
+          <div class="genre-text">Vinyl · Acoustic</div>
         </div>
       </article>
-      <article class="card" data-artist="Mac Miller" data-release-year="2023" data-master-year="" data-date-added="2024-08-03T23:27:03-07:00">
+      <article class="card" data-artist="Mac Miller" data-release-year="2023" data-master-year="" data-date-added="2024-08-03T23:27:03-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/27897450" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/cj5nwEEV9MugL157aOi2lTrva0Qs06ccAroZePJmLYU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3ODk3/NDUwLTE2OTgzNzA5/MjEtMTkzNC5qcGVn.jpeg" alt="Mac Miller – NPR Music Tiny Desk Concert"></div>
         </a>
@@ -1129,10 +1271,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/27897450" target="_blank" rel="noopener noreferrer">NPR Music Tiny Desk Concert</a></div>
           <div class="title-text">Mac Miller</div>
           <div class="year-text">2023</div>
-          <div class="genre-text">Jazzy Hip-Hop</div>
+          <div class="genre-text">Vinyl · Jazzy Hip-Hop</div>
         </div>
       </article>
-      <article class="card" data-artist="Mariah Carey" data-release-year="2024" data-master-year="1994" data-date-added="2024-12-25T07:06:52-08:00">
+      <article class="card" data-artist="Mariah Carey" data-release-year="2024" data-master-year="1994" data-date-added="2024-12-25T07:06:52-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/32224602" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2FQnvN-ZlXPUAvMvZi6XdBKbiQYOhk_GzZiuIWOqUn0/rs:fit/g:sm/q:90/h:600/w:574/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyMjI0/NjAyLTE3MzEwMDc5/MDMtNDEzMC5qcGVn.jpeg" alt="Mariah Carey – Merry Christmas"></div>
         </a>
@@ -1140,10 +1282,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/32224602" target="_blank" rel="noopener noreferrer">Merry Christmas</a></div>
           <div class="title-text">Mariah Carey</div>
           <div class="year-text">1994 · 2024</div>
-          <div class="genre-text">Holiday</div>
+          <div class="genre-text">Vinyl · Holiday</div>
         </div>
       </article>
-      <article class="card" data-artist="Marvin Gaye" data-release-year="1977" data-master-year="1977" data-date-added="2022-03-12T06:37:58-08:00">
+      <article class="card" data-artist="Marvin Gaye" data-release-year="1977" data-master-year="1977" data-date-added="2022-03-12T06:37:58-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/2180184" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/U15TDd4UgWgp1yGYAMdaFnmesp5PxWYDLalB9hzaXFc/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIxODAx/ODQtMTY4MDAyNzkz/Mi03MTAzLmpwZWc.jpeg" alt="Marvin Gaye – Marvin Gaye Live At The London Palladium"></div>
         </a>
@@ -1151,10 +1293,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/2180184" target="_blank" rel="noopener noreferrer">Marvin Gaye Live At The London Palladium</a></div>
           <div class="title-text">Marvin Gaye</div>
           <div class="year-text">1977</div>
-          <div class="genre-text">Soul</div>
+          <div class="genre-text">Vinyl · Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Marvin Gaye" data-release-year="2025" data-master-year="2007" data-date-added="2025-06-22T14:48:03-07:00">
+      <article class="card" data-artist="Marvin Gaye" data-release-year="2025" data-master-year="2007" data-date-added="2025-06-22T14:48:03-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/34030641" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/IE2lEAw_QTr4LZQKc5m1KBuR7gupHdHjXgOWroRZnAs/rs:fit/g:sm/q:90/h:599/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0MDMw/NjQxLTE3NzExMDYw/MjQtNjg3Mi5qcGVn.jpeg" alt="Marvin Gaye – Number 1's"></div>
         </a>
@@ -1162,10 +1304,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/34030641" target="_blank" rel="noopener noreferrer">Number 1's</a></div>
           <div class="title-text">Marvin Gaye</div>
           <div class="year-text">2007 · 2025</div>
-          <div class="genre-text">Soul</div>
+          <div class="genre-text">Vinyl · Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Marvin Gaye, Tammi Terrell" data-release-year="2016" data-master-year="1967" data-date-added="2022-09-06T15:23:22-07:00">
+      <article class="card" data-artist="Marvin Gaye, Tammi Terrell" data-release-year="2016" data-master-year="1967" data-date-added="2022-09-06T15:23:22-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8315344" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/S7OgwdCscGJCK0vGS8kc3Hxl0NxM93QA_c-okfLbTxw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgzMTUz/NDQtMTQ1OTE5MDQ4/Ny0xMzQ2LmpwZWc.jpeg" alt="Marvin Gaye, Tammi Terrell – United"></div>
         </a>
@@ -1173,10 +1315,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8315344" target="_blank" rel="noopener noreferrer">United</a></div>
           <div class="title-text">Marvin Gaye, Tammi Terrell</div>
           <div class="year-text">1967 · 2016</div>
-          <div class="genre-text">Soul</div>
+          <div class="genre-text">Vinyl · Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Marvin Gaye Project, Bobbi Depasois" data-release-year="2003" data-master-year="" data-date-added="2022-07-14T23:58:58-07:00">
+      <article class="card" data-artist="Marvin Gaye Project, Bobbi Depasois" data-release-year="2003" data-master-year="" data-date-added="2022-07-14T23:58:58-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/533821" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/8KRDybAa_nTXjXBwbukX7NHEe8gGDv9sIqQNXZSQ4Gg/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUzMzgy/MS0xNjQ1MTI5MjIz/LTcwMTkuanBlZw.jpeg" alt="Marvin Gaye Project, Bobbi Depasois – Music Feel The Soul"></div>
         </a>
@@ -1184,10 +1326,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/533821" target="_blank" rel="noopener noreferrer">Music Feel The Soul</a></div>
           <div class="title-text">Marvin Gaye Project, Bobbi Depasois</div>
           <div class="year-text">2003</div>
-          <div class="genre-text">Neo Soul</div>
+          <div class="genre-text">Vinyl · Neo Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Maxwell" data-release-year="2016" data-master-year="1996" data-date-added="2026-01-22T14:16:34-08:00">
+      <article class="card" data-artist="Maxwell" data-release-year="2016" data-master-year="1996" data-date-added="2026-01-22T14:16:34-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/19902961" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/dXSOJzpygL8OA9-eTAE1oNRobFn3siWMzGRm9Z0zuFs/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE5OTAy/OTYxLTE2MjkzMjMz/NDktOTI1OC5qcGVn.jpeg" alt="Maxwell – Maxwell's Urban Hang Suite"></div>
         </a>
@@ -1195,10 +1337,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/19902961" target="_blank" rel="noopener noreferrer">Maxwell's Urban Hang Suite</a></div>
           <div class="title-text">Maxwell</div>
           <div class="year-text">1996 · 2016</div>
-          <div class="genre-text">Neo Soul</div>
+          <div class="genre-text">Vinyl · Neo Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Men I Trust" data-release-year="2022" data-master-year="2020" data-date-added="2022-11-08T07:39:39-08:00">
+      <article class="card" data-artist="Men I Trust" data-release-year="2022" data-master-year="2020" data-date-added="2022-11-08T07:39:39-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/24223133" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/NCbuT_NVtIKC2InbnUVunuy5Trn5wf5NXEKYrhRmbVs/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0MjIz/MTMzLTE2NjA2ODY4/NzMtODY3Ni5qcGVn.jpeg" alt="Men I Trust – Forever Live Sessions"></div>
         </a>
@@ -1206,10 +1348,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/24223133" target="_blank" rel="noopener noreferrer">Forever Live Sessions</a></div>
           <div class="title-text">Men I Trust</div>
           <div class="year-text">2020 · 2022</div>
-          <div class="genre-text">Indie Pop</div>
+          <div class="genre-text">Vinyl · Indie Pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Michael Jackson" data-release-year="2015" data-master-year="1991" data-date-added="2024-03-24T10:42:49-07:00">
+      <article class="card" data-artist="Michael Jackson" data-release-year="2015" data-master-year="1991" data-date-added="2024-03-24T10:42:49-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/7744822" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/7bpnsmBzJ-Fznjc_C_8x0N3XtOBUwL6i5w9RyUshl_c/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc3NDQ4/MjItMTY3NjY5NDA3/NC01MTE0LmpwZWc.jpeg" alt="Michael Jackson – Dangerous"></div>
         </a>
@@ -1217,10 +1359,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/7744822" target="_blank" rel="noopener noreferrer">Dangerous</a></div>
           <div class="title-text">Michael Jackson</div>
           <div class="year-text">1991 · 2015</div>
-          <div class="genre-text">Pop Rap</div>
+          <div class="genre-text">Vinyl · Pop Rap</div>
         </div>
       </article>
-      <article class="card" data-artist="Michael Jackson" data-release-year="2016" data-master-year="1979" data-date-added="2022-04-11T05:21:04-07:00">
+      <article class="card" data-artist="Michael Jackson" data-release-year="2016" data-master-year="1979" data-date-added="2022-04-11T05:21:04-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8488182" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/ur5_EBisTmky0BIFlZUWVlhIp6UgWd3b21LaXigsBzU/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTg0ODgx/ODItMTUxNTAxOTU2/NS03ODA1LmpwZWc.jpeg" alt="Michael Jackson – Off The Wall"></div>
         </a>
@@ -1228,10 +1370,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8488182" target="_blank" rel="noopener noreferrer">Off The Wall</a></div>
           <div class="title-text">Michael Jackson</div>
           <div class="year-text">1979 · 2016</div>
-          <div class="genre-text">Disco</div>
+          <div class="genre-text">Vinyl · Disco</div>
         </div>
       </article>
-      <article class="card" data-artist="Michael Jackson" data-release-year="2016" data-master-year="1982" data-date-added="2022-10-07T12:41:25-07:00">
+      <article class="card" data-artist="Michael Jackson" data-release-year="2016" data-master-year="1982" data-date-added="2022-10-07T12:41:25-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8505310" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/vKlK3B4g-KL74s0NSnGZlE2Ur_Sw7RT9CJ3oPOo2BBM/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTg1MDUz/MTAtMTQ2Mjk2ODAz/OS04OTkwLmpwZWc.jpeg" alt="Michael Jackson – Thriller"></div>
         </a>
@@ -1239,10 +1381,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8505310" target="_blank" rel="noopener noreferrer">Thriller</a></div>
           <div class="title-text">Michael Jackson</div>
           <div class="year-text">1982 · 2016</div>
-          <div class="genre-text">Disco</div>
+          <div class="genre-text">Vinyl · Disco</div>
         </div>
       </article>
-      <article class="card" data-artist="Mihaela Runceanu" data-release-year="1989" data-master-year="1989" data-date-added="2022-02-22T07:12:07-08:00">
+      <article class="card" data-artist="Mihaela Runceanu" data-release-year="1989" data-master-year="1989" data-date-added="2022-02-22T07:12:07-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/996676" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/oOmhEfNMFh22d1_o6K_qIQuyIwTzIqzGgos0ewrZGdI/rs:fit/g:sm/q:90/h:574/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk5NjY3/Ni0xMzIwMTYxMzg3/LmpwZWc.jpeg" alt="Mihaela Runceanu – Pentru Voi, Muguri Noi"></div>
         </a>
@@ -1250,10 +1392,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/996676" target="_blank" rel="noopener noreferrer">Pentru Voi, Muguri Noi</a></div>
           <div class="title-text">Mihaela Runceanu</div>
           <div class="year-text">1989</div>
-          <div class="genre-text">Vocal</div>
+          <div class="genre-text">Vinyl · Vocal</div>
         </div>
       </article>
-      <article class="card" data-artist="Nat King Cole" data-release-year="2018" data-master-year="2018" data-date-added="2025-08-05T14:17:56-07:00">
+      <article class="card" data-artist="Nat King Cole" data-release-year="2018" data-master-year="2018" data-date-added="2025-08-05T14:17:56-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/12117913" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/sR-hqrPyx44UlD0mLs9ZlbExe68zRUN8mpUAlK5Ag2g/rs:fit/g:sm/q:90/h:600/w:574/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMTE3/OTEzLTE1MzAzNjUw/MTEtMjU5My5qcGVn.jpeg" alt="Nat King Cole – Unforgettable"></div>
         </a>
@@ -1261,10 +1403,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/12117913" target="_blank" rel="noopener noreferrer">Unforgettable</a></div>
           <div class="title-text">Nat King Cole</div>
           <div class="year-text">2018</div>
-          <div class="genre-text">Jazz</div>
+          <div class="genre-text">Vinyl · Jazz</div>
         </div>
       </article>
-      <article class="card" data-artist="Nicu Alifantis" data-release-year="1988" data-master-year="1988" data-date-added="2022-02-22T05:30:38-08:00">
+      <article class="card" data-artist="Nicu Alifantis" data-release-year="1988" data-master-year="1988" data-date-added="2022-02-22T05:30:38-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/4549759" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/PPf6ssLLUzUc0LUxY5FCOy1wjEZ4voFmUhEVjeu50N8/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ1NDk3/NTktMTM2ODA4ODIz/NC01ODc4LmpwZWc.jpeg" alt="Nicu Alifantis – Piața Romană Nr. 9"></div>
         </a>
@@ -1272,10 +1414,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/4549759" target="_blank" rel="noopener noreferrer">Piața Romană Nr. 9</a></div>
           <div class="title-text">Nicu Alifantis</div>
           <div class="year-text">1988</div>
-          <div class="genre-text">Folk Rock</div>
+          <div class="genre-text">Vinyl · Folk Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Norah Jones" data-release-year="2022" data-master-year="2002" data-date-added="2023-01-08T13:22:16-08:00">
+      <article class="card" data-artist="Norah Jones" data-release-year="2022" data-master-year="2002" data-date-added="2023-01-08T13:22:16-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/23050199" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/X4oe2Q1wYKcZyh4Za3LLkht9I9kIPEOFnDlUR9jhU9E/rs:fit/g:sm/q:90/h:600/w:598/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIzMDUw/MTk5LTE2NTE5MDU5/MjQtNzQ0MC5qcGVn.jpeg" alt="Norah Jones – Come Away With Me"></div>
         </a>
@@ -1283,10 +1425,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/23050199" target="_blank" rel="noopener noreferrer">Come Away With Me</a></div>
           <div class="title-text">Norah Jones</div>
           <div class="year-text">2002 · 2022</div>
-          <div class="genre-text">Vocal</div>
+          <div class="genre-text">Vinyl · Vocal</div>
         </div>
       </article>
-      <article class="card" data-artist="Oddisee" data-release-year="2016" data-master-year="2016" data-date-added="2022-09-20T05:37:31-07:00">
+      <article class="card" data-artist="Oddisee" data-release-year="2016" data-master-year="2016" data-date-added="2022-09-20T05:37:31-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/14443575" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/NE_t8EYL_jOMFHT_q74JDBu5vQtRd9ui6qGXdzF4pc4/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NDQz/NTc1LTE1ODY0NTkx/NTEtMjY0Mi5qcGVn.jpeg" alt="Oddisee – Alwasta"></div>
         </a>
@@ -1294,10 +1436,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/14443575" target="_blank" rel="noopener noreferrer">Alwasta</a></div>
           <div class="title-text">Oddisee</div>
           <div class="year-text">2016</div>
-          <div class="genre-text">Conscious</div>
+          <div class="genre-text">Vinyl · Conscious</div>
         </div>
       </article>
-      <article class="card" data-artist="P!NK" data-release-year="2021" data-master-year="2021" data-date-added="2022-09-14T05:26:10-07:00">
+      <article class="card" data-artist="P!NK" data-release-year="2021" data-master-year="2021" data-date-added="2022-09-14T05:26:10-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/20515411" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Lb4G1g-pd4HXMwPwcOKLB0w81MD81_Dvgzh-EN6YtAQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIwNTE1/NDExLTE2MzM2OTQ1/OTgtNjAwMi5qcGVn.jpeg" alt="P!NK – All I Know So Far: Setlist"></div>
         </a>
@@ -1305,10 +1447,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/20515411" target="_blank" rel="noopener noreferrer">All I Know So Far: Setlist</a></div>
           <div class="title-text">P!NK</div>
           <div class="year-text">2021</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Paramore" data-release-year="2023" data-master-year="2017" data-date-added="2025-12-04T08:18:30-08:00">
+      <article class="card" data-artist="Paramore" data-release-year="2023" data-master-year="2017" data-date-added="2025-12-04T08:18:30-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/29361040" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/tkGaolWEQqgcydww280xHWShT5Hv27LbE3RoqTH1vkc/rs:fit/g:sm/q:90/h:576/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MzYx/MDQwLTE3MDQwNjQ3/MjgtOTQxMC5qcGVn.jpeg" alt="Paramore – After Laughter"></div>
         </a>
@@ -1316,10 +1458,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/29361040" target="_blank" rel="noopener noreferrer">After Laughter</a></div>
           <div class="title-text">Paramore</div>
           <div class="year-text">2017 · 2023</div>
-          <div class="genre-text">New Wave</div>
+          <div class="genre-text">Vinyl · New Wave</div>
         </div>
       </article>
-      <article class="card" data-artist="Paramore" data-release-year="2009" data-master-year="2009" data-date-added="2025-12-12T04:10:26-08:00">
+      <article class="card" data-artist="Paramore" data-release-year="2009" data-master-year="2009" data-date-added="2025-12-12T04:10:26-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8308758" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/0j30c1c4luL-FSlkiu3Y-DnrpntOrY-FlDDEyKuyK9Q/rs:fit/g:sm/q:90/h:600/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgzMDg3/NTgtMTcyNzUzNDU1/Mi0xNDc3LmpwZWc.jpeg" alt="Paramore – Brand New Eyes"></div>
         </a>
@@ -1327,10 +1469,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8308758" target="_blank" rel="noopener noreferrer">Brand New Eyes</a></div>
           <div class="title-text">Paramore</div>
           <div class="year-text">2009</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Paramore" data-release-year="2007" data-master-year="2007" data-date-added="2025-12-04T08:28:57-08:00">
+      <article class="card" data-artist="Paramore" data-release-year="2007" data-master-year="2007" data-date-added="2025-12-04T08:28:57-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/6552882" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/WtsnmVgh3JQUq67Gf8pmO3h6It1hq0N0a7aYBfYyY_g/rs:fit/g:sm/q:90/h:400/w:400/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTY1NTI4/ODItMTQyMTg0Nzkz/Ni0xNDc3LmpwZWc.jpeg" alt="Paramore – Riot!"></div>
         </a>
@@ -1338,10 +1480,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/6552882" target="_blank" rel="noopener noreferrer">Riot!</a></div>
           <div class="title-text">Paramore</div>
           <div class="year-text">2007</div>
-          <div class="genre-text">Rock</div>
+          <div class="genre-text">Vinyl · Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Paramore" data-release-year="2023" data-master-year="2023" data-date-added="2024-08-03T23:27:56-07:00">
+      <article class="card" data-artist="Paramore" data-release-year="2023" data-master-year="2023" data-date-added="2024-08-03T23:27:56-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/26050270" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/vZxalj4kE0FRqxYpdirXI3YyeZ9Ub3xewRlNH46Du94/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2MDUw/MjcwLTE3MzUyMjM5/NTctNzExNS5qcGVn.jpeg" alt="Paramore – This Is Why"></div>
         </a>
@@ -1349,10 +1491,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/26050270" target="_blank" rel="noopener noreferrer">This Is Why</a></div>
           <div class="title-text">Paramore</div>
           <div class="year-text">2023</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Pearl Jam" data-release-year="2017" data-master-year="1991" data-date-added="2022-04-03T12:18:11-07:00">
+      <article class="card" data-artist="Paul van Dyk" data-release-year="2007" data-master-year="2007" data-date-added="2025-05-17T16:00:14-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/1214023" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/oypLyftVHvJ7Y5R_f7HULIrR-xS1MwarK1gWrTgngn0/rs:fit/g:sm/q:90/h:594/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMTQw/MjMtMTQxNjIxMzI5/Ni04OTI0LmpwZWc.jpeg" alt="Paul van Dyk – In Between"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/1214023" target="_blank" rel="noopener noreferrer">In Between</a></div>
+          <div class="title-text">Paul van Dyk</div>
+          <div class="year-text">2007</div>
+          <div class="genre-text">CD · Breakbeat</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Pearl Jam" data-release-year="2017" data-master-year="1991" data-date-added="2022-04-03T12:18:11-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/11112928" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Gs5ge0VKnvKSmba15wtKHcNYcivyxfokHFbpeBFtVIk/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMTEy/OTI4LTE1MTA5NDgy/MTctMjY0Mi5qcGVn.jpeg" alt="Pearl Jam – Ten"></div>
         </a>
@@ -1360,10 +1513,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/11112928" target="_blank" rel="noopener noreferrer">Ten</a></div>
           <div class="title-text">Pearl Jam</div>
           <div class="year-text">1991 · 2017</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Phoenix (23)" data-release-year="1990" data-master-year="1974" data-date-added="2022-02-22T06:47:14-08:00">
+      <article class="card" data-artist="Phoenix (23)" data-release-year="1990" data-master-year="1974" data-date-added="2022-02-22T06:47:14-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/3151688" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/JgK1DTRqV8NwJ9AhjZRanhngn4SZnc_f2wkL-p2jTOE/rs:fit/g:sm/q:90/h:571/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxNTE2/ODgtMTM4NDI0OTk3/MC00NjgyLmpwZWc.jpeg" alt="Phoenix (23) – Mugur De Fluier"></div>
         </a>
@@ -1371,10 +1524,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/3151688" target="_blank" rel="noopener noreferrer">Mugur De Fluier</a></div>
           <div class="title-text">Phoenix (23)</div>
           <div class="year-text">1974 · 1990</div>
-          <div class="genre-text">Prog Rock</div>
+          <div class="genre-text">Vinyl · Prog Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="PinkPantheress" data-release-year="2023" data-master-year="2023" data-date-added="2025-12-23T09:07:50-08:00">
+      <article class="card" data-artist="PinkPantheress" data-release-year="2023" data-master-year="2023" data-date-added="2025-12-23T09:07:50-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/28903624" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/lAFkCU9Eeu4Z8sXEdvSfy6iJSAQYdgvw6OCYJK1pwWU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4OTAz/NjI0LTE3MTI5NTc3/OTItNDU1MS5qcGVn.jpeg" alt="PinkPantheress – Heaven Knows"></div>
         </a>
@@ -1382,10 +1535,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/28903624" target="_blank" rel="noopener noreferrer">Heaven Knows</a></div>
           <div class="title-text">PinkPantheress</div>
           <div class="year-text">2023</div>
-          <div class="genre-text">Breakbeat</div>
+          <div class="genre-text">Vinyl · Breakbeat</div>
         </div>
       </article>
-      <article class="card" data-artist="PinkPantheress" data-release-year="2025" data-master-year="2021" data-date-added="2025-11-12T04:41:39-08:00">
+      <article class="card" data-artist="PinkPantheress" data-release-year="2025" data-master-year="2021" data-date-added="2025-11-12T04:41:39-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/35429413" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/kgFVYHogRlf12PkxPwBbbbGBYUESyfjGlqsCXZYRhvY/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NDI5/NDEzLTE3NjQ4MjI1/OTMtNDA3Ny5qcGVn.jpeg" alt="PinkPantheress – To Hell With It"></div>
         </a>
@@ -1393,10 +1546,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/35429413" target="_blank" rel="noopener noreferrer">To Hell With It</a></div>
           <div class="title-text">PinkPantheress</div>
           <div class="year-text">2021 · 2025</div>
-          <div class="genre-text">Drum n Bass</div>
+          <div class="genre-text">Vinyl · Drum n Bass</div>
         </div>
       </article>
-      <article class="card" data-artist="Queens Of The Stone Age" data-release-year="2019" data-master-year="2007" data-date-added="2024-06-19T12:43:58-07:00">
+      <article class="card" data-artist="Queens Of The Stone Age" data-release-year="2019" data-master-year="2007" data-date-added="2024-06-19T12:43:58-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/14541226" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/YbZ_bamHsa1ykN1zyKfWROuRePIYP--9iS8WayC5GIo/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0NTQx/MjI2LTE1NzY2NzY1/NDUtOTA0MC5qcGVn.jpeg" alt="Queens Of The Stone Age – Era Vulgaris"></div>
         </a>
@@ -1404,10 +1557,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/14541226" target="_blank" rel="noopener noreferrer">Era Vulgaris</a></div>
           <div class="title-text">Queens Of The Stone Age</div>
           <div class="year-text">2007 · 2019</div>
-          <div class="genre-text">Stoner Rock</div>
+          <div class="genre-text">Vinyl · Stoner Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Raveena (2)" data-release-year="2025" data-master-year="2025" data-date-added="2026-02-19T14:06:00-08:00">
+      <article class="card" data-artist="Raveena (2)" data-release-year="2025" data-master-year="2025" data-date-added="2026-02-19T14:06:00-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/33991251" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/CJfHNlY7IiMLoZBNmRyC4Lhz4bsXQ-yFXk_Bh5Fz2v8/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzOTkx/MjUxLTE3NDczNDg0/NzItNDgwOC5qcGVn.jpeg" alt="Raveena (2) – Where the Butterflies Go in the Rain"></div>
         </a>
@@ -1415,10 +1568,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/33991251" target="_blank" rel="noopener noreferrer">Where the Butterflies Go in the Rain</a></div>
           <div class="title-text">Raveena (2)</div>
           <div class="year-text">2025</div>
-          <div class="genre-text">Contemporary R&amp;B</div>
+          <div class="genre-text">Vinyl · Contemporary R&amp;B</div>
         </div>
       </article>
-      <article class="card" data-artist="Regensburger Domspatzen, Hans Schrems" data-release-year="1968" data-master-year="" data-date-added="2026-01-09T03:08:15-08:00">
+      <article class="card" data-artist="Regensburger Domspatzen, Hans Schrems" data-release-year="1968" data-master-year="" data-date-added="2026-01-09T03:08:15-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/32886090" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2zprfhFCCRCEuoQY7P84AtzD2nLlG76S8ledm79k1-8/rs:fit/g:sm/q:90/h:571/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyODg2/MDkwLTE3MzcyNzk3/OTItNjgyNi5qcGVn.jpeg" alt="Regensburger Domspatzen, Hans Schrems – Dem Fröhlichen Gehört Die Welt"></div>
         </a>
@@ -1426,10 +1579,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/32886090" target="_blank" rel="noopener noreferrer">Dem Fröhlichen Gehört Die Welt</a></div>
           <div class="title-text">Regensburger Domspatzen, Hans Schrems</div>
           <div class="year-text">1968</div>
-          <div class="genre-text">Classical</div>
+          <div class="genre-text">Vinyl · Classical</div>
         </div>
       </article>
-      <article class="card" data-artist="Ricchi E Poveri" data-release-year="1986" data-master-year="1982" data-date-added="2023-10-18T10:00:50-07:00">
+      <article class="card" data-artist="Ricchi E Poveri" data-release-year="1986" data-master-year="1982" data-date-added="2023-10-18T10:00:50-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/6006840" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/sR-h0rvlRunoWWs8pKr3Af82J8TlrQBTE8qOTrxS9oI/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYwMDY4/NDAtMTQwODY0NTA5/MC05Nzg0LmpwZWc.jpeg" alt="Ricchi E Poveri – Богатые И Бедные"></div>
         </a>
@@ -1437,10 +1590,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/6006840" target="_blank" rel="noopener noreferrer">Богатые И Бедные</a></div>
           <div class="title-text">Ricchi E Poveri</div>
           <div class="year-text">1982 · 1986</div>
-          <div class="genre-text">Italo-Disco</div>
+          <div class="genre-text">Vinyl · Italo-Disco</div>
         </div>
       </article>
-      <article class="card" data-artist="Rob Grant (12)" data-release-year="2023" data-master-year="2023" data-date-added="2025-04-23T03:26:08-07:00">
+      <article class="card" data-artist="Rob Grant (12)" data-release-year="2023" data-master-year="2023" data-date-added="2025-04-23T03:26:08-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/27397242" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/uTYQSoGVMSiU62orF8OEtu32DMvcvwsC-iijxEc57Sc/rs:fit/g:sm/q:90/h:589/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3Mzk3/MjQyLTE2OTQwMDU4/MTAtNzMzNS5qcGVn.jpeg" alt="Rob Grant (12) – Lost At Sea"></div>
         </a>
@@ -1448,10 +1601,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/27397242" target="_blank" rel="noopener noreferrer">Lost At Sea</a></div>
           <div class="title-text">Rob Grant (12)</div>
           <div class="year-text">2023</div>
-          <div class="genre-text">Contemporary</div>
+          <div class="genre-text">Vinyl · Contemporary</div>
         </div>
       </article>
-      <article class="card" data-artist="Sade" data-release-year="2016" data-master-year="1994" data-date-added="2022-09-06T15:14:39-07:00">
+      <article class="card" data-artist="Sade" data-release-year="2016" data-master-year="1994" data-date-added="2022-09-06T15:14:39-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/16839705" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/CM6XtdXfvkuJUAyDg9bp-_OHu5YInuV1RPccV-GOBoM/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2ODM5/NzA1LTE2Njg5NDAw/NDYtMzA4Ni5qcGVn.jpeg" alt="Sade – The Best Of Sade"></div>
         </a>
@@ -1459,10 +1612,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/16839705" target="_blank" rel="noopener noreferrer">The Best Of Sade</a></div>
           <div class="title-text">Sade</div>
           <div class="year-text">1994 · 2016</div>
-          <div class="genre-text">Smooth Jazz</div>
+          <div class="genre-text">Vinyl · Smooth Jazz</div>
         </div>
       </article>
-      <article class="card" data-artist="Simply Red" data-release-year="1989" data-master-year="1989" data-date-added="2022-09-06T15:16:40-07:00">
+      <article class="card" data-artist="Sharleen Spiteri" data-release-year="2008" data-master-year="2008" data-date-added="2025-05-17T15:53:40-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/8184636" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/50Kx9anDNhlIba__NmOFJWNfRh0_jzmyeJ7hjOR5MwE/rs:fit/g:sm/q:90/h:563/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgxODQ2/MzYtMTQ4MjU5NjUx/OC01ODA1LmpwZWc.jpeg" alt="Sharleen Spiteri – Melody"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8184636" target="_blank" rel="noopener noreferrer">Melody</a></div>
+          <div class="title-text">Sharleen Spiteri</div>
+          <div class="year-text">2008</div>
+          <div class="genre-text">CD · Pop Rock</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Simply Red" data-release-year="1989" data-master-year="1989" data-date-added="2022-09-06T15:16:40-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/6243481" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/QmWT5FTzFIXCgku7Kn8WPYpgn3L_qh-_YOf2l-HiPjI/rs:fit/g:sm/q:90/h:584/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTYyNDM0/ODEtMTQxNDU5ODEz/Ni02NzExLmpwZWc.jpeg" alt="Simply Red – A New Flame"></div>
         </a>
@@ -1470,10 +1634,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/6243481" target="_blank" rel="noopener noreferrer">A New Flame</a></div>
           <div class="title-text">Simply Red</div>
           <div class="year-text">1989</div>
-          <div class="genre-text">Soul</div>
+          <div class="genre-text">Vinyl · Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Simply Red" data-release-year="2023" data-master-year="1998" data-date-added="2025-06-28T09:13:09-07:00">
+      <article class="card" data-artist="Simply Red" data-release-year="2023" data-master-year="1998" data-date-added="2025-06-28T09:13:09-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/28591984" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/B1ES1G3GVX5dXKS6v8W2nondafZyVLj_ZsESVgTl9iI/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4NTkx/OTg0LTE3MDIyMDcx/MjMtNTQwNS5qcGVn.jpeg" alt="Simply Red – Blue"></div>
         </a>
@@ -1481,10 +1645,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/28591984" target="_blank" rel="noopener noreferrer">Blue</a></div>
           <div class="title-text">Simply Red</div>
           <div class="year-text">1998 · 2023</div>
-          <div class="genre-text">Funk / Soul</div>
+          <div class="genre-text">Vinyl · Funk / Soul</div>
         </div>
       </article>
-      <article class="card" data-artist="Simply Red" data-release-year="1985" data-master-year="1985" data-date-added="2022-06-20T01:30:13-07:00">
+      <article class="card" data-artist="Simply Red" data-release-year="1985" data-master-year="1985" data-date-added="2022-06-20T01:30:13-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/10232851" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/wayjeCrkbiL1ZxRwDchTiq10OSFHn6X2dN4ahay6cZg/rs:fit/g:sm/q:90/h:569/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEwMjMy/ODUxLTE0OTM4Mjg1/NzctODIxNi5qcGVn.jpeg" alt="Simply Red – Picture Book"></div>
         </a>
@@ -1492,10 +1656,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/10232851" target="_blank" rel="noopener noreferrer">Picture Book</a></div>
           <div class="title-text">Simply Red</div>
           <div class="year-text">1985</div>
-          <div class="genre-text">Rhythm &amp; Blues</div>
+          <div class="genre-text">Vinyl · Rhythm &amp; Blues</div>
         </div>
       </article>
-      <article class="card" data-artist="Snap!" data-release-year="2023" data-master-year="1990" data-date-added="2024-12-25T07:07:17-08:00">
+      <article class="card" data-artist="Snap!" data-release-year="2023" data-master-year="1990" data-date-added="2024-12-25T07:07:17-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/26291351" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/keBZs5BfP9fzLRP3SZLBvvFI_6I-dG7EGNktI49bwvw/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2Mjkx/MzUxLTE2Nzc5NDE3/NDgtNDIzMi5qcGVn.jpeg" alt="Snap! – World Power"></div>
         </a>
@@ -1503,10 +1667,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/26291351" target="_blank" rel="noopener noreferrer">World Power</a></div>
           <div class="title-text">Snap!</div>
           <div class="year-text">1990 · 2023</div>
-          <div class="genre-text">Euro House</div>
+          <div class="genre-text">Vinyl · Euro House</div>
         </div>
       </article>
-      <article class="card" data-artist="Sophie Ellis-Bextor" data-release-year="2020" data-master-year="2020" data-date-added="2025-10-23T21:42:04-07:00">
+      <article class="card" data-artist="Sophie Ellis-Bextor" data-release-year="2020" data-master-year="2020" data-date-added="2025-10-23T21:42:04-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/16206333" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/Y1GMDOK6VB3Gyg2Poov6-v0Ss1sfy2X8a4QwHoP1vII/rs:fit/g:sm/q:90/h:600/w:595/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE2MjA2/MzMzLTE3MTQ4OTA1/NzItNDQ1NS5qcGVn.jpeg" alt="Sophie Ellis-Bextor – Songs From The Kitchen Disco"></div>
         </a>
@@ -1514,10 +1678,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/16206333" target="_blank" rel="noopener noreferrer">Songs From The Kitchen Disco</a></div>
           <div class="title-text">Sophie Ellis-Bextor</div>
           <div class="year-text">2020</div>
-          <div class="genre-text">Vocal</div>
+          <div class="genre-text">Vinyl · Vocal</div>
         </div>
       </article>
-      <article class="card" data-artist="SZA (2)" data-release-year="2023" data-master-year="2022" data-date-added="2025-05-07T11:29:35-07:00">
+      <article class="card" data-artist="Steve Vai" data-release-year="2003" data-master-year="2003" data-date-added="2025-05-17T15:59:02-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/5145773" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/zcNs_FEvzgCeEqf0DplugEo3MLM8TsTIuDLF4pPpa5s/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTUxNDU3/NzMtMTM4NTczOTgy/Ny01NTAyLmpwZWc.jpeg" alt="Steve Vai – The Infinite Steve Vai (An Anthology)"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/5145773" target="_blank" rel="noopener noreferrer">The Infinite Steve Vai (An Anthology)</a></div>
+          <div class="title-text">Steve Vai</div>
+          <div class="year-text">2003</div>
+          <div class="genre-text">CD · Hard Rock</div>
+        </div>
+      </article>
+      <article class="card" data-artist="SZA (2)" data-release-year="2023" data-master-year="2022" data-date-added="2025-05-07T11:29:35-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/27080568" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/nxmgBzMKYJ_zFCaikydZfCNV3Dj1VDEnYrCqfMA0OU8/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI3MDgw/NTY4LTE2ODQ1OTc2/NTgtOTMwNy5qcGVn.jpeg" alt="SZA (2) – SOS"></div>
         </a>
@@ -1525,10 +1700,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/27080568" target="_blank" rel="noopener noreferrer">SOS</a></div>
           <div class="title-text">SZA (2)</div>
           <div class="year-text">2022 · 2023</div>
-          <div class="genre-text">Contemporary R&amp;B</div>
+          <div class="genre-text">Vinyl · Contemporary R&amp;B</div>
         </div>
       </article>
-      <article class="card" data-artist="Tame Impala" data-release-year="2015" data-master-year="2015" data-date-added="2023-10-20T13:17:12-07:00">
+      <article class="card" data-artist="Tame Impala" data-release-year="2015" data-master-year="2015" data-date-added="2023-10-20T13:17:12-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/7252111" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/0m9adSJO-pWPRlWpwczRCUJfTokcREPbsmZMprEs1-o/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTcyNTIx/MTEtMTY5NzM4MTkw/MS0yMjg3LmpwZWc.jpeg" alt="Tame Impala – Currents"></div>
         </a>
@@ -1536,10 +1711,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/7252111" target="_blank" rel="noopener noreferrer">Currents</a></div>
           <div class="title-text">Tame Impala</div>
           <div class="year-text">2015</div>
-          <div class="genre-text">Psychedelic Rock</div>
+          <div class="genre-text">Vinyl · Psychedelic Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Tame Impala" data-release-year="2020" data-master-year="2020" data-date-added="2023-06-17T11:34:37-07:00">
+      <article class="card" data-artist="Tame Impala" data-release-year="2020" data-master-year="2020" data-date-added="2023-06-17T11:34:37-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/22920488" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/iICrKUjU8d6jfuoa6yrJRBhKQe4jLPZjq2hl4cUKBKA/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTIyOTIw/NDg4LTE2NTAyNjMy/OTctOTU4NC5qcGVn.jpeg" alt="Tame Impala – The Slow Rush"></div>
         </a>
@@ -1547,10 +1722,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/22920488" target="_blank" rel="noopener noreferrer">The Slow Rush</a></div>
           <div class="title-text">Tame Impala</div>
           <div class="year-text">2020</div>
-          <div class="genre-text">Indie Pop</div>
+          <div class="genre-text">Vinyl · Indie Pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Tash Sultana" data-release-year="2018" data-master-year="2018" data-date-added="2022-02-13T04:51:36-08:00">
+      <article class="card" data-artist="Tash Sultana" data-release-year="2018" data-master-year="2018" data-date-added="2022-02-13T04:51:36-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/12457907" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/5rs6OaTMCgWOAeEmHtaUMQ9G8E940TR_vDyJ10EvGuQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNDU3/OTA3LTE1NDgyNzAw/NTctMzE0OS5qcGVn.jpeg" alt="Tash Sultana – Flow State"></div>
         </a>
@@ -1558,10 +1733,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/12457907" target="_blank" rel="noopener noreferrer">Flow State</a></div>
           <div class="title-text">Tash Sultana</div>
           <div class="year-text">2018</div>
-          <div class="genre-text">Indie Rock</div>
+          <div class="genre-text">Vinyl · Indie Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Tash Sultana" data-release-year="2021" data-master-year="2021" data-date-added="2025-12-05T12:48:44-08:00">
+      <article class="card" data-artist="Tash Sultana" data-release-year="2021" data-master-year="2021" data-date-added="2025-12-05T12:48:44-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/17526067" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/2i8DMKeiDrICmQ3Ps1gTp3TwI12dEPaMc5vtPIAned4/rs:fit/g:sm/q:90/h:582/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE3NTI2/MDY3LTE2MTYyMDA0/ODEtMzEyMC5qcGVn.jpeg" alt="Tash Sultana – Terra Firma"></div>
         </a>
@@ -1569,10 +1744,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/17526067" target="_blank" rel="noopener noreferrer">Terra Firma</a></div>
           <div class="title-text">Tash Sultana</div>
           <div class="year-text">2021</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Texas" data-release-year="2019" data-master-year="2012" data-date-added="2024-01-17T15:35:57-08:00">
+      <article class="card" data-artist="Texas" data-release-year="2019" data-master-year="2012" data-date-added="2024-01-17T15:35:57-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/14190471" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/wtDmRj3dKs4WS_337dN-4EnY4Lwz-jSeU85hzQ0082c/rs:fit/g:sm/q:90/h:591/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0MTkw/NDcxLTE1Njk5NTE5/NjUtNjE1NS5qcGVn.jpeg" alt="Texas – Say What You Want - The Collection"></div>
         </a>
@@ -1580,10 +1755,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/14190471" target="_blank" rel="noopener noreferrer">Say What You Want - The Collection</a></div>
           <div class="title-text">Texas</div>
           <div class="year-text">2012 · 2019</div>
-          <div class="genre-text">Pop Rock</div>
+          <div class="genre-text">Vinyl · Pop Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Tom Misch" data-release-year="2016" data-master-year="2016" data-date-added="2025-12-23T09:24:07-08:00">
+      <article class="card" data-artist="Tom Misch" data-release-year="2016" data-master-year="2016" data-date-added="2025-12-23T09:24:07-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/8348582" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/5BiFPQpZ2gSrGSAWS8tdDuZa8KDUS_drvgnn5AdDkqw/rs:fit/g:sm/q:90/h:500/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgzNDg1/ODItMTQ1OTg1NzA1/NS0xNjYwLmpwZWc.jpeg" alt="Tom Misch – Beat Tape 2"></div>
         </a>
@@ -1591,10 +1766,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/8348582" target="_blank" rel="noopener noreferrer">Beat Tape 2</a></div>
           <div class="title-text">Tom Misch</div>
           <div class="year-text">2016</div>
-          <div class="genre-text">Acid Jazz</div>
+          <div class="genre-text">Vinyl · Acid Jazz</div>
         </div>
       </article>
-      <article class="card" data-artist="Tom Misch" data-release-year="2018" data-master-year="2018" data-date-added="2025-11-19T02:44:07-08:00">
+      <article class="card" data-artist="Tom Misch" data-release-year="2018" data-master-year="2018" data-date-added="2025-11-19T02:44:07-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/11754255" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/1vZVjV5w493n_mjbsxIJF4J6b1V6wFRGKacNm8mCCwU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExNzU0/MjU1LTE1ODk1NTAy/NjUtMTAwMi5qcGVn.jpeg" alt="Tom Misch – Geography"></div>
         </a>
@@ -1602,10 +1777,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/11754255" target="_blank" rel="noopener noreferrer">Geography</a></div>
           <div class="title-text">Tom Misch</div>
           <div class="year-text">2018</div>
-          <div class="genre-text">Funk</div>
+          <div class="genre-text">Vinyl · Funk</div>
         </div>
       </article>
-      <article class="card" data-artist="Valeria Stoica" data-release-year="2024" data-master-year="" data-date-added="2025-05-06T10:05:24-07:00">
+      <article class="card" data-artist="Trooper (8)" data-release-year="2010" data-master-year="" data-date-added="2025-05-17T15:57:19-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/2908412" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/Yp_uwoNaqao3NWP3flb53dspPAc-QBwMk0SV_f2SP5M/rs:fit/g:sm/q:90/h:595/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5MDg0/MTItMTMwNjc1NTIx/MC5qcGVn.jpeg" alt="Trooper (8) – 15"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/2908412" target="_blank" rel="noopener noreferrer">15</a></div>
+          <div class="title-text">Trooper (8)</div>
+          <div class="year-text">2010</div>
+          <div class="genre-text">CD · Heavy Metal</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Valeria Stoica" data-release-year="2024" data-master-year="" data-date-added="2025-05-06T10:05:24-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/33455168" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/ydjyWjLjuC_4F2damC6qXKUlyzHekETObXjHJe8Gp5U/rs:fit/g:sm/q:90/h:600/w:594/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMzNDU1/MTY4LTE3NDIzOTg4/OTMtNjA0OS5qcGVn.jpeg" alt="Valeria Stoica – I Don't Like Roses"></div>
         </a>
@@ -1613,10 +1799,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/33455168" target="_blank" rel="noopener noreferrer">I Don't Like Roses</a></div>
           <div class="title-text">Valeria Stoica</div>
           <div class="year-text">2024</div>
-          <div class="genre-text">Pop</div>
+          <div class="genre-text">Vinyl · Pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Various" data-release-year="2023" data-master-year="2023" data-date-added="2024-10-08T00:26:37-07:00">
+      <article class="card" data-artist="Various" data-release-year="2023" data-master-year="2023" data-date-added="2024-10-08T00:26:37-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/29399395" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/DEip2OQEmRzLmjoe6Ot91hnv1Sm6pQ7ZUXSu5_3x5n0/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI5Mzk5/Mzk1LTE3MDQ0NTYy/MjItNDUwNC5wbmc.jpeg" alt="Various – Armada Music - Trance Legacy II"></div>
         </a>
@@ -1624,10 +1810,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/29399395" target="_blank" rel="noopener noreferrer">Armada Music - Trance Legacy II</a></div>
           <div class="title-text">Various</div>
           <div class="year-text">2023</div>
-          <div class="genre-text">Trance</div>
+          <div class="genre-text">Vinyl · Trance</div>
         </div>
       </article>
-      <article class="card" data-artist="Various" data-release-year="2019" data-master-year="" data-date-added="2022-04-27T05:20:38-07:00">
+      <article class="card" data-artist="Various" data-release-year="2019" data-master-year="" data-date-added="2022-04-27T05:20:38-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/14312288" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/xzFRlWti9YiHmQyhks1-b7xdkZG5a67RdGoa2aPVtDQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0MzEy/Mjg4LTE1NzIwMTA3/MjgtMzM3My5qcGVn.jpeg" alt="Various – Chanson Française"></div>
         </a>
@@ -1635,10 +1821,21 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/14312288" target="_blank" rel="noopener noreferrer">Chanson Française</a></div>
           <div class="title-text">Various</div>
           <div class="year-text">2019</div>
-          <div class="genre-text">Chanson</div>
+          <div class="genre-text">Vinyl · Chanson</div>
         </div>
       </article>
-      <article class="card" data-artist="Various" data-release-year="2025" data-master-year="" data-date-added="2025-07-01T10:11:08-07:00">
+      <article class="card" data-artist="Various" data-release-year="2011" data-master-year="" data-date-added="2025-05-17T16:02:13-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/14158908" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/faQTmHaNfQbuhMrZV2qCQynMKToaQ4Wudvy5uNQOVxo/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE0MTU4/OTA4LTE1Njg5MzM1/NTQtMzk2My5qcGVn.jpeg" alt="Various – Legends Of Fado"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/14158908" target="_blank" rel="noopener noreferrer">Legends Of Fado</a></div>
+          <div class="title-text">Various</div>
+          <div class="year-text">2011</div>
+          <div class="genre-text">CD · Fado</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Various" data-release-year="2025" data-master-year="" data-date-added="2025-07-01T10:11:08-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/34067545" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/XK0wvG48e4WmUS9sjk0LyH7E-bLCGUldqL2b2Ao4DtQ/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM0MDY3/NTQ1LTE3NzA0NTQy/MzgtODg3My5qcGVn.jpeg" alt="Various – Lilo &amp; Stitch "></div>
         </a>
@@ -1646,10 +1843,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/34067545" target="_blank" rel="noopener noreferrer">Lilo &amp; Stitch </a></div>
           <div class="title-text">Various</div>
           <div class="year-text">2025</div>
-          <div class="genre-text">Soundtrack</div>
+          <div class="genre-text">Vinyl · Soundtrack</div>
         </div>
       </article>
-      <article class="card" data-artist="Various" data-release-year="2024" data-master-year="2009" data-date-added="2025-12-28T10:40:32-08:00">
+      <article class="card" data-artist="Various" data-release-year="2024" data-master-year="2009" data-date-added="2025-12-28T10:40:32-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/31236055" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/bMTqvh_98iaF32QUDkG4GvIGefszx9pkOpusbX3quWI/rs:fit/g:sm/q:90/h:579/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxMjM2/MDU1LTE3MjExMzI0/MDktMjcyNC5qcGVn.jpeg" alt="Various – The Twilight Saga: New Moon (Original Motion Picture Soundtrack)"></div>
         </a>
@@ -1657,10 +1854,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/31236055" target="_blank" rel="noopener noreferrer">The Twilight Saga: New Moon (Original Motion Picture Soundtrack)</a></div>
           <div class="title-text">Various</div>
           <div class="year-text">2009 · 2024</div>
-          <div class="genre-text">Alternative Rock</div>
+          <div class="genre-text">Vinyl · Alternative Rock</div>
         </div>
       </article>
-      <article class="card" data-artist="Various" data-release-year="2024" data-master-year="2008" data-date-added="2025-12-28T10:36:49-08:00">
+      <article class="card" data-artist="Various" data-release-year="2024" data-master-year="2008" data-date-added="2025-12-28T10:36:49-08:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/31229014" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/E0Cptw-SUHaUSUKuUTvbrx9kehhQ0tid8sCWv42ajeI/rs:fit/g:sm/q:90/h:600/w:599/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMxMjI5/MDE0LTE3MjEwNTU1/NDktNzQ2MS5qcGVn.jpeg" alt="Various – Twilight (Original Motion Picture Soundtrack)"></div>
         </a>
@@ -1668,10 +1865,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/31229014" target="_blank" rel="noopener noreferrer">Twilight (Original Motion Picture Soundtrack)</a></div>
           <div class="title-text">Various</div>
           <div class="year-text">2008 · 2024</div>
-          <div class="genre-text">Soundtrack</div>
+          <div class="genre-text">Vinyl · Soundtrack</div>
         </div>
       </article>
-      <article class="card" data-artist="The Weeknd" data-release-year="2020" data-master-year="2020" data-date-added="2022-06-14T06:46:33-07:00">
+      <article class="card" data-artist="The Weeknd" data-release-year="2020" data-master-year="2020" data-date-added="2022-06-14T06:46:33-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/15961158" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/jZi50yA_Y7O_EIWSvxhfkH-zhjLoqSaPEuAwNcb35N0/rs:fit/g:sm/q:90/h:600/w:597/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1OTYx/MTU4LTE2MDEwNTUx/ODktNjA4OC5qcGVn.jpeg" alt="The Weeknd – After Hours"></div>
         </a>
@@ -1679,10 +1876,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/15961158" target="_blank" rel="noopener noreferrer">After Hours</a></div>
           <div class="title-text">The Weeknd</div>
           <div class="year-text">2020</div>
-          <div class="genre-text">Contemporary R&amp;B</div>
+          <div class="genre-text">Vinyl · Contemporary R&amp;B</div>
         </div>
       </article>
-      <article class="card" data-artist="The Weeknd" data-release-year="2017" data-master-year="2016" data-date-added="2022-07-26T05:39:55-07:00">
+      <article class="card" data-artist="The Weeknd" data-release-year="2017" data-master-year="2016" data-date-added="2022-07-26T05:39:55-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/9778270" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/T2XANeCrAO4uSrnhN2iaZCf4iP9WEvDJXJ0Wf6qYJSA/rs:fit/g:sm/q:90/h:596/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTk3Nzgy/NzAtMTc0MzkxNjc1/NC04MDgxLnBuZw.jpeg" alt="The Weeknd – Starboy"></div>
         </a>
@@ -1690,10 +1887,10 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/9778270" target="_blank" rel="noopener noreferrer">Starboy</a></div>
           <div class="title-text">The Weeknd</div>
           <div class="year-text">2016 · 2017</div>
-          <div class="genre-text">Dance-pop</div>
+          <div class="genre-text">Vinyl · Dance-pop</div>
         </div>
       </article>
-      <article class="card" data-artist="Yasiin Bey, Ferrari Sheppard" data-release-year="2017" data-master-year="2017" data-date-added="2022-07-26T05:37:50-07:00">
+      <article class="card" data-artist="Yasiin Bey, Ferrari Sheppard" data-release-year="2017" data-master-year="2017" data-date-added="2022-07-26T05:37:50-07:00" data-folder="All">
         <a class="cover-link" href="https://www.discogs.com/release/11031349" target="_blank" rel="noopener noreferrer">
         <div class="cover-wrap"><img src="https://i.discogs.com/tAbn4_s7Z9u_Ui4_kskV0AZ3TVexB33Qr3B1cuYg0jc/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTExMDMx/MzQ5LTE2MDUzNjgw/MjMtMzUwNS5wbmc.jpeg" alt="Yasiin Bey, Ferrari Sheppard – December 99th"></div>
         </a>
@@ -1701,7 +1898,18 @@
           <div class="artist"><a class="title-link" href="https://www.discogs.com/release/11031349" target="_blank" rel="noopener noreferrer">December 99th</a></div>
           <div class="title-text">Yasiin Bey, Ferrari Sheppard</div>
           <div class="year-text">2017</div>
-          <div class="genre-text">Hip Hop</div>
+          <div class="genre-text">Vinyl · Hip Hop</div>
+        </div>
+      </article>
+      <article class="card" data-artist="Zob" data-release-year="2009" data-master-year="" data-date-added="2025-05-17T15:58:15-07:00" data-folder="All">
+        <a class="cover-link" href="https://www.discogs.com/release/2889473" target="_blank" rel="noopener noreferrer">
+        <div class="cover-wrap"><img src="https://i.discogs.com/mezhZIqRMLQNA6aHIAVH9K3_axZlKFLPNyt3BVPfo0M/rs:fit/g:sm/q:90/h:571/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI4ODk0/NzMtMTMwNTg0NDQ1/Mi5qcGVn.jpeg" alt="Zob – ZuluOscarBravo"></div>
+        </a>
+        <div class="info">
+          <div class="artist"><a class="title-link" href="https://www.discogs.com/release/2889473" target="_blank" rel="noopener noreferrer">ZuluOscarBravo</a></div>
+          <div class="title-text">Zob</div>
+          <div class="year-text">2009</div>
+          <div class="genre-text">CD · Punk</div>
         </div>
       </article>
     </main>
@@ -1710,8 +1918,20 @@
 (function() {
   var grid = document.getElementById("grid");
   var select = document.getElementById("sort");
+  var folderSelect = document.getElementById("folder-filter");
   if (!grid || !select) return;
   var cards = [].slice.call(grid.querySelectorAll(".card"));
+
+  function filterByFolder() {
+    if (!folderSelect) return;
+    var value = folderSelect.value;
+    cards.forEach(function(card) {
+      var folder = card.getAttribute("data-folder") || "";
+      card.style.display = (value === "" || folder === value) ? "" : "none";
+    });
+  }
+
+  if (folderSelect) folderSelect.addEventListener("change", filterByFolder);
 
   function getSepKey(card, key) {
     if (key === "artist") {
@@ -1793,6 +2013,7 @@
   }
 
   select.addEventListener("change", sortCards);
+  filterByFolder();
   sortCards();
 })();
   </script>
