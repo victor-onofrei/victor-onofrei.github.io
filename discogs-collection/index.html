@@ -1943,6 +1943,11 @@
   var folderSelect = document.getElementById("folder-filter");
   if (!grid || !select) return;
   var cards = [].slice.call(grid.querySelectorAll(".card"));
+  var sortKey = "discogs-collection-sort";
+  try {
+    var saved = localStorage.getItem(sortKey);
+    if (saved && select.querySelector('option[value="' + saved + '"]')) select.value = saved;
+  } catch (e) {}
 
   function filterByFolder() {
     if (!folderSelect) return;
@@ -2036,7 +2041,10 @@
     });
   }
 
-  select.addEventListener("change", sortCards);
+  select.addEventListener("change", function() {
+    try { localStorage.setItem(sortKey, select.value); } catch (e) {}
+    sortCards();
+  });
   filterByFolder();
   sortCards();
 })();
