@@ -2337,8 +2337,8 @@
     function step(now) {
       var elapsed = now - start;
       var t = Math.min(1, elapsed / ms);
-      // Ease-in-out for a gentler start/stop than pure ease-out.
-      var eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      // Smoother, slightly slower middle phase than cubic.
+      var eased = t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
       window.scrollTo(0, Math.round(startY + distance * eased));
       if (t < 1) {
         toTopRaf = requestAnimationFrame(step);
@@ -2352,8 +2352,13 @@
 
   function scrollToTopAnimated() {
     if (getScrollY() <= 0) return;
+    var isCoarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
     // Slower than native smooth on iOS, capped for very long pages.
-    animateScrollTo(0, Math.min(1450, Math.max(680, getScrollY() * 0.52)));
+    if (isCoarse) {
+      animateScrollTo(0, Math.min(2200, Math.max(920, getScrollY() * 0.82)));
+    } else {
+      animateScrollTo(0, Math.min(1450, Math.max(680, getScrollY() * 0.52)));
+    }
   }
 
   function scrollToSection(sectionEl) {
@@ -2363,7 +2368,7 @@
     var useCustom = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
     if (useCustom) {
       var distance = Math.abs(targetY - getScrollY());
-      animateScrollTo(targetY, Math.min(1350, Math.max(620, distance * 0.5)));
+      animateScrollTo(targetY, Math.min(1900, Math.max(820, distance * 0.75)));
       return;
     }
     sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
