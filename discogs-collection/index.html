@@ -2227,6 +2227,7 @@
   var sections = [];
   var sectionCounter = 0;
   var activeSectionId = null;
+  var toTopRaf = null;
   var sortKey = "discogs-collection-sort";
   try {
     var saved = localStorage.getItem(sortKey);
@@ -2318,6 +2319,55 @@
     rail.hidden = false;
   }
 
+  function getScrollY() {
+    return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+  }
+
+  function animateScrollTo(targetY, duration) {
+    var startY = getScrollY();
+    var distance = targetY - startY;
+    if (Math.abs(distance) < 1) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+    if (toTopRaf) cancelAnimationFrame(toTopRaf);
+    var start = performance.now();
+    var ms = duration || Math.min(1200, Math.max(560, Math.abs(distance) * 0.45));
+    function step(now) {
+      var elapsed = now - start;
+      var t = Math.min(1, elapsed / ms);
+      var eased = 1 - Math.pow(1 - t, 3);
+      window.scrollTo(0, Math.round(startY + distance * eased));
+      if (t < 1) {
+        toTopRaf = requestAnimationFrame(step);
+      } else {
+        toTopRaf = null;
+        window.scrollTo(0, targetY);
+      }
+    }
+    toTopRaf = requestAnimationFrame(step);
+  }
+
+  function scrollToTopAnimated() {
+    if (getScrollY() <= 0) return;
+    // Slower than native smooth on iOS, capped for very long pages.
+    animateScrollTo(0, Math.min(1200, Math.max(560, getScrollY() * 0.45)));
+  }
+
+  function scrollToSection(sectionEl) {
+    if (!sectionEl) return;
+    var targetY = Math.max(0, Math.round(getScrollY() + sectionEl.getBoundingClientRect().top));
+    // Mobile browsers (including Chrome on iOS/WebKit) can animate too quickly with native smooth.
+    var useCustom = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+    if (useCustom) {
+      var distance = Math.abs(targetY - getScrollY());
+      animateScrollTo(targetY, Math.min(1100, Math.max(520, distance * 0.42)));
+      return;
+    }
+    sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function openJumpPicker(key) {
     if (!jumpOverlay || !jumpGrid || sections.length === 0) return;
     jumpGrid.innerHTML = "";
@@ -2330,7 +2380,7 @@
       btn.classList.toggle("is-active", section.id === activeSectionId);
       btn.addEventListener("click", function() {
         closeJumpPicker();
-        section.el.scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollToSection(section.el);
       });
       jumpGrid.appendChild(btn);
     });
@@ -2346,7 +2396,7 @@
   if (jumpClose) jumpClose.addEventListener("click", closeJumpPicker);
   if (toTop) {
     toTop.addEventListener("click", function() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollToTopAnimated();
     });
   }
   if (jumpOverlay) {
