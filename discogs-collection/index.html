@@ -2337,8 +2337,8 @@
     function step(now) {
       var elapsed = now - start;
       var t = Math.min(1, elapsed / ms);
-      // Smoother, slightly slower middle phase than cubic.
-      var eased = t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+      // Quicker start to avoid the "laggy takeoff" feeling on mobile.
+      var eased = 1 - Math.pow(1 - t, 3);
       window.scrollTo(0, Math.round(startY + distance * eased));
       if (t < 1) {
         toTopRaf = requestAnimationFrame(step);
@@ -2355,7 +2355,7 @@
     var isCoarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
     // Slower than native smooth on iOS, capped for very long pages.
     if (isCoarse) {
-      animateScrollTo(0, Math.min(2200, Math.max(920, getScrollY() * 0.82)));
+      animateScrollTo(0, Math.min(1400, Math.max(560, getScrollY() * 0.5)));
     } else {
       animateScrollTo(0, Math.min(1450, Math.max(680, getScrollY() * 0.52)));
     }
@@ -2368,7 +2368,7 @@
     var useCustom = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
     if (useCustom) {
       var distance = Math.abs(targetY - getScrollY());
-      animateScrollTo(targetY, Math.min(1900, Math.max(820, distance * 0.75)));
+      animateScrollTo(targetY, Math.min(1200, Math.max(520, distance * 0.42)));
       return;
     }
     sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
