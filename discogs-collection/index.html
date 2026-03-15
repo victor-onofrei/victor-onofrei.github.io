@@ -4,8 +4,28 @@
   <meta charset="utf-8">
   <title>Discogs Collection</title>
   <link rel="icon" href="favicon.png" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a0f1a">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
+    html {
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      background-color: #1a0f1a;
+      background-image: linear-gradient(145deg, #1a0f1a 0%, #2d1b2e 40%, #1a0f1a 100%);
+    }
+    html::before {
+      content: "";
+      position: fixed;
+      top: calc(-1 * env(safe-area-inset-top, 0px));
+      left: calc(-1 * env(safe-area-inset-left, 0px));
+      right: calc(-1 * env(safe-area-inset-right, 0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background-color: #1a0f1a;
+      background-image: linear-gradient(145deg, #1a0f1a 0%, #2d1b2e 40%, #1a0f1a 100%);
+      z-index: -1;
+      -webkit-transform: translateZ(0);
+    }
     :root {
       --bg: #0f172a;
       --bg-card: #020617;
@@ -20,10 +40,14 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: linear-gradient(145deg, #1a0f1a 0%, #2d1b2e 40%, #1a0f1a 100%);
+      background-color: #1a0f1a;
+      background-image: linear-gradient(145deg, #1a0f1a 0%, #2d1b2e 40%, #1a0f1a 100%);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
-      padding: 32px 16px 48px;
+      min-height: 100dvh;
+      min-height: -webkit-fill-available;
+      padding: calc(32px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -336,7 +360,7 @@
 
     @media (max-width: 640px) {
       body {
-        padding: 16px 10px 32px;
+        padding: calc(16px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(32px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
       }
       .shell {
         border-radius: 20px;
