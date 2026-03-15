@@ -473,6 +473,121 @@
       outline-offset: 2px;
     }
 
+    .jump-item.is-active {
+      border-color: rgba(218,112,214,0.72);
+      color: #fde7ff;
+      box-shadow: 0 8px 20px rgba(186,85,211,0.22);
+    }
+
+    .section-rail[hidden] {
+      display: none;
+    }
+
+    .section-rail {
+      position: fixed;
+      right: calc(10px + env(safe-area-inset-right));
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    .section-rail-inner {
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 72vh;
+      overflow: auto;
+      padding: 8px 7px;
+      border-radius: 12px;
+      border: 1px solid rgba(218,112,214,0.35);
+      background:
+        radial-gradient(circle at top left, rgba(230,168,215,0.14), transparent 52%),
+        linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.95));
+      box-shadow: 0 12px 32px rgba(2,6,23,0.42);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .rail-item {
+      min-width: 28px;
+      height: 24px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: rgba(229,231,235,0.75);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-align: center;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .rail-item:hover {
+      border-color: rgba(218,112,214,0.52);
+      color: #f5d0fe;
+      background: rgba(15,23,42,0.6);
+    }
+
+    .rail-item.is-active {
+      border-color: rgba(218,112,214,0.7);
+      color: #fde7ff;
+      background: rgba(186,85,211,0.22);
+    }
+
+    .to-top {
+      position: fixed;
+      right: calc(12px + env(safe-area-inset-right));
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      z-index: 70;
+      border: 2px solid rgba(218,112,214,0.38);
+      border-radius: 999px;
+      background: rgba(15,23,42,0.6);
+      color: transparent;
+      min-height: 38px;
+      min-width: 38px;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(15,23,42,0.34);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    .to-top::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-top: 3px solid rgba(239,223,237,0.9);
+      border-right: 3px solid rgba(239,223,237,0.9);
+      border-radius: 2px;
+      transform: translateY(2px) rotate(-45deg);
+    }
+
+    .to-top:hover {
+      transform: translateY(-1px);
+      border-color: rgba(218,112,214,0.62);
+      background: rgba(186,85,211,0.16);
+    }
+
+    .to-top:hover::before {
+      border-top-color: rgba(253,231,255,0.98);
+      border-right-color: rgba(253,231,255,0.98);
+    }
+
+    .to-top:focus-visible {
+      outline: 2px solid rgba(218,112,214,0.65);
+      outline-offset: 2px;
+    }
+
     @media (max-width: 640px) {
       body {
         padding: calc(16px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(32px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
@@ -484,6 +599,9 @@
       .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
+      }
+      .section-rail {
+        display: none;
       }
     }
 
@@ -520,6 +638,10 @@
       .separator-label {
         color: #BA55D3;
       }
+      .section-rail,
+      .to-top {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -542,7 +664,7 @@
       <div class="sort-wrap">
         <label for="sort">Sort by</label>
         <select id="sort" aria-label="Sort collection">
-          <option value="artist">Artist</option>
+          <option value="artist">Artist (ascending)</option>
           <option value="added_desc">Date added (newest first)</option>
           <option value="added_asc">Date added (oldest first)</option>
           <option value="release_desc">Release year (newest first)</option>
@@ -2084,6 +2206,10 @@
       <div class="jump-grid" id="jump-grid"></div>
     </div>
   </div>
+  <div class="section-rail" id="section-rail" hidden>
+    <div class="section-rail-inner" id="section-rail-inner"></div>
+  </div>
+  <button type="button" class="to-top" id="to-top" aria-label="Go to top" title="Go to top"></button>
   <script>
 (function() {
   var grid = document.getElementById("grid");
@@ -2093,10 +2219,14 @@
   var jumpGrid = document.getElementById("jump-grid");
   var jumpTitle = document.getElementById("jump-title");
   var jumpClose = document.getElementById("jump-close");
+  var rail = document.getElementById("section-rail");
+  var railInner = document.getElementById("section-rail-inner");
+  var toTop = document.getElementById("to-top");
   if (!grid || !select) return;
   var cards = [].slice.call(grid.querySelectorAll(".card"));
   var sections = [];
   var sectionCounter = 0;
+  var activeSectionId = null;
   var sortKey = "discogs-collection-sort";
   try {
     var saved = localStorage.getItem(sortKey);
@@ -2140,6 +2270,54 @@
     jumpOverlay.hidden = true;
   }
 
+  function setActiveSection(id) {
+    if (!id || activeSectionId === id) return;
+    activeSectionId = id;
+    if (railInner) {
+      [].slice.call(railInner.querySelectorAll(".rail-item")).forEach(function(btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-target") === id);
+      });
+    }
+    if (jumpGrid) {
+      [].slice.call(jumpGrid.querySelectorAll(".jump-item")).forEach(function(btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-target") === id);
+      });
+    }
+  }
+
+  function detectActiveSection() {
+    if (!sections.length) return;
+    var threshold = Math.max(80, window.innerHeight * 0.22);
+    var chosen = sections[0];
+    sections.forEach(function(section) {
+      var top = section.el.getBoundingClientRect().top;
+      if (top <= threshold) chosen = section;
+    });
+    setActiveSection(chosen.id);
+  }
+
+  function buildSideRail(useSeparators) {
+    if (!rail || !railInner) return;
+    railInner.innerHTML = "";
+    if (!useSeparators || sections.length < 2) {
+      rail.hidden = true;
+      return;
+    }
+    sections.forEach(function(section) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "rail-item";
+      btn.textContent = section.label;
+      btn.setAttribute("data-target", section.id);
+      btn.setAttribute("aria-label", "Jump to " + section.label);
+      btn.addEventListener("click", function() {
+        section.el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      railInner.appendChild(btn);
+    });
+    rail.hidden = false;
+  }
+
   function openJumpPicker(key) {
     if (!jumpOverlay || !jumpGrid || sections.length === 0) return;
     jumpGrid.innerHTML = "";
@@ -2148,6 +2326,8 @@
       btn.type = "button";
       btn.className = "jump-item";
       btn.textContent = section.label;
+      btn.setAttribute("data-target", section.id);
+      btn.classList.toggle("is-active", section.id === activeSectionId);
       btn.addEventListener("click", function() {
         closeJumpPicker();
         section.el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2164,6 +2344,11 @@
   }
 
   if (jumpClose) jumpClose.addEventListener("click", closeJumpPicker);
+  if (toTop) {
+    toTop.addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
   if (jumpOverlay) {
     jumpOverlay.addEventListener("click", function(e) {
       if (e.target === jumpOverlay) closeJumpPicker();
@@ -2172,6 +2357,8 @@
   document.addEventListener("keydown", function(e) {
     if (e.key === "Escape") closeJumpPicker();
   });
+  window.addEventListener("scroll", detectActiveSection, { passive: true });
+  window.addEventListener("resize", detectActiveSection);
 
   function sortCards() {
     [].slice.call(grid.querySelectorAll(".separator")).forEach(function(s) {
@@ -2214,7 +2401,10 @@
     });
 
     var useSeparators = (key === "artist" || key === "release" || key === "master" || key === "added");
-    if (!useSeparators) closeJumpPicker();
+    if (!useSeparators) {
+      closeJumpPicker();
+      if (rail) rail.hidden = true;
+    }
     var lastKey = null;
     cards.forEach(function(c) {
       var isVisible = c.style.display !== "none";
@@ -2223,7 +2413,8 @@
         if (separatorKey !== lastKey) {
           var separatorEl = document.createElement("div");
           separatorEl.className = "separator";
-          separatorEl.id = "sep-" + key + "-" + sectionCounter++;
+          var sectionId = "sep-" + key + "-" + sectionCounter++;
+          separatorEl.id = sectionId;
           var label = document.createElement("button");
           label.type = "button";
           label.className = "separator-label";
@@ -2234,12 +2425,17 @@
           });
           separatorEl.appendChild(label);
           grid.appendChild(separatorEl);
-          sections.push({ label: separatorKey, el: separatorEl });
+          sections.push({ id: sectionId, label: separatorKey, el: separatorEl });
           lastKey = separatorKey;
         }
       }
       grid.appendChild(c);
     });
+    buildSideRail(useSeparators);
+    if (sections.length) {
+      setActiveSection(sections[0].id);
+      detectActiveSection();
+    }
   }
 
   select.addEventListener("change", function() {
