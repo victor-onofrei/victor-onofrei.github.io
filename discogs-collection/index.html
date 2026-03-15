@@ -358,6 +358,100 @@
       border-bottom-color: rgba(229,231,235,0.7);
     }
 
+    .separator-label {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .separator-label:hover {
+      filter: brightness(1.08);
+    }
+
+    .separator-label:focus-visible {
+      outline: 2px solid rgba(218,112,214,0.6);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .jump-overlay[hidden] {
+      display: none;
+    }
+
+    .jump-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .jump-panel {
+      width: min(560px, 96vw);
+      max-height: min(78vh, 680px);
+      overflow: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(30,41,59,0.99));
+      box-shadow: 0 24px 48px rgba(2,6,23,0.6);
+      padding: 14px 14px 12px;
+    }
+
+    .jump-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .jump-title {
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .jump-close {
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.95);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+      gap: 8px;
+    }
+
+    .jump-item {
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.96);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 9px 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .jump-item:hover {
+      border-color: rgba(218,112,214,0.65);
+      color: #f5d0fe;
+    }
+
     @media (max-width: 640px) {
       body {
         padding: calc(16px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(32px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
@@ -1960,13 +2054,28 @@
       </article>
     </main>
   </div>
+  <div class="jump-overlay" id="jump-overlay" hidden>
+    <div class="jump-panel" role="dialog" aria-modal="true" aria-labelledby="jump-title">
+      <div class="jump-head">
+        <div class="jump-title" id="jump-title">Jump to section</div>
+        <button type="button" class="jump-close" id="jump-close">Close</button>
+      </div>
+      <div class="jump-grid" id="jump-grid"></div>
+    </div>
+  </div>
   <script>
 (function() {
   var grid = document.getElementById("grid");
   var select = document.getElementById("sort");
   var folderSelect = document.getElementById("folder-filter");
+  var jumpOverlay = document.getElementById("jump-overlay");
+  var jumpGrid = document.getElementById("jump-grid");
+  var jumpTitle = document.getElementById("jump-title");
+  var jumpClose = document.getElementById("jump-close");
   if (!grid || !select) return;
   var cards = [].slice.call(grid.querySelectorAll(".card"));
+  var sections = [];
+  var sectionCounter = 0;
   var sortKey = "discogs-collection-sort";
   try {
     var saved = localStorage.getItem(sortKey);
@@ -2005,10 +2114,50 @@
     return null;
   }
 
+  function closeJumpPicker() {
+    if (!jumpOverlay) return;
+    jumpOverlay.hidden = true;
+  }
+
+  function openJumpPicker(key) {
+    if (!jumpOverlay || !jumpGrid || sections.length === 0) return;
+    jumpGrid.innerHTML = "";
+    sections.forEach(function(section) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "jump-item";
+      btn.textContent = section.label;
+      btn.addEventListener("click", function() {
+        closeJumpPicker();
+        section.el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      jumpGrid.appendChild(btn);
+    });
+    if (jumpTitle) {
+      var t = "Jump to section";
+      if (key === "artist") t = "Jump by letter";
+      if (key === "release" || key === "master" || key === "added") t = "Jump by year";
+      jumpTitle.textContent = t;
+    }
+    jumpOverlay.hidden = false;
+  }
+
+  if (jumpClose) jumpClose.addEventListener("click", closeJumpPicker);
+  if (jumpOverlay) {
+    jumpOverlay.addEventListener("click", function(e) {
+      if (e.target === jumpOverlay) closeJumpPicker();
+    });
+  }
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeJumpPicker();
+  });
+
   function sortCards() {
     [].slice.call(grid.querySelectorAll(".separator")).forEach(function(s) {
       grid.removeChild(s);
     });
+    sections = [];
+    sectionCounter = 0;
 
     var value = select.value;
     var key = value.replace(/_(asc|desc)$/, "");
@@ -2044,6 +2193,7 @@
     });
 
     var useSeparators = (key === "artist" || key === "release" || key === "master" || key === "added");
+    if (!useSeparators) closeJumpPicker();
     var lastKey = null;
     cards.forEach(function(c) {
       var isVisible = c.style.display !== "none";
@@ -2052,12 +2202,18 @@
         if (separatorKey !== lastKey) {
           var separatorEl = document.createElement("div");
           separatorEl.className = "separator";
-          separatorEl.setAttribute("aria-hidden", "true");
-          var label = document.createElement("span");
+          separatorEl.id = "sep-" + key + "-" + sectionCounter++;
+          var label = document.createElement("button");
+          label.type = "button";
           label.className = "separator-label";
+          label.setAttribute("aria-label", "Jump to another section");
           label.textContent = separatorKey;
+          label.addEventListener("click", function() {
+            openJumpPicker(key);
+          });
           separatorEl.appendChild(label);
           grid.appendChild(separatorEl);
+          sections.push({ label: separatorKey, el: separatorEl });
           lastKey = separatorKey;
         }
       }
