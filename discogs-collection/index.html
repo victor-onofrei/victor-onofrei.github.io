@@ -382,7 +382,7 @@
     .jump-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2,6,23,0.72);
+      background: linear-gradient(145deg, rgba(26,15,26,0.72), rgba(45,27,46,0.62));
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       display: flex;
@@ -397,9 +397,11 @@
       max-height: min(78vh, 680px);
       overflow: auto;
       border-radius: 16px;
-      border: 1px solid rgba(148,163,184,0.35);
-      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(30,41,59,0.99));
-      box-shadow: 0 24px 48px rgba(2,6,23,0.6);
+      border: 1px solid rgba(218,112,214,0.42);
+      background:
+        radial-gradient(circle at top left, rgba(230,168,215,0.18), transparent 52%),
+        linear-gradient(145deg, rgba(15,23,42,0.97), rgba(30,41,59,0.99));
+      box-shadow: 0 24px 56px rgba(15, 23, 42, 0.72);
       padding: 14px 14px 12px;
     }
 
@@ -412,20 +414,31 @@
     }
 
     .jump-title {
-      color: var(--text);
+      color: var(--accent);
       font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: .02em;
+      font-weight: 650;
+      letter-spacing: .03em;
     }
 
     .jump-close {
-      border: 1px solid rgba(148,163,184,0.4);
-      background: rgba(15,23,42,0.95);
-      color: var(--muted);
+      border: 1px solid rgba(218,112,214,0.48);
+      background: rgba(30,41,59,0.92);
+      color: var(--accent);
       border-radius: 8px;
       padding: 4px 10px;
       font-size: 0.82rem;
       cursor: pointer;
+      transition: background 120ms ease, color 120ms ease, transform 120ms ease;
+    }
+
+    .jump-close:hover {
+      color: #fde7ff;
+      transform: translateY(-1px);
+    }
+
+    .jump-close:focus-visible {
+      outline: 2px solid rgba(218,112,214,0.6);
+      outline-offset: 2px;
     }
 
     .jump-grid {
@@ -435,8 +448,8 @@
     }
 
     .jump-item {
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.96);
+      border: 1px solid rgba(148,163,184,0.28);
+      background: rgba(30,41,59,0.9);
       color: var(--text);
       border-radius: 9px;
       padding: 9px 6px;
@@ -445,11 +458,19 @@
       letter-spacing: .02em;
       cursor: pointer;
       text-align: center;
+      transition: border-color 120ms ease, color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
     }
 
     .jump-item:hover {
       border-color: rgba(218,112,214,0.65);
       color: #f5d0fe;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(186,85,211,0.25);
+    }
+
+    .jump-item:focus-visible {
+      outline: 2px solid rgba(218,112,214,0.6);
+      outline-offset: 2px;
     }
 
     @media (max-width: 640px) {
