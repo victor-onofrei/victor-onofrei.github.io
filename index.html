@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a0f1a">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" href="https://github.com/victor-onofrei.png" type="image/png">
 <title>Victor Onofrei's Projects</title>
 <style>
 *{box-sizing:border-box;}
-body{margin:0;min-height:100vh;background:linear-gradient(145deg,#1a0f1a 0%,#2d1b2e 40%,#1a0f1a 100%);color:#e2e8f0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1rem;}
+html{height:100%;-webkit-text-size-adjust:100%;background-color:#1a0f1a;background-image:linear-gradient(145deg,#1a0f1a 0%,#2d1b2e 40%,#1a0f1a 100%);}
+html::before{content:"";position:fixed;top:calc(-1 * env(safe-area-inset-top, 0px));left:calc(-1 * env(safe-area-inset-left, 0px));right:calc(-1 * env(safe-area-inset-right, 0px));bottom:calc(-1 * env(safe-area-inset-bottom, 0px));background-color:#1a0f1a;background-image:linear-gradient(145deg,#1a0f1a 0%,#2d1b2e 40%,#1a0f1a 100%);z-index:-1;-webkit-transform:translateZ(0);}
+body{margin:0;min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;background-color:#1a0f1a;background-image:linear-gradient(145deg,#1a0f1a 0%,#2d1b2e 40%,#1a0f1a 100%);background-attachment:fixed;color:#e2e8f0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(2rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(2rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));}
 .hero{width:80px;height:80px;margin-bottom:2rem;border-radius:16px;background:linear-gradient(135deg,#3d2d3e 0%,#2d1b2e 50%,#1a0f1a 100%);box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.06);overflow:hidden;}
 .hero img{width:100%;height:100%;object-fit:cover;}
 h1{font-size:1.5rem;font-weight:600;letter-spacing:.06em;margin:0 0 0.25rem;color:#e8dde8;}
