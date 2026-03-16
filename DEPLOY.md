@@ -27,7 +27,8 @@ This repo is the **public** GitHub Pages site. Subsite content and pill labels a
 ## This repo’s workflows
 
 - **Build root index** (`.github/workflows/build-root-index.yml`)  
-  Runs on push to `main` and on `workflow_dispatch`. Reads `PRIVATE_REPOS` and each `{repo}_PILL_LABEL`, generates `index.html`, and commits and pushes if changed. So when a private repo pushes subsite content, the push triggers this and the root nav stays in sync with variables.
+  Runs on push to `main` and on `workflow_dispatch`. Reads `PRIVATE_REPOS` and each `{repo}_PILL_LABEL`, generates `index.html`, and commits and pushes if changed. So when a private repo pushes subsite content, the push triggers this and the root nav stays in sync with variables.  
+  **Optional secret:** `BUILD_VARIABLES_TOKEN` — a PAT with **repo** scope so the workflow can read repository variables via the API (the default `GITHUB_TOKEN` often gets 403). If unset, pill labels fall back to the repo name.
 
 ## Adding a new private subsite
 

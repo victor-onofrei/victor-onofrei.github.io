@@ -1,6 +1,9 @@
 # Build the root index.html from PRIVATE_REPOS and each {repo}_PILL_LABEL variable.
 # Runs on push to main (e.g. when a private repo pushes subsite content) and on manual trigger.
 # Commits index.html only if it changed.
+#
+# Optional secret: BUILD_VARIABLES_TOKEN — PAT with repo scope so the workflow can read
+# repository variables via API (GITHUB_TOKEN often gets 403). If unset, pill labels fall back to repo name.
 
 name: Build root index
 
@@ -22,12 +25,13 @@ jobs:
       - name: Build index.html from variables
         env:
           GH_TOKEN: ${{ github.token }}
+          BUILD_VARIABLES_TOKEN: ${{ secrets.BUILD_VARIABLES_TOKEN }}
           PRIVATE_REPOS: ${{ vars.PRIVATE_REPOS }}
         run: |
           set -e
           REPO="${{ github.repository }}"
           OWNER="${REPO%%/*}"
-          # PRIVATE_REPOS from workflow vars (reliable); pill labels from gh variable list
+          API_TOKEN="${BUILD_VARIABLES_TOKEN:-$GH_TOKEN}"
           private_repos="${PRIVATE_REPOS:-}"
           if [[ -z "$private_repos" ]]; then
             vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
@@ -37,14 +41,14 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Build nav links: fetch each *_PILL_LABEL via API (needs actions: read permission)
+          # Build nav links: fetch each *_PILL_LABEL via API (use BUILD_VARIABLES_TOKEN if set; GITHUB_TOKEN often 403)
           nav=""
           IFS=,
           for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
             repo_var="$(echo "$repo" | tr '-' '_')_PILL_LABEL"
-            resp=$(curl -sS -w "\n%{http_code}" -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/actions/variables/${repo_var}" 2>/dev/null)
+            resp=$(curl -sS -w "\n%{http_code}" -H "Authorization: Bearer ${API_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/actions/variables/${repo_var}" 2>/dev/null)
             http_code=$(echo "$resp" | tail -n1)
             body=$(echo "$resp" | head -n-1)
             label=$(echo "$body" | jq -r '.value // empty' 2>/dev/null)
