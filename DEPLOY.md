@@ -8,7 +8,7 @@ This repo is the **public** GitHub Pages site. Subsite content and pill labels a
   Comma-separated list of private repo **names** that are subsites (e.g. `discogs-collection,album-scraper`). The **Build root index** workflow reads this and, for each name, reads `{name}_PILL_LABEL` to build the nav. Updated automatically by each private repo’s sync workflow when they register.
 
 - **`{repo_name}_PILL_LABEL`**  
-  One per subsite. Example: `discogs-collection_PILL_LABEL` = label shown in the root index for that pill. Subpath/URL is the repo name (e.g. `/discogs-collection/`). Set/updated by each private repo’s sync workflow.
+  One per subsite. GitHub variable names allow only letters, numbers, and underscores, so hyphens in the repo name are stored as underscores (e.g. `discogs_collection_PILL_LABEL` for repo `discogs-collection`). The build-root-index workflow converts back when generating links. Subpath/URL is the real repo name (e.g. `/discogs-collection/`). Set/updated by each private repo’s sync workflow.
 
 ## What each private repo must do
 

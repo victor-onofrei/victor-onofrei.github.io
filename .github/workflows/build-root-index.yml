@@ -38,7 +38,8 @@ jobs:
           for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
-            label=$(echo "$vars" | jq -r --arg r "$repo" '.[] | select(.name==($r + "_PILL_LABEL")) | .value // empty')
+            repo_var="$(echo "$repo" | tr '-' '_')_PILL_LABEL"
+            label=$(echo "$vars" | jq -r --arg r "$repo_var" '.[] | select(.name==$r) | .value // empty')
             label="${label:-$repo}"
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
             nav="${nav}<a href=\"/${repo}/\" data-subpath=\"${repo}\">${label_escaped}</a>"
