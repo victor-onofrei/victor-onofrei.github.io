@@ -1,6 +1,9 @@
 # Build the root index.html from PRIVATE_REPOS and each {repo}_PILL_LABEL variable.
 # Runs on push to main (e.g. when a private repo pushes subsite content) and on manual trigger.
 # Commits index.html only if it changed.
+#
+# Optional secret: BUILD_VARIABLES_TOKEN — PAT with repo scope so the workflow can read
+# repository variables via API (GITHUB_TOKEN often gets 403). If unset, pill labels fall back to repo name.
 
 name: Build root index
 
@@ -14,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read   # required to read repository variables via API (GET .../actions/variables/{name})
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -21,26 +25,35 @@ jobs:
       - name: Build index.html from variables
         env:
           GH_TOKEN: ${{ github.token }}
+          BUILD_VARIABLES_TOKEN: ${{ secrets.BUILD_VARIABLES_TOKEN }}
+          PRIVATE_REPOS: ${{ vars.PRIVATE_REPOS }}
         run: |
           set -e
           REPO="${{ github.repository }}"
           OWNER="${REPO%%/*}"
-          # Get all variables (this repo); parse PRIVATE_REPOS and *_PILL_LABEL
-          vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
-          private_repos=$(echo "$vars" | jq -r '.[] | select(.name=="PRIVATE_REPOS") | .value // empty')
+          API_TOKEN="${BUILD_VARIABLES_TOKEN:-$GH_TOKEN}"
+          private_repos="${PRIVATE_REPOS:-}"
+          if [[ -z "$private_repos" ]]; then
+            vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
+            private_repos=$(echo "$vars" | jq -r '.[] | select(.name=="PRIVATE_REPOS") | .value // empty')
+          fi
           if [[ -z "$private_repos" ]]; then
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Build nav links from PRIVATE_REPOS (comma-separated) and *_PILL_LABEL
+          # Build nav links: fetch each *_PILL_LABEL via API (use BUILD_VARIABLES_TOKEN if set; GITHUB_TOKEN often 403)
           nav=""
           IFS=,
           for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
             repo_var="$(echo "$repo" | tr '-' '_')_PILL_LABEL"
-            label=$(echo "$vars" | jq -r --arg r "$repo_var" '.[] | select(.name==$r) | .value // empty')
+            resp=$(curl -sS -w "\n%{http_code}" -H "Authorization: Bearer ${API_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/actions/variables/${repo_var}" 2>/dev/null)
+            http_code=$(echo "$resp" | tail -n1)
+            body=$(echo "$resp" | head -n-1)
+            label=$(echo "$body" | jq -r '.value // empty' 2>/dev/null)
             label="${label:-$repo}"
+            echo "PILL_LABEL ${repo_var}: http=${http_code} label=${label}"
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
             nav="${nav}<a href=\"/${repo}/\" data-subpath=\"${repo}\">${label_escaped}</a>"
           done
@@ -53,8 +66,13 @@ jobs:
           TITLE="${owner_name}'s Projects"
           title_escaped=$(echo "$TITLE" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
 
-          # Favicon from owner's profile picture
-          curl -sS -L -o favicon.png "https://github.com/${OWNER}.png" || true
+          # Favicon: embed owner's profile picture as data URL (no separate file)
+          avatar_b64=$(curl -sS -L "https://github.com/${OWNER}.png" | base64 -w 0 2>/dev/null || true)
+          if [[ -n "$avatar_b64" ]]; then
+            FAVICON_HREF="data:image/png;base64,${avatar_b64}"
+          else
+            FAVICON_HREF="https://github.com/${OWNER}.png"
+          fi
 
           cat > index.html << INDEX
           <!DOCTYPE html>
@@ -66,7 +84,7 @@ jobs:
           <meta name="theme-color" content="#1a0f1a" media="(prefers-color-scheme: dark)">
           <meta name="color-scheme" content="dark">
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-          <link rel="icon" href="favicon.png" type="image/png">
+          <link rel="icon" href="${FAVICON_HREF}" type="image/png">
           <title>${title_escaped}</title>
           <style>
           *{box-sizing:border-box;}
@@ -84,7 +102,7 @@ jobs:
           </style>
           </head>
           <body>
-          <div class="hero"><img src="favicon.png" alt=""></div>
+          <div class="hero"><img src="${FAVICON_HREF}" alt=""></div>
           <h1>${title_escaped}</h1>
           <p class="intro">Links to my projects and collections.</p>
           <p>Pick one to explore ↓</p>
@@ -99,10 +117,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html favicon.png
+          git add index.html
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Build root index and favicon from variables"
+            git commit -m "Build root index from variables"
             git push
           fi
