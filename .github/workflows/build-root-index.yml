@@ -21,17 +21,22 @@ jobs:
       - name: Build index.html from variables
         env:
           GH_TOKEN: ${{ github.token }}
+          PRIVATE_REPOS: ${{ vars.PRIVATE_REPOS }}
         run: |
           set -e
           REPO="${{ github.repository }}"
           OWNER="${REPO%%/*}"
-          # Get all variables (this repo); parse PRIVATE_REPOS and *_PILL_LABEL
-          vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
-          private_repos=$(echo "$vars" | jq -r '.[] | select(.name=="PRIVATE_REPOS") | .value // empty')
+          # PRIVATE_REPOS from workflow vars (reliable); pill labels from gh variable list
+          private_repos="${PRIVATE_REPOS:-}"
+          if [[ -z "$private_repos" ]]; then
+            vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
+            private_repos=$(echo "$vars" | jq -r '.[] | select(.name=="PRIVATE_REPOS") | .value // empty')
+          fi
           if [[ -z "$private_repos" ]]; then
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
+          vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
           # Build nav links from PRIVATE_REPOS (comma-separated) and *_PILL_LABEL
           nav=""
           IFS=,
