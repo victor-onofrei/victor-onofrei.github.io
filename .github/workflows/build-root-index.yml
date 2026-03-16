@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read   # required to read repository variables via API (GET .../actions/variables/{name})
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -36,15 +37,19 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Build nav links: fetch each *_PILL_LABEL via API (gh variable list often empty in workflow)
+          # Build nav links: fetch each *_PILL_LABEL via API (needs actions: read permission)
           nav=""
           IFS=,
           for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
             repo_var="$(echo "$repo" | tr '-' '_')_PILL_LABEL"
-            label=$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/actions/variables/${repo_var}" 2>/dev/null | jq -r '.value // empty')
+            resp=$(curl -sS -w "\n%{http_code}" -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/actions/variables/${repo_var}" 2>/dev/null)
+            http_code=$(echo "$resp" | tail -n1)
+            body=$(echo "$resp" | head -n-1)
+            label=$(echo "$body" | jq -r '.value // empty' 2>/dev/null)
             label="${label:-$repo}"
+            echo "PILL_LABEL ${repo_var}: http=${http_code} label=${label}"
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
             nav="${nav}<a href=\"/${repo}/\" data-subpath=\"${repo}\">${label_escaped}</a>"
           done
