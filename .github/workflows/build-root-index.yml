@@ -1,0 +1,107 @@
+# Build the root index.html from PRIVATE_REPOS and each {repo}_PILL_LABEL variable.
+# Runs on push to main (e.g. when a private repo pushes subsite content) and on manual trigger.
+# Commits index.html only if it changed.
+
+name: Build root index
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build index.html from variables
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          REPO="${{ github.repository }}"
+          OWNER="${REPO%%/*}"
+          # Get all variables (this repo); parse PRIVATE_REPOS and *_PILL_LABEL
+          vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
+          private_repos=$(echo "$vars" | jq -r '.[] | select(.name=="PRIVATE_REPOS") | .value // empty')
+          if [[ -z "$private_repos" ]]; then
+            echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
+            exit 0
+          fi
+          # Build nav links from PRIVATE_REPOS (comma-separated) and *_PILL_LABEL
+          nav=""
+          IFS=,
+          for repo in $private_repos; do
+            repo=$(echo "$repo" | xargs)
+            [[ -z "$repo" ]] && continue
+            label=$(echo "$vars" | jq -r --arg r "$repo" '.[] | select(.name==($r + "_PILL_LABEL")) | .value // empty')
+            label="${label:-$repo}"
+            label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
+            nav="${nav}<a href=\"/${repo}/\" data-subpath=\"${repo}\">${label_escaped}</a>"
+          done
+          unset IFS
+
+          # Root title from repo owner's GitHub profile (name or login)
+          owner_json=$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/users/${OWNER}")
+          owner_name=$(echo "$owner_json" | jq -r '.name // .login // empty')
+          owner_name="${owner_name:-$OWNER}"
+          TITLE="${owner_name}'s Projects"
+          title_escaped=$(echo "$TITLE" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
+
+          # Favicon from owner's profile picture
+          curl -sS -L -o favicon.png "https://github.com/${OWNER}.png" || true
+
+          cat > index.html << INDEX
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+          <meta name="theme-color" content="#1a0f1a">
+          <meta name="theme-color" content="#1a0f1a" media="(prefers-color-scheme: dark)">
+          <meta name="color-scheme" content="dark">
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+          <link rel="icon" href="favicon.png" type="image/png">
+          <title>${title_escaped}</title>
+          <style>
+          *{box-sizing:border-box;}
+          html{height:100%;-webkit-text-size-adjust:100%;background-color:#1a0f1a;background-image:linear-gradient(145deg,#1a0f1a 0%,#1a0f1a 18%,#2d1b2e 50%,#1a0f1a 82%,#1a0f1a 100%);}
+          html::before{content:"";position:fixed;top:calc(-1 * env(safe-area-inset-top, 0px));left:calc(-1 * env(safe-area-inset-left, 0px));right:calc(-1 * env(safe-area-inset-right, 0px));bottom:calc(-1 * env(safe-area-inset-bottom, 0px));background-color:#1a0f1a;background-image:linear-gradient(145deg,#1a0f1a 0%,#1a0f1a 18%,#2d1b2e 50%,#1a0f1a 82%,#1a0f1a 100%);z-index:-1;-webkit-transform:translateZ(0);}
+          body{margin:0;min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;background-color:#1a0f1a;background-image:linear-gradient(145deg,#1a0f1a 0%,#1a0f1a 18%,#2d1b2e 50%,#1a0f1a 82%,#1a0f1a 100%);background-attachment:fixed;color:#e2e8f0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(2rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(2rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));}
+          .hero{width:80px;height:80px;margin-bottom:2rem;border-radius:16px;background:linear-gradient(135deg,#3d2d3e 0%,#2d1b2e 50%,#1a0f1a 100%);box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.06);overflow:hidden;}
+          .hero img{width:100%;height:100%;object-fit:cover;}
+          h1{font-size:1.5rem;font-weight:600;letter-spacing:.06em;margin:0 0 0.25rem;color:#e8dde8;}
+          .intro{font-size:0.9rem;color:#c4b0c4;margin:0 0 0.5rem;}
+          p{font-size:0.9rem;color:#9a8a9a;margin:0 0 2rem;}
+          .links{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;}
+          .links a{display:inline-block;padding:0.55rem 1.2rem;background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.98));color:#DA70D6;text-decoration:none;font-weight:600;letter-spacing:.03em;border-radius:20px;border:1px solid rgba(218,112,214,0.55);transition:background .2s,color .2s,border-color .2s,transform .15s;}
+          .links a:hover{background:#BA55D3;color:#fff;border-color:#DA70D6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(186,85,211,0.4);}
+          </style>
+          </head>
+          <body>
+          <div class="hero"><img src="favicon.png" alt=""></div>
+          <h1>${title_escaped}</h1>
+          <p class="intro">Links to my projects and collections.</p>
+          <p>Pick one to explore ↓</p>
+          <nav class="links">
+          ${nav}
+          </nav>
+          </body>
+          </html>
+          INDEX
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html favicon.png
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Build root index and favicon from variables"
+            git push
+          fi
