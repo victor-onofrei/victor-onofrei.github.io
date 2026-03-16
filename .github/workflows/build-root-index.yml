@@ -53,8 +53,13 @@ jobs:
           TITLE="${owner_name}'s Projects"
           title_escaped=$(echo "$TITLE" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
 
-          # Favicon from owner's profile picture
-          curl -sS -L -o favicon.png "https://github.com/${OWNER}.png" || true
+          # Favicon: embed owner's profile picture as data URL (no separate file)
+          avatar_b64=$(curl -sS -L "https://github.com/${OWNER}.png" | base64 -w 0 2>/dev/null || true)
+          if [[ -n "$avatar_b64" ]]; then
+            FAVICON_HREF="data:image/png;base64,${avatar_b64}"
+          else
+            FAVICON_HREF="https://github.com/${OWNER}.png"
+          fi
 
           cat > index.html << INDEX
           <!DOCTYPE html>
@@ -66,7 +71,7 @@ jobs:
           <meta name="theme-color" content="#1a0f1a" media="(prefers-color-scheme: dark)">
           <meta name="color-scheme" content="dark">
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-          <link rel="icon" href="favicon.png" type="image/png">
+          <link rel="icon" href="${FAVICON_HREF}" type="image/png">
           <title>${title_escaped}</title>
           <style>
           *{box-sizing:border-box;}
@@ -84,7 +89,7 @@ jobs:
           </style>
           </head>
           <body>
-          <div class="hero"><img src="favicon.png" alt=""></div>
+          <div class="hero"><img src="${FAVICON_HREF}" alt=""></div>
           <h1>${title_escaped}</h1>
           <p class="intro">Links to my projects and collections.</p>
           <p>Pick one to explore ↓</p>
@@ -99,10 +104,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html favicon.png
+          git add index.html
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Build root index and favicon from variables"
+            git commit -m "Build root index from variables"
             git push
           fi
