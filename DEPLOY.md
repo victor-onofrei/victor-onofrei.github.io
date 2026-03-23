@@ -36,3 +36,17 @@ This repo is the **public** GitHub Pages site. Subsite content and pill labels a
 2. In the new repo: add the sync workflow (copy from e.g. `discogs-collection`), set `PAGES_REPO` to your Pages repo, and use the same **`PAGES_DEPLOY_TOKEN`** secret as for deploy (PAT needs contents + Actions variables read/write on the Pages repo).  
 3. Run the sync workflow once (or wait for schedule). It will set `{repo_name}_PILL_LABEL` and add the repo to `PRIVATE_REPOS` here.  
 4. No change needed in this repo’s config; the build-root-index workflow discovers subsites from `PRIVATE_REPOS` and variable names.
+
+## Local preview (full site on LAN)
+
+To preview this repo as a static site on your phone or another machine on the same Wi-Fi:
+
+1. Clone this repo and check out a branch with the root `index.html` you want (usually `main`).
+2. From another project (e.g. your Discogs repo), refresh that project’s subsite into this clone if needed (`prepare_discogs_site_preview.py` with `PAGES_REPO_DIR` pointing here).
+3. From **this** repo’s root:
+
+```bash
+./scripts/start_site_preview_server.sh --start
+```
+
+The server listens on `0.0.0.0`. Set **`SITE_PREVIEW_HOST`** to your computer’s LAN IP (e.g. `export SITE_PREVIEW_HOST="$(ipconfig getifaddr en0)"` on macOS) so the script prints a URL you can open on your phone. Default web root is this repository’s root (parent of `scripts/`).
