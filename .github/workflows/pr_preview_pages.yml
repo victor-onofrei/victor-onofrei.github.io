@@ -1,0 +1,46 @@
+# Serves the PR branch as a static snapshot under /pr-preview/pr-<number>/ on GitHub Pages.
+# GitHub Actions cannot keep a real HTTP server running until merge; this is the standard substitute.
+# Previews are removed when the PR is closed (including merge). Requires Pages "Deploy from branch"
+# (this repo uses main) and Actions workflow read/write permission.
+#
+# Fork PRs: not supported by rossjrw/pr-preview-action v1.
+
+name: PR preview on Pages
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+concurrency:
+  group: pages-pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  pr-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR snapshot
+        if: github.event.action != 'closed'
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout main (cleanup on PR close)
+        if: github.event.action == 'closed'
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Deploy or remove preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: .
+          preview-branch: main
+          umbrella-dir: pr-preview
+          action: auto
+          qr-code: false
+          wait-for-pages-deployment: true
