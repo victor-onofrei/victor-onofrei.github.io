@@ -17,7 +17,7 @@ This repo is the **public** GitHub Pages site. Subsite content and pill labels a
    - Push content into **this** repo under a folder named **like the repo** (e.g. `discogs-collection/`).  
    - Do **not** overwrite this repo’s root `index.html`; only add/update its own subfolder.
 
-2. **Sync workflow** (e.g. `sync-variables-pages-repo.yml`)  
+2. **Sync workflow** (e.g. `sync_variables_to_pages.yml` in the private repo)  
    - Runs on schedule and/or `workflow_dispatch`.  
    - Reads the private repo’s pill label (e.g. variable `PAGES_SUBPATH_LABEL`).  
    - Calls the GitHub API to create/update **this** repo’s variable `{repo_name}_PILL_LABEL`.  
@@ -28,7 +28,12 @@ This repo is the **public** GitHub Pages site. Subsite content and pill labels a
 
 - **Build root index** (`.github/workflows/build-root-index.yml`)  
   Runs on push to `main` and on `workflow_dispatch`. Reads `PRIVATE_REPOS` and each `{repo}_PILL_LABEL`, generates `index.html`, and commits and pushes if changed. So when a private repo pushes subsite content, the push triggers this and the root nav stays in sync with variables.  
-  **Optional secret:** `BUILD_VARIABLES_TOKEN` — a PAT with **repo** scope so the workflow can read repository variables via the API (the default `GITHUB_TOKEN` often gets 403). If unset, pill labels fall back to the repo name.
+  **Optional secret:** `BUILD_VARIABLES_TOKEN` — a PAT with **repo** scope so the workflow can read repository variables via the API (the default `GITHUB_TOKEN` often gets 403). If unset, pill labels fall back to the repo name.  
+  Pushes that **only** change `pr-preview/**` (PR preview deploy/cleanup) are ignored so this workflow does not fight the preview action.
+
+- **PR preview on Pages** (`.github/workflows/pr_preview_pages.yml`)  
+  On each pull request (open / sync / reopen), publishes the **repository root** of the PR head under `https://<owner>.github.io/pr-preview/pr-<number>/` (user-site layout; see comment on the PR from the action). On **close** (merged or not), removes that folder from `main`. This replaces a long-lived “local server” on a runner, which GitHub Actions does not support across the PR lifetime.  
+  **Settings:** **Actions → General → Workflow permissions** must allow **Read and write**. **Pages** must use **Deploy from a branch** (this site uses `main` / root). Previews from **forks** are not supported by the action (v1).
 
 ## Adding a new private subsite
 
