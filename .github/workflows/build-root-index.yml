@@ -63,25 +63,13 @@ jobs:
             fi
 
             if [[ -z "$label" ]]; then
-              readme_label=$(python3 - "$repo" << 'PY'
-import pathlib, re, sys
-repo = (sys.argv[1] or "").strip()
-for name in ("README.md", "README.markdown", "README.MD"):
-    p = pathlib.Path(repo) / name
-    if not p.is_file():
-        continue
-    try:
-        txt = p.read_text(encoding="utf-8", errors="ignore")
-    except Exception:
-        continue
-    for line in txt.splitlines():
-        m = re.match(r"^\s*#\s+(.+?)\s*$", line)
-        if m:
-            print(m.group(1).strip())
-            raise SystemExit(0)
-print("")
-PY
-)
+              readme_label=""
+              for readme in "${repo}/README.md" "${repo}/README.markdown" "${repo}/README.MD"; do
+                if [[ -f "$readme" ]]; then
+                  readme_label=$(awk '/^#[[:space:]]+/{sub(/^#[[:space:]]+/, ""); print; exit}' "$readme" 2>/dev/null || true)
+                  [[ -n "$readme_label" ]] && break
+                fi
+              done
               [[ -n "$readme_label" ]] && label="$readme_label"
             fi
 
