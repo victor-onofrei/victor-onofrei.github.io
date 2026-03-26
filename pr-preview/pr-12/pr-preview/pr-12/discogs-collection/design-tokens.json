@@ -8,7 +8,6 @@
     "hover_background": "#BA55D3",
     "hover_text": "#ffffff",
     "hover_border": "#DA70D6",
-    "hover_shadow": "0 8px 24px rgba(186,85,211,0.4)",
-    "label": "DISCOGS COLLECTION"
+    "hover_shadow": "0 8px 24px rgba(186,85,211,0.4)"
   }
 }
