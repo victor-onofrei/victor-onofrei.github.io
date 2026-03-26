@@ -34,15 +34,8 @@
       --muted: #9ca3af;
       --border: rgba(148, 163, 184, 0.2);
       --shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      --shell-border: rgba(172, 158, 188, 0.34);
-      --shell-border-soft: rgba(172, 158, 188, 0.18);
-      --card-border: rgba(205, 195, 220, 0.42);
-      /* Production theme */
-      --shell-surface: linear-gradient(168deg, #243a4e 0%, #1c3144 50%, #152838 100%);
-      --card-surface:
-        linear-gradient(168deg, rgba(255,255,255,0.1) 0%, transparent 34%),
-        linear-gradient(180deg, #3f5f79 0%, #34506a 56%, #2a445b 100%);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -63,25 +56,12 @@
     .shell {
       width: 100%;
       max-width: 1200px;
-      background: var(--shell-surface);
+      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(30,41,59,0.98));
       border-radius: 28px;
-      border: 1px solid var(--shell-border);
+      border: 1px solid rgba(71,85,105,0.4);
       box-shadow: var(--shadow);
       padding: 20px 22px 26px;
       backdrop-filter: blur(16px);
-    }
-
-    /* While jump modal is open: don’t let the grid absorb taps / sticky :hover under a fixed cursor */
-    html.jump-ui-open .shell {
-      pointer-events: none;
-      user-select: none;
-    }
-    html.jump-ui-open .section-rail-inner {
-      pointer-events: none;
-    }
-    html.jump-ui-open .separator-label {
-      filter: none !important;
-      outline: none !important;
     }
 
     header {
@@ -125,9 +105,8 @@
       gap: 4px;
       padding: 2px 8px;
       border-radius: 999px;
-      background: var(--shell-surface);
-      border: 1px solid var(--shell-border);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.35);
     }
 
     .meta span strong {
@@ -183,12 +162,10 @@
       font-size: 0.8rem;
       padding: 6px 10px;
       border-radius: 8px;
-      border: 1px solid var(--shell-border);
-      background: var(--shell-surface);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.95);
       color: var(--text);
       cursor: pointer;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-      color-scheme: dark;
     }
 
     .controls {
@@ -215,12 +192,10 @@
       font-size: 0.8rem;
       padding: 6px 10px;
       border-radius: 8px;
-      border: 1px solid var(--shell-border);
-      background: var(--shell-surface);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.95);
       color: var(--text);
       cursor: pointer;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-      color-scheme: dark;
     }
 
     .grid {
@@ -231,28 +206,39 @@
     }
 
     .card {
-      background: var(--card-surface);
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.45), rgba(15,23,42,1));
       border-radius: 18px;
-      border: 1px solid var(--card-border, var(--shell-border-soft));
+      border: 1px solid rgba(148,163,184,0.3);
       padding: 10px 10px 12px;
       position: relative;
       overflow: hidden;
-      transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
-      box-shadow: 0 5px 16px rgba(6, 8, 14, 0.42), inset 0 1px 0 rgba(255,255,255,0.06);
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+      box-shadow: 0 10px 30px rgba(15,23,42,0.8);
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      .card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(218,112,214,0.55);
-      }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.2), transparent 55%);
+      opacity: 0;
+      transition: opacity 200ms ease;
+      pointer-events: none;
     }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.95);
+      border-color: rgba(218,112,214,0.6);
+    }
+
+    .card:hover::after { opacity: 1; }
 
     .cover-wrap {
       border-radius: 14px;
       overflow: hidden;
-      border: 1px solid rgba(22, 26, 38, 0.65);
-      background: rgba(8, 12, 22, 0.55);
+      border: 1px solid rgba(15,23,42,0.9);
+      background: #020617;
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
@@ -377,19 +363,10 @@
       border: none;
       padding: 0;
       cursor: pointer;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Avoid sticky “hover” brightness on touch (iOS / Chrome device mode) */
-    @media (hover: hover) and (pointer: fine) {
-      .separator-label:hover {
-        filter: brightness(1.08);
-      }
-    }
-
-    .separator-label:focus:not(:focus-visible) {
-      outline: none;
+    .separator-label:hover {
+      filter: brightness(1.08);
     }
 
     .separator-label:focus-visible {
@@ -405,7 +382,7 @@
     .jump-overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(145deg, rgba(14,18,28,0.76), rgba(24,30,44,0.66));
+      background: linear-gradient(145deg, rgba(26,15,26,0.72), rgba(45,27,46,0.62));
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       display: flex;
@@ -420,12 +397,11 @@
       max-height: min(78vh, 680px);
       overflow: auto;
       border-radius: 16px;
-      border: 1px solid var(--shell-border);
-      touch-action: manipulation;
+      border: 1px solid rgba(218,112,214,0.42);
       background:
-        linear-gradient(168deg, rgba(255,255,255,0.05) 0%, transparent 34%),
-        var(--shell-surface);
-      box-shadow: 0 24px 56px rgba(10, 14, 24, 0.62), inset 0 1px 0 rgba(255,255,255,0.05);
+        radial-gradient(circle at top left, rgba(230,168,215,0.18), transparent 52%),
+        linear-gradient(145deg, rgba(15,23,42,0.97), rgba(30,41,59,0.99));
+      box-shadow: 0 24px 56px rgba(15, 23, 42, 0.72);
       padding: 14px 14px 12px;
     }
 
@@ -445,20 +421,18 @@
     }
 
     .jump-close {
-      border: 1px solid var(--shell-border);
-      background: var(--shell-surface);
-      color: var(--text);
+      border: 1px solid rgba(218,112,214,0.48);
+      background: rgba(30,41,59,0.92);
+      color: var(--accent);
       border-radius: 8px;
       padding: 4px 10px;
       font-size: 0.82rem;
       cursor: pointer;
-      touch-action: manipulation;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
       transition: background 120ms ease, color 120ms ease, transform 120ms ease;
     }
 
     .jump-close:hover {
-      color: #f8fafc;
+      color: #fde7ff;
       transform: translateY(-1px);
     }
 
@@ -474,8 +448,8 @@
     }
 
     .jump-item {
-      border: 1px solid var(--card-border, var(--shell-border-soft));
-      background: var(--card-surface);
+      border: 1px solid rgba(148,163,184,0.28);
+      background: rgba(30,41,59,0.9);
       color: var(--text);
       border-radius: 9px;
       padding: 9px 6px;
@@ -484,17 +458,14 @@
       letter-spacing: .02em;
       cursor: pointer;
       text-align: center;
-      touch-action: manipulation;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-      transition: border-color 120ms ease, color 120ms ease, transform 120ms ease;
+      transition: border-color 120ms ease, color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      .jump-item:hover {
-        border-color: rgba(218,112,214,0.65);
-        color: #f5d0fe;
-        transform: translateY(-1px);
-      }
+    .jump-item:hover {
+      border-color: rgba(218,112,214,0.65);
+      color: #f5d0fe;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(186,85,211,0.25);
     }
 
     .jump-item:focus-visible {
@@ -503,9 +474,9 @@
     }
 
     .jump-item.is-active {
-      border-color: rgba(218,112,214,0.85);
+      border-color: rgba(218,112,214,0.72);
       color: #fde7ff;
-      background: rgba(218,112,214,0.12);
+      box-shadow: 0 8px 20px rgba(186,85,211,0.22);
     }
 
     .section-rail[hidden] {
@@ -530,11 +501,11 @@
       overflow: auto;
       padding: 8px 7px;
       border-radius: 12px;
-      border: 1px solid var(--shell-border);
+      border: 1px solid rgba(218,112,214,0.35);
       background:
-        linear-gradient(168deg, rgba(255,255,255,0.06) 0%, transparent 34%),
-        var(--shell-surface);
-      box-shadow: 0 12px 32px rgba(6,8,14,0.42), inset 0 1px 0 rgba(255,255,255,0.05);
+        radial-gradient(circle at top left, rgba(230,168,215,0.14), transparent 52%),
+        linear-gradient(145deg, rgba(15,23,42,0.9), rgba(30,41,59,0.95));
+      box-shadow: 0 12px 32px rgba(2,6,23,0.42);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
@@ -545,7 +516,7 @@
       border: 1px solid transparent;
       border-radius: 7px;
       background: transparent;
-      color: var(--muted);
+      color: rgba(229,231,235,0.75);
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: .02em;
@@ -555,18 +526,16 @@
       padding: 0 4px;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      .rail-item:hover {
-        border-color: var(--shell-border);
-        color: var(--text);
-        background: var(--card-surface);
-      }
+    .rail-item:hover {
+      border-color: rgba(218,112,214,0.52);
+      color: #f5d0fe;
+      background: rgba(15,23,42,0.6);
     }
 
     .rail-item.is-active {
-      border-color: var(--accent);
-      color: var(--text);
-      background: rgba(218,112,214,0.14);
+      border-color: rgba(218,112,214,0.7);
+      color: #fde7ff;
+      background: rgba(186,85,211,0.22);
     }
 
     .to-top {
@@ -636,13 +605,6 @@
       }
     }
 
-    /* Landscape phones: width often exceeds 640px but dial still crowds the grid */
-    @media (orientation: landscape) and (max-height: 520px) and (max-width: 1100px) {
-      .section-rail {
-        display: none !important;
-      }
-    }
-
     @media print {
       body {
         background: #fff;
@@ -679,14 +641,6 @@
       .section-rail,
       .to-top {
         display: none;
-      }
-      .meta span,
-      .sort-wrap select,
-      .folder-wrap select {
-        background: #f3f4f6;
-        border: 1px solid #d1d5db;
-        color: #111827;
-        box-shadow: none;
       }
     }
   </style>
@@ -2244,7 +2198,7 @@
     </main>
   </div>
   <div class="jump-overlay" id="jump-overlay" hidden>
-    <div class="jump-panel" id="jump-panel" role="dialog" aria-modal="true" aria-labelledby="jump-title">
+    <div class="jump-panel" role="dialog" aria-modal="true" aria-labelledby="jump-title">
       <div class="jump-head">
         <div class="jump-title" id="jump-title">Jump to section</div>
         <button type="button" class="jump-close" id="jump-close">Close</button>
@@ -2265,7 +2219,6 @@
   var jumpGrid = document.getElementById("jump-grid");
   var jumpTitle = document.getElementById("jump-title");
   var jumpClose = document.getElementById("jump-close");
-  var jumpPanel = document.getElementById("jump-panel");
   var rail = document.getElementById("section-rail");
   var railInner = document.getElementById("section-rail-inner");
   var toTop = document.getElementById("to-top");
@@ -2274,7 +2227,6 @@
   var sections = [];
   var sectionCounter = 0;
   var activeSectionId = null;
-  var jumpPickerOpen = false;
   var toTopRaf = null;
   var sortKey = "discogs-collection-sort";
   try {
@@ -2316,18 +2268,11 @@
 
   function closeJumpPicker() {
     if (!jumpOverlay) return;
-    document.documentElement.classList.remove("jump-ui-open");
-    try {
-      var fb = document.activeElement;
-      if (fb && jumpPanel && jumpPanel.contains(fb) && typeof fb.blur === "function") fb.blur();
-    } catch (e) {}
-    jumpPickerOpen = false;
     jumpOverlay.hidden = true;
   }
 
-  function setActiveSection(id, force) {
-    if (!id) return;
-    if (!force && activeSectionId === id) return;
+  function setActiveSection(id) {
+    if (!id || activeSectionId === id) return;
     activeSectionId = id;
     if (railInner) {
       [].slice.call(railInner.querySelectorAll(".rail-item")).forEach(function(btn) {
@@ -2342,14 +2287,14 @@
   }
 
   function detectActiveSection() {
-    if (jumpPickerOpen || !sections.length) return;
+    if (!sections.length) return;
     var threshold = Math.max(80, window.innerHeight * 0.22);
     var chosen = sections[0];
     sections.forEach(function(section) {
       var top = section.el.getBoundingClientRect().top;
       if (top <= threshold) chosen = section;
     });
-    setActiveSection(chosen.id, false);
+    setActiveSection(chosen.id);
   }
 
   function buildSideRail(useSeparators) {
@@ -2429,59 +2374,32 @@
     sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function openJumpPicker(sortModeKey, preferredSectionId) {
+  function openJumpPicker(key) {
     if (!jumpOverlay || !jumpGrid || sections.length === 0) return;
-    try {
-      var ae = document.activeElement;
-      if (ae && typeof ae.blur === "function") ae.blur();
-    } catch (err) {}
-    jumpPickerOpen = true;
-    document.documentElement.classList.add("jump-ui-open");
     jumpGrid.innerHTML = "";
-    var highlightId = preferredSectionId || activeSectionId;
     sections.forEach(function(section) {
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "jump-item";
       btn.textContent = section.label;
       btn.setAttribute("data-target", section.id);
-      btn.addEventListener("click", function(ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
+      btn.classList.toggle("is-active", section.id === activeSectionId);
+      btn.addEventListener("click", function() {
         closeJumpPicker();
-        window.setTimeout(function() { scrollToSection(section.el); }, 0);
+        scrollToSection(section.el);
       });
       jumpGrid.appendChild(btn);
     });
-    setActiveSection(highlightId, true);
     if (jumpTitle) {
       var t = "Jump to section";
-      if (sortModeKey === "artist") t = "Jump by letter";
-      if (sortModeKey === "release" || sortModeKey === "master" || sortModeKey === "added") t = "Jump by year";
+      if (key === "artist") t = "Jump by letter";
+      if (key === "release" || key === "master" || key === "added") t = "Jump by year";
       jumpTitle.textContent = t;
     }
-    window.setTimeout(function() {
-      if (!jumpOverlay || !jumpPickerOpen) return;
-      try {
-        var ae2 = document.activeElement;
-        if (ae2 && ae2.classList && ae2.classList.contains("separator-label") && typeof ae2.blur === "function") {
-          ae2.blur();
-        }
-      } catch (err2) {}
-      jumpOverlay.hidden = false;
-    }, 0);
+    jumpOverlay.hidden = false;
   }
 
-  if (jumpClose) {
-    jumpClose.addEventListener("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      closeJumpPicker();
-    });
-  }
-  if (jumpPanel) {
-    jumpPanel.addEventListener("click", function(e) { e.stopPropagation(); });
-  }
+  if (jumpClose) jumpClose.addEventListener("click", closeJumpPicker);
   if (toTop) {
     toTop.addEventListener("click", function() {
       scrollToTopAnimated();
@@ -2489,10 +2407,7 @@
   }
   if (jumpOverlay) {
     jumpOverlay.addEventListener("click", function(e) {
-      if (e.target === jumpOverlay) {
-        e.preventDefault();
-        closeJumpPicker();
-      }
+      if (e.target === jumpOverlay) closeJumpPicker();
     });
   }
   document.addEventListener("keydown", function(e) {
@@ -2561,10 +2476,8 @@
           label.className = "separator-label";
           label.setAttribute("aria-label", "Jump to another section");
           label.textContent = separatorKey;
-          label.addEventListener("click", function(ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            openJumpPicker(key, sectionId);
+          label.addEventListener("click", function() {
+            openJumpPicker(key);
           });
           separatorEl.appendChild(label);
           grid.appendChild(separatorEl);
@@ -2576,7 +2489,7 @@
     });
     buildSideRail(useSeparators);
     if (sections.length) {
-      setActiveSection(sections[0].id, true);
+      setActiveSection(sections[0].id);
       detectActiveSection();
     }
   }
