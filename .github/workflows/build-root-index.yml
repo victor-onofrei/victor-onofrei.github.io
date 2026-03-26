@@ -74,37 +74,13 @@ jobs:
             fi
 
             if [[ -z "$label" ]]; then
-              label=$(python3 - "$repo" << 'PY'
-import re, sys
-name = (sys.argv[1] or "").strip()
-s = name.replace("-", " ").replace("_", " ")
-s = re.sub(r"\s+", " ", s).strip()
-if " " not in s:
-    # Generic boundary splits only (no hardcoded word lists/examples).
-    # 1) alpha/number boundaries
-    s = re.sub(r"(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])", " ", s)
-    # 2) camelCase / PascalCase boundaries
-    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s)
-s = re.sub(r"\s+", " ", s).strip()
-print(s.upper())
-PY
-)
+              label=$(python3 -c 'import re,sys; name=(sys.argv[1] or "").strip(); s=name.replace("-"," ").replace("_"," "); s=re.sub(r"\\s+"," ",s).strip();\nif " " not in s:\n s=re.sub(r"(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])"," ",s); s=re.sub(r"(?<=[a-z])(?=[A-Z])"," ",s)\nprint(re.sub(r\"\\s+\",\" \",s).strip().upper())' "$repo")
             fi
 
             if [[ -n "$label" ]]; then
-              label=$(python3 - "$label" << 'PY'
-import re, sys
-s = (sys.argv[1] or "").strip()
-s = re.sub(r"\s+", " ", s).strip()
-print(s.upper())
-PY
-)
+              label=$(python3 -c 'import re,sys; s=(sys.argv[1] or "").strip(); s=re.sub(r"\\s+"," ",s).strip(); print(s.upper())' "$label")
             else
-              label=$(python3 - "$repo" << 'PY'
-import sys
-print((sys.argv[1] or "").strip().upper())
-PY
-)
+              label=$(python3 -c 'import sys; print((sys.argv[1] or "").strip().upper())' "$repo")
             fi
 
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
