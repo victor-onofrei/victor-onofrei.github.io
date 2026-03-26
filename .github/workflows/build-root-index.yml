@@ -74,7 +74,7 @@ jobs:
             fi
 
             if [[ -z "$label" ]]; then
-              label=$(python3 -c 'import re,sys; name=(sys.argv[1] or "").strip(); s=name.replace("-"," ").replace("_"," "); s=re.sub(r"\\s+"," ",s).strip();\nif " " not in s:\n s=re.sub(r"(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])"," ",s); s=re.sub(r"(?<=[a-z])(?=[A-Z])"," ",s)\nprint(re.sub(r\"\\s+\",\" \",s).strip().upper())' "$repo")
+              label=$(python3 -c 'import re,sys; name=(sys.argv[1] or "").strip(); s=name.replace("-"," ").replace("_"," "); s=re.sub(r"(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])"," ",s); s=re.sub(r"(?<=[a-z])(?=[A-Z])"," ",s); s=re.sub(r"\\s+"," ",s).strip(); print(s.upper())' "$repo")
             fi
 
             if [[ -n "$label" ]]; then
