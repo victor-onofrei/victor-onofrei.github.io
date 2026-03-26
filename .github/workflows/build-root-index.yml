@@ -41,11 +41,8 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Build nav links from repo names. Labels are derived with this priority:
-          # 1) explicit token file label (if provided)
-          # 2) README H1-derived label
-          # 3) generic split rules (-, _, camelCase, alpha-number)
-          # 4) fallback uppercase slug
+          # Pill labels: read ``pill.label`` from <repo>/design-tokens.json (published by each private repo).
+          # Fallback: uppercase repo slug (ASCII), same spirit as String.prototype.toUpperCase() for slugs.
           nav=""
           project_styles=""
           IFS=,
@@ -56,31 +53,13 @@ jobs:
             label=""
             token_file="${repo}/design-tokens.json"
             if [[ -f "$token_file" ]]; then
-              token_label=$(jq -r '.pill.label // .label // empty' "$token_file" 2>/dev/null || true)
+              token_label=$(jq -r '.pill.label // empty' "$token_file" 2>/dev/null || true)
               if [[ -n "$token_label" && "$token_label" != "null" ]]; then
                 label="$token_label"
               fi
             fi
-
             if [[ -z "$label" ]]; then
-              readme_label=""
-              for readme in "${repo}/README.md" "${repo}/README.markdown" "${repo}/README.MD"; do
-                if [[ -f "$readme" ]]; then
-                  readme_label=$(awk '/^#[[:space:]]+/{sub(/^#[[:space:]]+/, ""); print; exit}' "$readme" 2>/dev/null || true)
-                  [[ -n "$readme_label" ]] && break
-                fi
-              done
-              [[ -n "$readme_label" ]] && label="$readme_label"
-            fi
-
-            if [[ -z "$label" ]]; then
-              label=$(python3 -c 'import re,sys; name=(sys.argv[1] or "").strip(); s=name.replace("-"," ").replace("_"," "); s=re.sub(r"(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])"," ",s); s=re.sub(r"(?<=[a-z])(?=[A-Z])"," ",s); s=re.sub(r"\\s+"," ",s).strip(); print(s.upper())' "$repo")
-            fi
-
-            if [[ -n "$label" ]]; then
-              label=$(python3 -c 'import re,sys; s=(sys.argv[1] or "").strip(); s=re.sub(r"\\s+"," ",s).strip(); print(s.upper())' "$label")
-            else
-              label=$(python3 -c 'import sys; print((sys.argv[1] or "").strip().upper())' "$repo")
+              label=$(echo "$repo" | tr '[:lower:]' '[:upper:]')
             fi
 
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
