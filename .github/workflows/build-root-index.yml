@@ -1,9 +1,8 @@
-# Build the root index.html from PRIVATE_REPOS and each {repo}_PILL_LABEL variable.
+# Build the root index.html from PRIVATE_REPOS.
 # Runs on push to main (e.g. when a private repo pushes subsite content) and on manual trigger.
 # Commits index.html only if it changed.
 #
-# Optional secret: BUILD_VARIABLES_TOKEN — PAT with repo scope so the workflow can read
-# repository variables via API (GITHUB_TOKEN often gets 403). If unset, pill labels fall back to repo name.
+# Optional secret: BUILD_VARIABLES_TOKEN — PAT with repo scope in case gh variable read is restricted.
 
 name: Build root index
 
@@ -33,7 +32,6 @@ jobs:
           set -e
           REPO="${{ github.repository }}"
           OWNER="${REPO%%/*}"
-          API_TOKEN="${BUILD_VARIABLES_TOKEN:-$GH_TOKEN}"
           private_repos="${PRIVATE_REPOS:-}"
           if [[ -z "$private_repos" ]]; then
             vars=$(gh variable list --json name,value 2>/dev/null || echo '[]')
@@ -43,21 +41,113 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Build nav links: fetch each *_PILL_LABEL via API (use BUILD_VARIABLES_TOKEN if set; GITHUB_TOKEN often 403)
+          # Build nav links from repo names. Labels are derived with this priority:
+          # 1) explicit token file label (if provided)
+          # 2) README H1-derived label
+          # 3) generic split rules (-, _, camelCase, alpha-number)
+          # 4) fallback uppercase slug
           nav=""
+          project_styles=""
           IFS=,
           for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
-            repo_var="$(echo "$repo" | tr '-' '_')_PILL_LABEL"
-            resp=$(curl -sS -w "\n%{http_code}" -H "Authorization: Bearer ${API_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/actions/variables/${repo_var}" 2>/dev/null)
-            http_code=$(echo "$resp" | tail -n1)
-            body=$(echo "$resp" | head -n-1)
-            label=$(echo "$body" | jq -r '.value // empty' 2>/dev/null)
-            label="${label:-$repo}"
-            echo "PILL_LABEL ${repo_var}: http=${http_code} label=${label}"
+
+            label=""
+            token_file="${repo}/design-tokens.json"
+            if [[ -f "$token_file" ]]; then
+              token_label=$(jq -r '.pill.label // .label // empty' "$token_file" 2>/dev/null || true)
+              if [[ -n "$token_label" && "$token_label" != "null" ]]; then
+                label="$token_label"
+              fi
+            fi
+
+            if [[ -z "$label" ]]; then
+              readme_label=$(python3 - "$repo" << 'PY'
+import pathlib, re, sys
+repo = (sys.argv[1] or "").strip()
+for name in ("README.md", "README.markdown", "README.MD"):
+    p = pathlib.Path(repo) / name
+    if not p.is_file():
+        continue
+    try:
+        txt = p.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        continue
+    for line in txt.splitlines():
+        m = re.match(r"^\s*#\s+(.+?)\s*$", line)
+        if m:
+            print(m.group(1).strip())
+            raise SystemExit(0)
+print("")
+PY
+)
+              [[ -n "$readme_label" ]] && label="$readme_label"
+            fi
+
+            if [[ -z "$label" ]]; then
+              label=$(python3 - "$repo" << 'PY'
+import re, sys
+name = (sys.argv[1] or "").strip()
+s = name.replace("-", " ").replace("_", " ")
+s = re.sub(r"\s+", " ", s).strip()
+if " " not in s:
+    # Generic boundary splits only (no hardcoded word lists/examples).
+    # 1) alpha/number boundaries
+    s = re.sub(r"(?<=[A-Za-z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])", " ", s)
+    # 2) camelCase / PascalCase boundaries
+    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s)
+s = re.sub(r"\s+", " ", s).strip()
+print(s.upper())
+PY
+)
+            fi
+
+            if [[ -n "$label" ]]; then
+              label=$(python3 - "$label" << 'PY'
+import re, sys
+s = (sys.argv[1] or "").strip()
+s = re.sub(r"\s+", " ", s).strip()
+print(s.upper())
+PY
+)
+            else
+              label=$(python3 - "$repo" << 'PY'
+import sys
+print((sys.argv[1] or "").strip().upper())
+PY
+)
+            fi
+
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
             nav="${nav}<a href=\"/${repo}/\" data-subpath=\"${repo}\">${label_escaped}</a>"
+            if [[ -f "$token_file" ]]; then
+              pbg='linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.98))'
+              pborder='rgba(218,112,214,0.55)'
+              ptext='#DA70D6'
+              phbg='#BA55D3'
+              phtext='#ffffff'
+              phborder='#DA70D6'
+              phshadow='0 8px 24px rgba(186,85,211,0.4)'
+              tbg=$(jq -r '.pill.background // empty' "$token_file" 2>/dev/null || true)
+              tborder=$(jq -r '.pill.border // empty' "$token_file" 2>/dev/null || true)
+              ttext=$(jq -r '.pill.text // empty' "$token_file" 2>/dev/null || true)
+              thbg=$(jq -r '.pill.hover_background // empty' "$token_file" 2>/dev/null || true)
+              thtext=$(jq -r '.pill.hover_text // empty' "$token_file" 2>/dev/null || true)
+              thborder=$(jq -r '.pill.hover_border // empty' "$token_file" 2>/dev/null || true)
+              thshadow=$(jq -r '.pill.hover_shadow // empty' "$token_file" 2>/dev/null || true)
+              [[ -n "$tbg" ]] && pbg="$tbg"
+              [[ -n "$tborder" ]] && pborder="$tborder"
+              [[ -n "$ttext" ]] && ptext="$ttext"
+              [[ -n "$thbg" ]] && phbg="$thbg"
+              [[ -n "$thtext" ]] && phtext="$thtext"
+              [[ -n "$thborder" ]] && phborder="$thborder"
+              [[ -n "$thshadow" ]] && phshadow="$thshadow"
+              project_styles="${project_styles}.links a[data-subpath=\"${repo}\"]{background:${pbg};color:${ptext};border-color:${pborder};}.links a[data-subpath=\"${repo}\"]:hover{background:${phbg};color:${phtext};border-color:${phborder};box-shadow:${phshadow};}"
+              echo "Loaded pill tokens from ${token_file} for ${repo}"
+            else
+              echo "Token file missing (${token_file}); ${repo} uses fallback base pill style."
+            fi
           done
           unset IFS
 
@@ -101,6 +191,7 @@ jobs:
           .links{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;}
           .links a{display:inline-block;padding:0.55rem 1.2rem;background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.98));color:#DA70D6;text-decoration:none;font-weight:600;letter-spacing:.03em;border-radius:20px;border:1px solid rgba(218,112,214,0.55);transition:background .2s,color .2s,border-color .2s,transform .15s;}
           .links a:hover{background:#BA55D3;color:#fff;border-color:#DA70D6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(186,85,211,0.4);}
+          ${project_styles}
           </style>
           </head>
           <body>
