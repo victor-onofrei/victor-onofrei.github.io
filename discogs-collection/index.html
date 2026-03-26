@@ -34,40 +34,10 @@
       --muted: #9ca3af;
       --border: rgba(148, 163, 184, 0.2);
       --shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      /* Warmer, slightly deeper plum than before; whisper gloss (not a bright A/B pop) */
       --shell-border: rgba(172, 158, 188, 0.34);
       --shell-border-soft: rgba(172, 158, 188, 0.18);
       --card-border: rgba(205, 195, 220, 0.42);
-      --shell-surface:
-        linear-gradient(172deg, rgba(255,255,255,0.042) 0%, transparent 34%),
-        linear-gradient(168deg, #262f3c 0%, #1e2432 50%, #171b27 100%);
-      /* Lighter than shell so tiles read clearly; soft top sheen for separation */
-      --card-surface:
-        linear-gradient(168deg, rgba(255,255,255,0.1) 0%, transparent 36%),
-        linear-gradient(180deg, #424b5e 0%, #3a4356 55%, #343c4e 100%);
-    }
-
-    /* A = same depth family, only a touch more sheen than Def (not brighter base) */
-    html[data-palette="A"] {
-      --shell-surface:
-        linear-gradient(172deg, rgba(255,255,255,0.072) 0%, transparent 30%),
-        linear-gradient(168deg, #262f3c 0%, #1e2432 50%, #171b27 100%);
-      --card-surface:
-        linear-gradient(168deg, rgba(255,255,255,0.11) 0%, transparent 32%),
-        linear-gradient(180deg, #444d62 0%, #3c4558 55%, #363e50 100%);
-    }
-    html[data-palette="B"] {
-      --shell-border: rgba(128, 178, 237, 0.42);
-      --shell-border-soft: rgba(128, 178, 237, 0.22);
-      --card-border: rgba(180, 206, 244, 0.48);
-      --shell-surface:
-        linear-gradient(172deg, rgba(255,255,255,0.06) 0%, transparent 32%),
-        linear-gradient(168deg, #2a3e56 0%, #22344b 52%, #1a283a 100%);
-      --card-surface:
-        linear-gradient(168deg, rgba(255,255,255,0.12) 0%, transparent 34%),
-        linear-gradient(180deg, #4a6485 0%, #3f5672 56%, #344861 100%);
-    }
-    html[data-palette="D"] {
+      /* Production theme */
       --shell-surface: linear-gradient(168deg, #243a4e 0%, #1c3144 50%, #152838 100%);
       --card-surface:
         linear-gradient(168deg, rgba(255,255,255,0.1) 0%, transparent 34%),
@@ -673,52 +643,6 @@
       }
     }
 
-    .palette-demo {
-      position: fixed;
-      left: calc(10px + env(safe-area-inset-left));
-      bottom: calc(52px + env(safe-area-inset-bottom));
-      z-index: 80;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(218,112,214,0.35);
-      background: rgba(12,18,32,0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 10px 28px rgba(2,6,23,0.45);
-      max-width: min(220px, 92vw);
-    }
-    .palette-demo-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: rgba(229,231,235,0.72);
-    }
-    .palette-demo-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-    .palette-demo-btns button {
-      min-width: 2rem;
-      padding: 5px 7px;
-      border-radius: 7px;
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(30,41,59,0.85);
-      color: var(--text);
-      font-size: 0.72rem;
-      font-weight: 650;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-    .palette-demo-btns button[data-palette-active="1"] {
-      border-color: rgba(218,112,214,0.75);
-      color: #fde7ff;
-      background: rgba(218,112,214,0.14);
-    }
-
     @media print {
       body {
         background: #fff;
@@ -753,8 +677,7 @@
         color: #BA55D3;
       }
       .section-rail,
-      .to-top,
-      .palette-demo {
+      .to-top {
         display: none;
       }
       .meta span,
@@ -2333,7 +2256,6 @@
     <div class="section-rail-inner" id="section-rail-inner"></div>
   </div>
   <button type="button" class="to-top" id="to-top" aria-label="Go to top" title="Go to top"></button>
-
   <script>
 (function() {
   var grid = document.getElementById("grid");
@@ -2658,49 +2580,6 @@
       detectActiveSection();
     }
   }
-
-  (function initPaletteDemo() {
-    var bar = document.getElementById("palette-demo");
-    if (!bar) return;
-    var root = document.documentElement;
-    var pk = "discogs-collection-palette-demo";
-    function markActive(which) {
-      [].slice.call(bar.querySelectorAll("button[data-palette]")).forEach(function(b) {
-        var p = b.getAttribute("data-palette") || "";
-        b.setAttribute("data-palette-active", p === which ? "1" : "0");
-      });
-    }
-    function apply(which) {
-      var w = which || "default";
-      if (w === "default") {
-        root.removeAttribute("data-palette");
-      } else {
-        root.setAttribute("data-palette", w);
-      }
-      markActive(w);
-      try {
-        localStorage.setItem(pk, w === "default" ? "" : w);
-      } catch (e) {}
-    }
-    try {
-      var stored = localStorage.getItem(pk) || "";
-      if (stored.length === 1 && "ABD".indexOf(stored) >= 0) {
-        apply(stored);
-      } else {
-        apply("default");
-      }
-    } catch (e) {
-      apply("default");
-    }
-    bar.addEventListener("click", function(e) {
-      var t = e.target;
-      if (!t || !t.getAttribute) return;
-      var p = t.getAttribute("data-palette");
-      if (!p) return;
-      e.preventDefault();
-      apply(p);
-    });
-  })();
 
   select.addEventListener("change", function() {
     try { localStorage.setItem(sortKey, select.value); } catch (e) {}
