@@ -553,6 +553,17 @@
       cursor: pointer;
       line-height: 1;
       padding: 0 4px;
+      transition:
+        border-color 200ms cubic-bezier(0.33, 1, 0.68, 1),
+        color 200ms cubic-bezier(0.33, 1, 0.68, 1),
+        background 200ms cubic-bezier(0.33, 1, 0.68, 1),
+        box-shadow 200ms cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rail-item {
+        transition: none;
+      }
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -567,6 +578,7 @@
       border-color: var(--accent);
       color: var(--text);
       background: rgba(218,112,214,0.14);
+      box-shadow: 0 0 0 1px rgba(218,112,214,0.12);
     }
 
     .to-top {
@@ -2275,6 +2287,7 @@
   var sectionCounter = 0;
   var activeSectionId = null;
   var jumpPickerOpen = false;
+  var railScrollSuppress = false;
   var toTopRaf = null;
   var sortKey = "discogs-collection-sort";
   try {
@@ -2325,6 +2338,23 @@
     jumpOverlay.hidden = true;
   }
 
+  function endRailScrollSuppress() {
+    railScrollSuppress = false;
+    detectActiveSection();
+  }
+
+  function armRailScrollSuppress() {
+    railScrollSuppress = true;
+    var released = false;
+    function release() {
+      if (released) return;
+      released = true;
+      endRailScrollSuppress();
+    }
+    window.addEventListener("scrollend", release, { once: true });
+    window.setTimeout(release, 900);
+  }
+
   function setActiveSection(id, force) {
     if (!id) return;
     if (!force && activeSectionId === id) return;
@@ -2341,14 +2371,72 @@
     }
   }
 
+  function sectionLabelRect(sectionEl) {
+    var label = sectionEl.querySelector(".separator-label");
+    return (label || sectionEl).getBoundingClientRect();
+  }
+
   function detectActiveSection() {
-    if (jumpPickerOpen || !sections.length) return;
-    var threshold = Math.max(80, window.innerHeight * 0.22);
-    var chosen = sections[0];
+    if (jumpPickerOpen || !sections.length || railScrollSuppress) return;
+    var clientH = window.innerHeight;
+    var edgePad = 2;
+    var lineY = Math.max(64, clientH * 0.12);
+    var y = getScrollY();
+    var scrollH = Math.max(
+      document.documentElement.scrollHeight || 0,
+      document.body ? document.body.scrollHeight : 0
+    );
+    var lowerThirdY = clientH * 0.34;
+    function intersects(rect) {
+      return rect.bottom > edgePad && rect.top < clientH - edgePad;
+    }
+    function fullyVisible(rect) {
+      return (
+        rect.height > 0 &&
+        rect.top >= edgePad &&
+        rect.bottom <= clientH - edgePad
+      );
+    }
+    function partialAllowed(rect) {
+      if (rect.top < edgePad) return false;
+      if (rect.bottom <= clientH - edgePad) return true;
+      return rect.top > lowerThirdY;
+    }
+    var chosen = null;
+    var bestTop = Infinity;
     sections.forEach(function(section) {
-      var top = section.el.getBoundingClientRect().top;
-      if (top <= threshold) chosen = section;
+      var rect = sectionLabelRect(section.el);
+      if (!fullyVisible(rect)) return;
+      if (rect.top < bestTop) {
+        bestTop = rect.top;
+        chosen = section;
+      }
     });
+    if (!chosen) {
+      bestTop = Infinity;
+      sections.forEach(function(section) {
+        var rect = sectionLabelRect(section.el);
+        if (!intersects(rect) || !partialAllowed(rect)) return;
+        if (rect.top < bestTop) {
+          bestTop = rect.top;
+          chosen = section;
+        }
+      });
+    }
+    if (!chosen) {
+      chosen = sections[0];
+      sections.forEach(function(section) {
+        var rect = sectionLabelRect(section.el);
+        if (rect.top < 0) chosen = section;
+      });
+    }
+    var last = sections[sections.length - 1];
+    var lastRect = sectionLabelRect(last.el);
+    var distFromBottom = scrollH - (y + clientH);
+    var atDocEnd = scrollH > clientH + 32 && distFromBottom <= 3;
+    if (atDocEnd && chosen !== last && lastRect.top > lineY) {
+      chosen = last;
+    }
     setActiveSection(chosen.id, false);
   }
 
@@ -2367,6 +2455,8 @@
       btn.setAttribute("data-target", section.id);
       btn.setAttribute("aria-label", "Jump to " + section.label);
       btn.addEventListener("click", function() {
+        setActiveSection(section.id, true);
+        armRailScrollSuppress();
         section.el.scrollIntoView({ behavior: "smooth", block: "start" });
       });
       railInner.appendChild(btn);
