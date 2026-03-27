@@ -191,8 +191,10 @@
     }
 
     .custom-select {
+      display: inline-block;
       position: relative;
-      min-width: 220px;
+      vertical-align: baseline;
+      max-width: 100%;
     }
 
     .custom-select-btn {
@@ -207,6 +209,9 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
       text-align: left;
       position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .custom-select-btn::after {
@@ -230,7 +235,10 @@
       position: absolute;
       top: calc(100% + 6px);
       left: 0;
-      right: 0;
+      min-width: 100%;
+      width: max-content;
+      max-width: min(100vw - 32px, 520px);
+      box-sizing: border-box;
       max-height: 260px;
       overflow: auto;
       border-radius: 10px;
@@ -247,7 +255,9 @@
 
     .custom-select-option {
       display: block;
-      width: 100%;
+      width: max-content;
+      min-width: 100%;
+      box-sizing: border-box;
       border: none;
       background: transparent;
       color: var(--text);
@@ -256,6 +266,7 @@
       padding: 7px 8px;
       border-radius: 6px;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .custom-select-option:hover,
@@ -2387,6 +2398,48 @@
     if (saved && select.querySelector('option[value="' + saved + '"]')) select.value = saved;
   } catch (e) {}
 
+  var customSelectEntries = [];
+
+  function measureCustomSelectNatural(entry) {
+    var host = entry.host;
+    var button = entry.button;
+    var selectEl = entry.selectEl;
+
+    var idx = selectEl.selectedIndex >= 0 ? selectEl.selectedIndex : 0;
+    var restoreTxt =
+      (selectEl.options[idx] && selectEl.options[idx].textContent) || "";
+
+    var prevHostWidth = host.style.width;
+    host.style.width = "";
+    button.style.width = "auto";
+
+    var maxBtn = 0;
+    for (var o = 0; o < selectEl.options.length; o++) {
+      button.textContent = selectEl.options[o].textContent;
+      maxBtn = Math.max(maxBtn, button.offsetWidth);
+    }
+    button.textContent = restoreTxt;
+    host.style.width = prevHostWidth || "";
+    button.style.width = "100%";
+
+    // Reserve extra room for the chevron + right-side breathing room to avoid clipping.
+    var iconReservePx = 5;
+    return Math.max(maxBtn + iconReservePx, 1);
+  }
+
+  function syncAllCustomSelectWidths() {
+    if (customSelectEntries.length === 0) return;
+    var naturalMax = 1;
+    for (var i = 0; i < customSelectEntries.length; i++) {
+      naturalMax = Math.max(naturalMax, measureCustomSelectNatural(customSelectEntries[i]));
+    }
+    var vwCap = window.innerWidth > 0 ? window.innerWidth - 48 : Infinity;
+    var finalW = Math.min(naturalMax, vwCap);
+    for (var k = 0; k < customSelectEntries.length; k++) {
+      customSelectEntries[k].host.style.width = finalW + "px";
+    }
+  }
+
   function closeAllCustomSelects(exceptEl) {
     [].slice.call(document.querySelectorAll(".custom-select.is-open")).forEach(function(el) {
       if (!exceptEl || el !== exceptEl) {
@@ -2428,6 +2481,7 @@
       [].slice.call(list.querySelectorAll(".custom-select-option")).forEach(function(optBtn) {
         optBtn.classList.toggle("is-active", optBtn.getAttribute("data-value") === selectEl.value);
       });
+      syncAllCustomSelectWidths();
     }
 
     [].slice.call(selectEl.options).forEach(function(opt) {
@@ -2463,6 +2517,7 @@
     host.appendChild(button);
     host.appendChild(list);
     selectEl.insertAdjacentElement("afterend", host);
+    customSelectEntries.push({ host: host, button: button, list: list, selectEl: selectEl });
     setCurrentLabel();
 
     selectEl.addEventListener("change", setCurrentLabel);
@@ -2470,6 +2525,7 @@
 
   enhanceNativeSelect(select);
   if (folderSelect) enhanceNativeSelect(folderSelect);
+  window.addEventListener("resize", syncAllCustomSelectWidths);
   document.addEventListener("click", function(ev) {
     if (!ev.target || !ev.target.closest || !ev.target.closest(".custom-select")) {
       closeAllCustomSelects();
