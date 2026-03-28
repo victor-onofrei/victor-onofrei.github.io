@@ -1,6 +1,15 @@
 # Deploy: how private repos connect to this Pages site
 
-This repo is the **public** GitHub Pages site. Private subsite repos push built content here; **Build root index** turns that into the root `index.html`, nav links, and pill styling (via each subsite’s `design-tokens.json` when present).
+This repo is the **public** user site (`username.github.io`). Subsite folders and workflows publish the **root** `https://<username>.github.io/` and paths like `/<subsite>/`.
+
+## GitHub Pages on this repo
+
+In **Settings → Pages**:
+
+- **Source:** Deploy from a branch.
+- **Branch:** `main`, folder **/** (repository root).
+
+Everything in `main` at the repo root is what Pages serves. Private subsite repos push into **named subfolders** here (not the root `index.html`); **Build root index** regenerates that root `index.html` from `PRIVATE_REPOS` and each subsite’s `design-tokens.json`.
 
 ## What each private repo should do
 
@@ -17,30 +26,30 @@ Every subsite lives in its **own** private repo. That repo is responsible for tw
    - It ensures **`PRIVATE_REPOS`** on this repo includes your repo’s name (read → add if missing → write).  
    - It uses **`PAGES_DEPLOY_TOKEN`**: a PAT with **Actions variables** read/write on **this** repo, plus permission to push contents for deploy.
 
-Together, deploy brings the files; sync makes **Build root index** know to list your folder.
+Deploy brings the files; sync makes **Build root index** include your folder in the variable list.
 
 ---
 
 ## Repository variable: `PRIVATE_REPOS`
 
-Comma-separated list of private repo **names** that are subsites (e.g. `discogs-collection,album-scraper`). **Build root index** uses it to know which subfolders to include in the root index.
+Comma-separated list of private repo **names** that are subsites (e.g. `discogs-collection,album-scraper`). **Build root index** uses it to know which subfolders get nav pills on the root page.
 
 ## `design-tokens.json` (per subsite)
 
-Each name in `PRIVATE_REPOS` should have a folder `<repo-name>/` with at least `index.html`. For nav, **Build root index** reads `<repo-name>/design-tokens.json` if present:
+For each name in `PRIVATE_REPOS`, expect a folder `<repo-name>/` with at least `index.html`. For labels and pill CSS, **Build root index** reads `<repo-name>/design-tokens.json` if present:
 
-- **`pill.label`** — text on the root project pill. If missing or empty, the workflow uses the **subpath uppercased** (e.g. `discogs-collection` → `DISCOGS-COLLECTION`).  
-- **`pill.background`**, **`pill.border`**, **`pill.text`**, and hover fields — optional; default orchid/slate pill styles apply when omitted.
+- **`pill.label`** — nav pill text. If missing or empty, the workflow uppercases the folder name (e.g. `discogs-collection` → `DISCOGS-COLLECTION`).  
+- **`pill.background`**, **`pill.border`**, **`pill.text`** — optional.  
+- **Hover:** `pill.hover_background`, `pill.hover_text`, `pill.hover_border`, `pill.hover_shadow` — optional; default orchid/slate styling applies when omitted.
 
-Private repos typically generate this file as part of deploy.
+Private repos usually generate this file during deploy.
 
 ## Workflows in this repo
 
 - **Build root index** (`.github/workflows/build-root-index.yml`)  
-  Runs on push to `main` and on `workflow_dispatch`. Reads `PRIVATE_REPOS`, loads each subsite’s `design-tokens.json` for labels and pill CSS, writes `index.html`, and commits and pushes if changed.  
-  **Optional secret:** `BUILD_VARIABLES_TOKEN` — PAT with **repo** scope if `gh variable list` needs it to read `PRIVATE_REPOS`.  
-  Pushes that **only** change `pr-preview/**` are ignored so this workflow does not fight the preview action.
+  - **When:** push to `main` (except commits that only touch `pr-preview/**`) and `workflow_dispatch`.  
+  - **What:** Reads `PRIVATE_REPOS` from the job (`vars.PRIVATE_REPOS`). If that is empty, falls back to `gh variable list` with the workflow token. For each listed repo, loads `<repo>/design-tokens.json` if present, writes root `index.html`, and commits only if it changed.
 
 - **PR preview on Pages** (`.github/workflows/pr_preview_pages.yml`)  
-  On each pull request (open / sync / reopen), publishes the **repository root** of the PR head under `https://<owner>.github.io/pr-preview/pr-<number>/` (user-site layout; see the comment on the PR from the action). On **close** (merged or not), removes that folder from `main`.  
-  **Settings:** **Actions → General → Workflow permissions** must allow **Read and write**. **Pages** must use **Deploy from a branch** (this site uses `main` / root). Previews from **forks** are not supported by the action (v1).
+  Uses [rossjrw/pr-preview-action](https://github.com/rossjrw/pr-preview-action) to put the PR head’s repo root under `/pr-preview/pr-<number>/` on the **same** `main` Pages deployment (see the bot comment on the PR for the preview URL). On PR close, removes that folder from `main`.  
+  **Requirements:** **Actions → General → Workflow permissions** → **Read and write** for `contents` (and `pull-requests` for the action). Same Pages branch/root settings as above. Previews from **fork** PRs are not supported (v1).
