@@ -1,6 +1,6 @@
 # Deploy: how private repos connect to this Pages site
 
-This repo is the **public** GitHub Pages site. Private subsite repos push built content here; **Build root index** turns that into the root `index.html`, nav links, and pill styling (via each subsite’s `design-tokens.json` when present).
+This repo is the **public** GitHub Pages site. The doc has two parts: what **private subsite repos** must do, then what **this repo** uses to turn their folders into the root `index.html` and nav (via `PRIVATE_REPOS` and each subsite’s `design-tokens.json`).
 
 ## What each private repo should do
 
@@ -9,7 +9,7 @@ Every subsite lives in its **own** private repo. That repo is responsible for tw
 1. **Deploy to this repo**  
    - Build the site in CI.  
    - Push the output into **this** repo under a folder named **like the private repo** (e.g. `discogs-collection/`).  
-   - Include **`design-tokens.json`** there if you want a custom nav pill label or colors (see below).  
+   - Include **`design-tokens.json`** there if you want a custom nav pill label or colors (described under **How this repo builds the root page**).  
    - Do **not** overwrite this repo’s root `index.html`; only add or update your subfolder.
 
 2. **Register the subsite on this repo**  
@@ -19,13 +19,15 @@ Every subsite lives in its **own** private repo. That repo is responsible for tw
 
 Together, deploy brings the files; sync makes **Build root index** know to list your folder.
 
----
+## How this repo builds the root page
 
-## Repository variable: `PRIVATE_REPOS`
+Once **`main`** has the subsite folders and **`PRIVATE_REPOS`** is up to date, everything below is **on this public repo only**: the variable, the optional token file per folder, and the workflows that regenerate the landing page.
+
+### `PRIVATE_REPOS` (Actions variable)
 
 Comma-separated list of private repo **names** that are subsites (e.g. `discogs-collection,album-scraper`). **Build root index** uses it to know which subfolders to include in the root index.
 
-## `design-tokens.json` (per subsite)
+### `design-tokens.json` (per subsite folder)
 
 Each name in `PRIVATE_REPOS` should have a folder `<repo-name>/` with at least `index.html`. For nav, **Build root index** reads `<repo-name>/design-tokens.json` if present:
 
@@ -34,7 +36,7 @@ Each name in `PRIVATE_REPOS` should have a folder `<repo-name>/` with at least `
 
 Private repos typically generate this file as part of deploy.
 
-## Workflows in this repo
+### Workflows
 
 - **Build root index** (`.github/workflows/build-root-index.yml`)  
   Runs on push to `main` and on `workflow_dispatch`. Reads `PRIVATE_REPOS`, loads each subsite’s `design-tokens.json` for labels and pill CSS, writes `index.html`, and commits and pushes if changed.  
