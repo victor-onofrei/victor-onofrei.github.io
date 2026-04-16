@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "subpath": "album-finder",
+  "pill": {
+    "label": "ALBUM FINDER",
+    "background": "linear-gradient(145deg, rgba(45, 27, 46, 0.95), rgba(26, 15, 26, 0.98))",
+    "border": "rgba(218, 112, 214, 0.45)",
+    "text": "#e9d5ff",
+    "hover_background": "#ba55d3",
+    "hover_text": "#ffffff",
+    "hover_border": "#da70d6",
+    "hover_shadow": "0 8px 24px rgba(186, 85, 211, 0.35)"
+  }
+}
