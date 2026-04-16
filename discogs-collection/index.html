@@ -834,7 +834,7 @@
           <option value="master_asc">Master year (oldest first)</option>
         </select>
       </div>
-<div class="folder-wrap"><label for="folder-filter">Folder</label><select id="folder-filter" aria-label="Filter by folder"><option value="">All (139)</option><option value="8774916" selected>Vinyl (123)</option><option value="8774917">CD (16)</option></select></div>
+<div class="folder-wrap"><label for="folder-filter">Folder</label><select id="folder-filter" aria-label="Filter by folder"><option value="">All (139)</option><option value="8774916">Vinyl (123)</option><option value="8774917">CD (16)</option></select></div>
     </div>
 
     <main class="grid" id="grid">
@@ -2404,10 +2404,25 @@
   var railScrollSuppress = false;
   var toTopRaf = null;
   var sortKey = "discogs-collection-sort";
+  var folderKey = "discogs-collection-folder";
   try {
     var saved = localStorage.getItem(sortKey);
     if (saved && select.querySelector('option[value="' + saved + '"]')) select.value = saved;
   } catch (e) {}
+
+  if (folderSelect) {
+    try {
+      var savedFolder = localStorage.getItem(folderKey);
+      if (savedFolder !== null) {
+        for (var fi = 0; fi < folderSelect.options.length; fi++) {
+          if (folderSelect.options[fi].value === savedFolder) {
+            folderSelect.value = savedFolder;
+            break;
+          }
+        }
+      }
+    } catch (e) {}
+  }
 
   var customSelectEntries = [];
 
@@ -2553,7 +2568,12 @@
     sortCards();
   }
 
-  if (folderSelect) folderSelect.addEventListener("change", filterByFolder);
+  if (folderSelect) {
+    folderSelect.addEventListener("change", function() {
+      try { localStorage.setItem(folderKey, folderSelect.value); } catch (e) {}
+      filterByFolder();
+    });
+  }
 
   function getSepKey(card, key) {
     if (key === "artist") {
