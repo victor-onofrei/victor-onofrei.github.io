@@ -8,7 +8,7 @@ Every subsite lives in its **own** private repo. That repo is responsible for tw
 
 1. **Deploy to this repo**  
    - Build the site in CI.  
-   - Push the output into **this** repo under a folder named **like the private repo** (e.g. `discogs-collection/`).  
+   - Push the output into **this** repo under a folder named **like the private repo** (e.g. `my-project/`).  
    - Include **`design-tokens.json`** there if you want a custom nav pill label or colors (described under **How this repo builds the root page**).  
    - Do **not** overwrite this repo’s root `index.html`; only add or update your subfolder.
 
@@ -25,13 +25,13 @@ Once **`main`** has the subsite folders and **`PRIVATE_REPOS`** is up to date, e
 
 ### `PRIVATE_REPOS` (Actions variable)
 
-Comma-separated list of private repo **names** that are subsites (e.g. `discogs-collection,album-scraper`). **Build root index** uses it to know which subfolders to include in the root index.
+Comma-separated list of private repo **names** that are subsites (e.g. `project-a,project-b`). **Build root index** uses it to know which subfolders to include in the root index.
 
 ### `design-tokens.json` (per subsite folder)
 
 Each name in `PRIVATE_REPOS` should have a folder `<repo-name>/` with at least `index.html`. For nav, **Build root index** reads `<repo-name>/design-tokens.json` if present:
 
-- **`pill.label`** — text on the root project pill. If missing or empty, the workflow uses the **subpath uppercased** (e.g. `discogs-collection` → `DISCOGS-COLLECTION`).  
+- **`pill.label`** — text on the root project pill. If missing or empty, the workflow uses the **subpath uppercased** (e.g. `my-vinyl` → `MY-VINYL`).  
 - **`pill.background`**, **`pill.border`**, **`pill.text`**, and hover fields — optional; default orchid/slate pill styles apply when omitted.
 
 Private repos typically generate this file as part of deploy.
