@@ -41,12 +41,35 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
+          # Root nav order: discogs-collection first (if listed), then every other repo in PRIVATE_REPOS order (deduped).
+          root_nav_repos=""
+          discogs_seen=""
+          IFS=,
+          for repo in $private_repos; do
+            repo=$(echo "$repo" | xargs)
+            [[ -z "$repo" ]] && continue
+            if [[ "$repo" == "discogs-collection" && -z "$discogs_seen" ]]; then
+              root_nav_repos="discogs-collection"
+              discogs_seen="1"
+            fi
+          done
+          for repo in $private_repos; do
+            repo=$(echo "$repo" | xargs)
+            [[ -z "$repo" ]] && continue
+            [[ "$repo" == "discogs-collection" ]] && continue
+            if [[ -n "$root_nav_repos" ]]; then
+              root_nav_repos="${root_nav_repos},${repo}"
+            else
+              root_nav_repos="$repo"
+            fi
+          done
+          unset IFS
           # Pill labels: read ``pill.label`` from <repo>/design-tokens.json (published by each private repo).
           # Fallback: uppercase repo slug (ASCII), same spirit as String.prototype.toUpperCase() for slugs.
           nav=""
           project_styles=""
           IFS=,
-          for repo in $private_repos; do
+          for repo in $root_nav_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
 
@@ -131,7 +154,7 @@ jobs:
           h1{font-size:1.5rem;font-weight:600;letter-spacing:.06em;margin:0 0 0.25rem;color:#e8dde8;}
           .intro{font-size:0.9rem;color:#c4b0c4;margin:0 0 0.5rem;}
           p{font-size:0.9rem;color:#9a8a9a;margin:0 0 2rem;}
-          .links{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;}
+          .links{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:center;gap:1rem;width:100%;}
           .links a{display:inline-block;padding:0.38rem 1.2rem;background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.98));color:#DA70D6;text-decoration:none;font-weight:600;letter-spacing:.12em;border-radius:20px;border:1px solid rgba(218,112,214,0.55);transition:background .2s,color .2s,border-color .2s,transform .15s;}
           .links a:hover{background:#BA55D3;color:#fff;border-color:#DA70D6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(186,85,211,0.4);}
           ${project_styles}
