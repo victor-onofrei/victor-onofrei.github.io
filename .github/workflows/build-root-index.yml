@@ -41,35 +41,12 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Root nav order: discogs-collection first (if listed), then every other repo in PRIVATE_REPOS order (deduped).
-          root_nav_repos=""
-          discogs_seen=""
-          IFS=,
-          for repo in $private_repos; do
-            repo=$(echo "$repo" | xargs)
-            [[ -z "$repo" ]] && continue
-            if [[ "$repo" == "discogs-collection" && -z "$discogs_seen" ]]; then
-              root_nav_repos="discogs-collection"
-              discogs_seen="1"
-            fi
-          done
-          for repo in $private_repos; do
-            repo=$(echo "$repo" | xargs)
-            [[ -z "$repo" ]] && continue
-            [[ "$repo" == "discogs-collection" ]] && continue
-            if [[ -n "$root_nav_repos" ]]; then
-              root_nav_repos="${root_nav_repos},${repo}"
-            else
-              root_nav_repos="$repo"
-            fi
-          done
-          unset IFS
           # Pill labels: read ``pill.label`` from <repo>/design-tokens.json (published by each private repo).
           # Fallback: uppercase repo slug (ASCII), same spirit as String.prototype.toUpperCase() for slugs.
           nav=""
           project_styles=""
           IFS=,
-          for repo in $root_nav_repos; do
+          for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
 
