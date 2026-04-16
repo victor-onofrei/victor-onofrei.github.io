@@ -87,7 +87,7 @@ function main() {
   const input = document.getElementById("query");
   const form = document.getElementById("search-form");
   const resultsEl = document.getElementById("results");
-  if (!input || !resultsEl) {
+  if (!input || !form || !resultsEl) {
     return;
   }
 
