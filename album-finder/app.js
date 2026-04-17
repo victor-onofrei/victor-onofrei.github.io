@@ -1,5 +1,5 @@
 const PLACEHOLDER = "{{q}}";
-const SHOPS_URL = "shops.json";
+const RECORD_STORES_URL = "record_stores.json";
 const DEBOUNCE_MS = 320;
 const FORMAT_STORAGE_KEY = "albumFinderFormat";
 const VALID_FORMATS = new Set(["vinyl", "cd"]);
@@ -8,6 +8,32 @@ const FORMAT_PLACEHOLDER_LABEL = "Choose a format...";
 let shops = [];
 let shopsLoaded = false;
 let debounceTimer = null;
+
+function storeCountMetaEl() {
+  return document.getElementById("store-count-meta");
+}
+
+function setStoreCountMetaFromCount(count) {
+  const root = storeCountMetaEl();
+  if (!root) {
+    return;
+  }
+  root.replaceChildren();
+  const num = document.createElement("strong");
+  num.textContent = String(count);
+  const suffix = document.createElement("span");
+  suffix.className = "store-count-suffix";
+  suffix.textContent = count === 1 ? " record store" : " record stores";
+  root.append(num, suffix);
+}
+
+function setStoreCountMetaFallback() {
+  const root = storeCountMetaEl();
+  if (!root) {
+    return;
+  }
+  root.textContent = "Record stores";
+}
 
 function readStoredFormat() {
   try {
@@ -127,27 +153,29 @@ async function loadShops(resultsEl, formatSelect) {
   shopsLoaded = false;
   setStatus(resultsEl, "Loading shop list...", false);
   try {
-    const res = await fetch(SHOPS_URL, { cache: "no-store" });
+    const res = await fetch(RECORD_STORES_URL, { cache: "no-store" });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }
     const data = await res.json();
     const list = Array.isArray(data.shops) ? data.shops : data;
     if (!Array.isArray(list) || list.length === 0) {
-      throw new Error("shops.json has no shops array");
+      throw new Error("record_stores.json has no shops array");
     }
     shops = normalizeShopsList(list);
     if (shops.length === 0) {
       throw new Error("No valid shops (each needs label, urlTemplateVinyl, urlTemplateCd)");
     }
     shopsLoaded = true;
+    setStoreCountMetaFromCount(shops.length);
     const input = document.getElementById("query");
     renderLinks(input.value, resultsEl, formatSelect);
   } catch (e) {
     shopsLoaded = false;
+    setStoreCountMetaFallback();
     setStatus(
       resultsEl,
-      `Could not load shops.json (${e.message}). Use a local server: run "python3 -m http.server 8765" in this folder, then open http://127.0.0.1:8765/`,
+      `Could not load record_stores.json (${e.message}). Use a local server: run "python3 -m http.server 8765" in this folder, then open http://127.0.0.1:8765/`,
       true
     );
   }

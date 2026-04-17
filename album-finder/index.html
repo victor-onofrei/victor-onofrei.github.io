@@ -116,7 +116,8 @@
       color: var(--muted);
       text-align: right;
     }
-    .meta span {
+    /* Only the direct meta pill — not nested spans (e.g. store-count-suffix). */
+    .meta > span {
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -125,6 +126,11 @@
       background: var(--shell-surface);
       border: 1px solid var(--shell-border);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .meta > span strong {
+      color: var(--text);
+      font-weight: 550;
     }
 
     .intro {
@@ -334,7 +340,7 @@
         </nav>
       </div>
       <div class="meta">
-        <span>Shop links</span>
+        <span id="store-count-meta" aria-live="polite"><strong>...</strong><span class="store-count-suffix"></span></span>
       </div>
     </header>
 
@@ -350,9 +356,9 @@
       <button type="submit" class="visually-hidden-submit" tabindex="-1" aria-hidden="true">Submit</button>
     </form>
 
-    <p class="results-label">Shops</p>
+    <p class="results-label">Record stores</p>
     <section id="results" aria-live="polite"></section>
   </div>
-  <script src="app.js?v=5" defer></script>
+  <script src="app.js?v=6" defer></script>
 </body>
 </html>
