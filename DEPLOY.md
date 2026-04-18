@@ -39,7 +39,7 @@ Private repos generate `project_label.json` as part of deploy (see each repo’s
 
 ### Workflows
 
-- **Build root index** (`.github/workflows/build-root-index.yml`)  
+- **Build root index** (`.github/workflows/build_root_index.yml`)  
   Runs on push to `main` and on `workflow_dispatch`. Reads `PRIVATE_REPOS`, loads each subsite’s `project_label.json` for link text, writes `index.html`, and commits and pushes if changed.  
   **Optional secret:** `BUILD_VARIABLES_TOKEN` — PAT with **repo** scope if `gh variable list` needs it to read `PRIVATE_REPOS`.  
   Pushes that **only** change `pr-preview/**` are ignored so this workflow does not fight the preview action.
