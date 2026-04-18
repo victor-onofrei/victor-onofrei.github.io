@@ -822,7 +822,7 @@
     </header>
   <script>
   (function() {
-    var CACHE_KEY = "project-label:v1";
+    var CACHE_KEY = "project_label:v1";
     var el = document.getElementById("project-breadcrumb-label");
     if (el && el.textContent && el.textContent.trim()) return;
     function apply(d) {
@@ -843,7 +843,7 @@
         if (c && typeof c.label === "string" && typeof c.document_title === "string") apply(c);
       }
     } catch (e) {}
-    fetch("project-label.json", { credentials: "same-origin" })
+    fetch("project_label.json", { credentials: "same-origin" })
       .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function(d) { apply(d); remember(d); })
       .catch(function() {});
