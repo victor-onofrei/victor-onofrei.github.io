@@ -41,56 +41,31 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Pill labels: read ``pill.label`` from <repo>/design-tokens.json (published by each private repo).
-          # Fallback: uppercase repo slug (ASCII), same spirit as String.prototype.toUpperCase() for slugs.
+          # Pill labels: read ``label`` from <repo>/project-label.json (published by each private repo).
+          # Fallback: uppercase repo slug (ASCII).
           nav=""
-          project_styles=""
           IFS=,
           for repo in $private_repos; do
             repo=$(echo "$repo" | xargs)
             [[ -z "$repo" ]] && continue
 
             label=""
-            token_file="${repo}/design-tokens.json"
-            if [[ -f "$token_file" ]]; then
-              token_label=$(jq -r '.pill.label // empty' "$token_file" 2>/dev/null || true)
+            label_file="${repo}/project-label.json"
+            if [[ -f "$label_file" ]]; then
+              token_label=$(jq -r '.label // empty' "$label_file" 2>/dev/null || true)
               if [[ -n "$token_label" && "$token_label" != "null" ]]; then
                 label="$token_label"
               fi
             fi
             if [[ -z "$label" ]]; then
               label=$(echo "$repo" | tr '[:lower:]' '[:upper:]')
+              echo "Label file missing or empty (${label_file}); ${repo} uses slug fallback."
+            else
+              echo "Loaded pill label from ${label_file} for ${repo}"
             fi
 
             label_escaped=$(echo "$label" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
             nav="${nav}<a href=\"/${repo}/\" data-subpath=\"${repo}\">${label_escaped}</a>"
-            if [[ -f "$token_file" ]]; then
-              pbg='linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.98))'
-              pborder='rgba(218,112,214,0.55)'
-              ptext='#DA70D6'
-              phbg='#BA55D3'
-              phtext='#ffffff'
-              phborder='#DA70D6'
-              phshadow='0 8px 24px rgba(186,85,211,0.4)'
-              tbg=$(jq -r '.pill.background // empty' "$token_file" 2>/dev/null || true)
-              tborder=$(jq -r '.pill.border // empty' "$token_file" 2>/dev/null || true)
-              ttext=$(jq -r '.pill.text // empty' "$token_file" 2>/dev/null || true)
-              thbg=$(jq -r '.pill.hover_background // empty' "$token_file" 2>/dev/null || true)
-              thtext=$(jq -r '.pill.hover_text // empty' "$token_file" 2>/dev/null || true)
-              thborder=$(jq -r '.pill.hover_border // empty' "$token_file" 2>/dev/null || true)
-              thshadow=$(jq -r '.pill.hover_shadow // empty' "$token_file" 2>/dev/null || true)
-              [[ -n "$tbg" ]] && pbg="$tbg"
-              [[ -n "$tborder" ]] && pborder="$tborder"
-              [[ -n "$ttext" ]] && ptext="$ttext"
-              [[ -n "$thbg" ]] && phbg="$thbg"
-              [[ -n "$thtext" ]] && phtext="$thtext"
-              [[ -n "$thborder" ]] && phborder="$thborder"
-              [[ -n "$thshadow" ]] && phshadow="$thshadow"
-              project_styles="${project_styles}.links a[data-subpath=\"${repo}\"]{background:${pbg};color:${ptext};border-color:${pborder};}.links a[data-subpath=\"${repo}\"]:hover{background:${phbg};color:${phtext};border-color:${phborder};box-shadow:${phshadow};}"
-              echo "Loaded pill tokens from ${token_file} for ${repo}"
-            else
-              echo "Token file missing (${token_file}); ${repo} uses fallback base pill style."
-            fi
           done
           unset IFS
 
@@ -132,9 +107,8 @@ jobs:
           .intro{font-size:0.9rem;color:#c4b0c4;margin:0 0 0.5rem;}
           p{font-size:0.9rem;color:#9a8a9a;margin:0 0 2rem;}
           .links{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:center;gap:1rem;width:100%;}
-          .links a{display:inline-block;padding:0.38rem 1.2rem;background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(30,41,59,0.98));color:#DA70D6;text-decoration:none;font-weight:600;letter-spacing:.12em;border-radius:20px;border:1px solid rgba(218,112,214,0.55);transition:background .2s,color .2s,border-color .2s,transform .15s;}
-          .links a:hover{background:#BA55D3;color:#fff;border-color:#DA70D6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(186,85,211,0.4);}
-          ${project_styles}
+          .links a{display:inline-block;padding:0.38rem 1.2rem;background:linear-gradient(168deg,#243a4e 0%,#1c3144 50%,#152838 100%);color:#DA70D6;text-decoration:none;font-weight:600;letter-spacing:.12em;border-radius:20px;border:1px solid rgba(172,158,188,0.34);transition:background .2s,color .2s,border-color .2s,transform .15s,box-shadow .2s;}
+          .links a:hover{background:#BA55D3;color:#ffffff;border-color:#DA70D6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(186,85,211,0.4);}
           </style>
           </head>
           <body>
