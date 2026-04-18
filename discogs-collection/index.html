@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Discogs Collection</title>
+  <title>Discogs collection</title>
   <link rel="icon" href="favicon.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1a0f1a">
@@ -813,13 +813,27 @@
         <nav class="title-breadcrumb" aria-label="Breadcrumb">
           <a href="/">Projects</a>
           <span class="title-breadcrumb-sep" aria-hidden="true">&gt;</span>
-          <span class="title-breadcrumb-current">DISCOGS COLLECTION</span>
+          <span class="title-breadcrumb-current" id="project-breadcrumb-label"></span>
         </nav>
       </div>
       <div class="meta">
         <span><strong>139</strong> releases</span>
       </div>
     </header>
+  <script>
+  (function() {
+    var el = document.getElementById("project-breadcrumb-label");
+    function apply(d) {
+      if (el && d.label) el.textContent = d.label;
+      if (d.document_title) document.title = d.document_title;
+    }
+    if (el && el.textContent && el.textContent.trim()) return;
+    fetch("project-label.json", { credentials: "same-origin" })
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+      .then(apply)
+      .catch(function() {});
+  })();
+  </script>
 
     <div class="controls">
       <div class="sort-wrap">
