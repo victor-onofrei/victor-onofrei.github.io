@@ -41,7 +41,7 @@ jobs:
             echo "PRIVATE_REPOS not set or empty; leaving index.html unchanged."
             exit 0
           fi
-          # Pill labels: read ``label`` from <repo>/project-label.json (published by each private repo).
+          # Pill labels: read ``label`` from <repo>/project_label.json (published by each private repo).
           # Fallback: uppercase repo slug (ASCII).
           nav=""
           IFS=,
@@ -50,7 +50,7 @@ jobs:
             [[ -z "$repo" ]] && continue
 
             label=""
-            label_file="${repo}/project-label.json"
+            label_file="${repo}/project_label.json"
             if [[ -f "$label_file" ]]; then
               token_label=$(jq -r '.label // empty' "$label_file" 2>/dev/null || true)
               if [[ -n "$token_label" && "$token_label" != "null" ]]; then
