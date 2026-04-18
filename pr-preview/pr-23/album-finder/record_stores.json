@@ -1,0 +1,110 @@
+{
+  "version": 2,
+  "shops": [
+    {
+      "label": "Niche Records",
+      "urlTemplateVinyl": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=vinyl_10-vinyl",
+      "urlTemplateCd": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=cd_10-cd"
+    },
+    {
+      "label": "Carturesti",
+      "urlTemplateVinyl": "https://carturesti.ro/product/search/{{q}}?suport=Vinyl,2Vinyl%20%2B%20CD&id_product_type=27",
+      "urlTemplateCd": "https://carturesti.ro/product/search/{{q}}?suport=CD&id_product_type=28"
+    },
+    {
+      "label": "Muziker",
+      "urlTemplateVinyl": "https://www.muziker.ro/search?category=2569&q={{q}}",
+      "urlTemplateCd": "https://www.muziker.ro/search?q={{q}}"
+    },
+    {
+      "label": "Ozone.ro",
+      "urlTemplateVinyl": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}",
+      "urlTemplateCd": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}"
+    },
+    {
+      "label": "Muzica Gramada",
+      "urlTemplateVinyl": "https://www.muzicagramada.ro/search?q={{q}}",
+      "urlTemplateCd": "https://www.muzicagramada.ro/search?q={{q}}"
+    },
+    {
+      "label": "grooves.land",
+      "urlTemplateVinyl": "https://www.grooves.land/advanced_search_result.php?categories_id=all&keywords={{q}}",
+      "urlTemplateCd": "https://www.grooves.land/advanced_search_result.php?categories_id=all&keywords={{q}}"
+    },
+    {
+      "label": "Bookcity",
+      "urlTemplateVinyl": "https://www.bookcity.ro/search/{{q}}/category/multimedia-2",
+      "urlTemplateCd": "https://www.bookcity.ro/search/{{q}}/category/multimedia-2"
+    },
+    {
+      "label": "iMusic",
+      "urlTemplateVinyl": "https://imusic.co/vinyl/search?query={{q}}",
+      "urlTemplateCd": "https://imusic.co/cd/search?query={{q}}"
+    },
+    {
+      "label": "HHV",
+      "urlTemplateVinyl": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N4S11?term={{q}}",
+      "urlTemplateCd": "https://www.hhv.de/en-RO-RON-eu/music/catalog/filter/search-N4S11?term={{q}}"
+    },
+    {
+      "label": "HHV - used",
+      "urlTemplateVinyl": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N5S11?term={{q}}",
+      "urlTemplateCd": "https://www.hhv.de/en-RO-RON-eu/music/catalog/filter/search-N5S11?term={{q}}"
+    },
+    {
+      "label": "LAVinil",
+      "urlTemplateVinyl": "https://www.lavinil.ro/produse?c={{q}}",
+      "urlTemplateCd": "https://www.lavinil.ro/produse?c={{q}}"
+    },
+    {
+      "label": "Musicplanet",
+      "urlTemplateVinyl": "https://musicplanet.ro/search?q={{q}}&filter.p.product_type=vinil",
+      "urlTemplateCd": "https://musicplanet.ro/search?q={{q}}&filter.p.product_type=cd"
+    },
+    {
+      "label": "Bazar de Muzica - new",
+      "urlTemplateVinyl": "https://www.bazardemuzica.ro/discuri-vinil-noi?c={{q}}",
+      "urlTemplateCd": "https://www.bazardemuzica.ro/cd-uri-noi?c={{q}}"
+    },
+    {
+      "label": "Bazar de Muzica - used",
+      "urlTemplateVinyl": "https://www.bazardemuzica.ro/discuri-vinil?c={{q}}",
+      "urlTemplateCd": "https://www.bazardemuzica.ro/cd-uri?c={{q}}"
+    },
+    {
+      "label": "Music-box (cat 65)",
+      "urlTemplateVinyl": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=65&sub_category=true&description=true",
+      "urlTemplateCd": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=65&sub_category=true&description=true"
+    },
+    {
+      "label": "Music-box (cat 77)",
+      "urlTemplateVinyl": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=77&sub_category=true&description=true",
+      "urlTemplateCd": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=77&sub_category=true&description=true"
+    },
+    {
+      "label": "AVstore",
+      "urlTemplateVinyl": "https://www.avstore.ro/cautare/?q={{q}}&id_category=203",
+      "urlTemplateCd": "https://www.avstore.ro/cautare/?q={{q}}"
+    },
+    {
+      "label": "Two Sides Records",
+      "urlTemplateVinyl": "https://www.twosidesrecords.com/?q={{q}}",
+      "urlTemplateCd": "https://www.twosidesrecords.com/?q={{q}}"
+    },
+    {
+      "label": "Vibes on Wax",
+      "urlTemplateVinyl": "https://www.vibesonwaxrecords.com/shop/?s={{q}}&post_type=product&filter_format=vinyl",
+      "urlTemplateCd": "https://www.vibesonwaxrecords.com/shop/?s={{q}}&post_type=product&filter_format=cd"
+    },
+    {
+      "label": "Fonoteca Paradis",
+      "urlTemplateVinyl": "https://fonotecaparadis.ro/cautare?controller=search&s={{q}}",
+      "urlTemplateCd": "https://fonotecaparadis.ro/cautare?controller=search&s={{q}}"
+    },
+    {
+      "label": "Melo Melanj",
+      "urlTemplateVinyl": "https://melomelanj.ro/shop/?s={{q}}",
+      "urlTemplateCd": "https://melomelanj.ro/shop/?s={{q}}"
+    }
+  ]
+}
