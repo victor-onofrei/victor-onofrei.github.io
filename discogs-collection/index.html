@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Discogs collection</title>
+  <title></title>
   <link rel="icon" href="favicon.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1a0f1a">
@@ -822,15 +822,30 @@
     </header>
   <script>
   (function() {
+    var CACHE_KEY = "project-label:v1";
     var el = document.getElementById("project-breadcrumb-label");
-    function apply(d) {
-      if (el && d.label) el.textContent = d.label;
-      if (d.document_title) document.title = d.document_title;
-    }
     if (el && el.textContent && el.textContent.trim()) return;
+    function apply(d) {
+      if (!d) return;
+      if (el && typeof d.label === "string" && d.label) el.textContent = d.label;
+      if (typeof d.document_title === "string" && d.document_title) document.title = d.document_title;
+    }
+    function remember(d) {
+      try {
+        if (d && typeof d.label === "string" && d.label && typeof d.document_title === "string" && d.document_title)
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify({ label: d.label, document_title: d.document_title }));
+      } catch (e) {}
+    }
+    try {
+      var raw = sessionStorage.getItem(CACHE_KEY);
+      if (raw) {
+        var c = JSON.parse(raw);
+        if (c && typeof c.label === "string" && typeof c.document_title === "string") apply(c);
+      }
+    } catch (e) {}
     fetch("project-label.json", { credentials: "same-origin" })
       .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(apply)
+      .then(function(d) { apply(d); remember(d); })
       .catch(function() {});
   })();
   </script>
