@@ -1,0 +1,2 @@
+# Local-only assets (e.g. design references, QR exports) kept in-repo on disk but not published to GitHub
+artifacts/
