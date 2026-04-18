@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1a0f1a">
   <meta name="color-scheme" content="dark">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Album finder</title>
+  <title>Album Finder</title>
   <style>
     html {
       height: 100%;
@@ -116,7 +116,7 @@
       color: var(--muted);
       text-align: right;
     }
-    /* Only the direct meta pill  not nested spans (e.g. store-count-suffix). */
+    /* Only the direct meta pill — not nested spans (e.g. store-count-suffix). */
     .meta > span {
       display: inline-flex;
       align-items: center;
@@ -336,7 +336,7 @@
         <nav class="title-breadcrumb" aria-label="Breadcrumb">
           <a href="/">Projects</a>
           <span class="title-breadcrumb-sep" aria-hidden="true">&gt;</span>
-          <span class="title-breadcrumb-current" id="project-breadcrumb-label"></span>
+          <span class="title-breadcrumb-current">ALBUM FINDER</span>
         </nav>
       </div>
       <div class="meta">
@@ -359,21 +359,6 @@
     <p class="results-label">Record stores</p>
     <section id="results" aria-live="polite"></section>
   </div>
-  <script>
-  (function () {
-    var el = document.getElementById("project-breadcrumb-label");
-    function apply(d) {
-      if (el && d.label) el.textContent = d.label;
-      if (d.document_title) document.title = d.document_title;
-    }
-    fetch("project-label.json", { credentials: "same-origin" })
-      .then(function (r) {
-        return r.ok ? r.json() : Promise.reject();
-      })
-      .then(apply)
-      .catch(function () {});
-  })();
-  </script>
   <script src="app.js?v=6" defer></script>
 </body>
 </html>
