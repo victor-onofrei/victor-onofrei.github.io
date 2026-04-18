@@ -76,12 +76,13 @@ jobs:
           TITLE="${owner_name}'s Projects"
           title_escaped=$(echo "$TITLE" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g')
 
-          # Favicon: embed owner's profile picture as data URL (no separate file)
-          avatar_b64=$(curl -sS -L "https://github.com/${OWNER}.png" | base64 -w 0 2>/dev/null || true)
-          if [[ -n "$avatar_b64" ]]; then
-            FAVICON_HREF="data:image/png;base64,${avatar_b64}"
+          # Favicon: save owner's profile picture as favicon.png (referenced by index.html)
+          rm -f favicon.png
+          FAVICON_HREF="https://github.com/${OWNER}.png"
+          if curl -fsSL "https://github.com/${OWNER}.png" -o favicon.png && [[ -s favicon.png ]]; then
+            FAVICON_HREF="favicon.png"
           else
-            FAVICON_HREF="https://github.com/${OWNER}.png"
+            rm -f favicon.png
           fi
 
           cat > index.html << INDEX
@@ -128,6 +129,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
+          if [[ -f favicon.png ]]; then
+            git add favicon.png
+          elif git ls-files --error-unmatch favicon.png >/dev/null 2>&1; then
+            git rm -f favicon.png
+          fi
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
