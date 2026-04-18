@@ -233,19 +233,42 @@ function enhanceFormatSelect(selectEl) {
       }
       labels.push(o.textContent || o.value);
     }
+    // The visible button uses width: 100%, so offsetWidth tracks the host width — not the
+    // label text. During iOS Safari rubber-band / chrome resize, a transient full-width
+    // layout could lock host.style.width to the viewport. Measure with a detached clone
+    // that uses width: auto so offsetWidth reflects label content only.
     const restore = button.textContent;
+    const clone = button.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.setAttribute("aria-hidden", "true");
+    clone.tabIndex = -1;
+    clone.style.cssText =
+      "position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none;width:auto;max-width:none;min-width:0;";
+    document.body.appendChild(clone);
     let max = 0;
     for (const t of labels) {
-      button.textContent = t;
-      max = Math.max(max, button.offsetWidth);
+      clone.textContent = t;
+      max = Math.max(max, clone.offsetWidth);
     }
+    document.body.removeChild(clone);
     button.textContent = restore;
     setCurrentLabel();
     const cap =
       typeof window !== "undefined" && window.innerWidth > 0
         ? window.innerWidth - 48
         : 520;
-    host.style.width = `${Math.min(max + 18, cap)}px`;
+    host.style.width = `${Math.min(max, cap)}px`;
+  }
+
+  let formatSelectResizeTimer = null;
+  function syncFormatSelectWidthDebounced() {
+    if (formatSelectResizeTimer !== null) {
+      clearTimeout(formatSelectResizeTimer);
+    }
+    formatSelectResizeTimer = setTimeout(() => {
+      formatSelectResizeTimer = null;
+      syncFormatSelectWidth();
+    }, 150);
   }
 
   function closeList() {
@@ -307,7 +330,7 @@ function enhanceFormatSelect(selectEl) {
   selectEl.addEventListener("change", setCurrentLabel);
   setCurrentLabel();
   syncFormatSelectWidth();
-  window.addEventListener("resize", syncFormatSelectWidth);
+  window.addEventListener("resize", syncFormatSelectWidthDebounced);
 
   document.addEventListener("click", (ev) => {
     if (!ev.target || !ev.target.closest) {
