@@ -316,7 +316,140 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
+      margin: 0;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       margin-bottom: 8px;
+    }
+
+    .open-all-mobile-slot {
+      display: none;
+    }
+
+    .open-all-desktop-slot {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .open-all-tabs {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      min-height: 0;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(218, 112, 214, 0.46);
+      background: linear-gradient(
+        158deg,
+        rgba(249, 197, 255, 0.26) 0%,
+        rgba(218, 112, 214, 0.26) 38%,
+        rgba(168, 85, 247, 0.2) 66%,
+        rgba(28, 49, 68, 0.95) 100%
+      );
+      color: var(--text);
+      cursor: pointer;
+      margin: 0;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 232, 255, 0.36),
+        0 9px 18px rgba(130, 61, 162, 0.26),
+        0 0 0 1px rgba(218, 112, 214, 0.08);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+    .open-all-tabs:hover:not(:disabled) {
+      border-color: rgba(244, 176, 246, 0.74);
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 238, 255, 0.45),
+        0 13px 24px rgba(142, 67, 180, 0.34),
+        0 0 0 1px rgba(244, 176, 246, 0.16);
+    }
+    .open-all-tabs:focus-visible {
+      outline: none;
+      border-color: rgba(250, 211, 255, 0.95);
+      box-shadow:
+        0 0 0 2px rgba(218, 112, 214, 0.28),
+        inset 0 1px 0 rgba(255, 238, 255, 0.45),
+        0 13px 24px rgba(142, 67, 180, 0.34);
+    }
+    .open-all-tabs:disabled {
+      opacity: 0.58;
+      transform: none;
+      cursor: not-allowed;
+      border-color: rgba(218, 112, 214, 0.28);
+      box-shadow: inset 0 1px 0 rgba(255, 238, 255, 0.16);
+    }
+    .open-all-feedback {
+      margin: 0 0 10px;
+      font-size: 0.8rem;
+    }
+    .tab-helper {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--shell-border-soft);
+      background: linear-gradient(160deg, rgba(196, 181, 253, 0.08), rgba(30, 50, 69, 0.35));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    .tab-helper-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ddd6fe;
+      margin-bottom: 6px;
+    }
+    .tab-helper-copy {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .tab-helper-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .tab-helper-btn {
+      font-size: 0.78rem;
+      font-weight: 560;
+      letter-spacing: 0.01em;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--shell-border);
+      background: var(--shell-surface);
+      color: var(--text);
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    .tab-helper-btn:hover {
+      border-color: rgba(218, 112, 214, 0.45);
+    }
+    .tab-helper-btn:focus-visible {
+      outline: none;
+      border-color: rgba(218, 112, 214, 0.75);
+    }
+    .tab-helper-progress {
+      font-size: 0.78rem;
+      color: #ddd6fe;
+      margin-bottom: 8px;
+    }
+    .tab-helper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.14rem;
+      max-height: 160px;
+      overflow: auto;
+      padding-right: 4px;
     }
 
     #results {
@@ -346,6 +479,38 @@
     .error {
       color: #fca5a5;
     }
+
+    @media (max-width: 760px) {
+      .search-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+      }
+      .search-row input[type="text"] {
+        grid-column: 1 / -1;
+      }
+      .search-row .custom-select {
+        width: 100%;
+      }
+      .search-row .custom-select-btn {
+        min-height: 36px;
+      }
+      .open-all-mobile-slot {
+        display: block;
+        width: 100%;
+      }
+      .open-all-mobile-slot .open-all-tabs {
+        width: 100%;
+        min-width: 0;
+        min-height: 36px;
+      }
+      .open-all-desktop-slot {
+        display: none;
+      }
+      .results-header {
+        margin-bottom: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -372,10 +537,27 @@
         <option value="vinyl">Vinyl</option>
         <option value="cd">CD</option>
       </select>
+      <div id="open-all-mobile-slot" class="open-all-mobile-slot"></div>
       <button type="submit" class="visually-hidden-submit" tabindex="-1" aria-hidden="true">Submit</button>
     </form>
 
-    <p class="results-label">Record stores</p>
+    <div class="results-header">
+      <p class="results-label">Record stores</p>
+      <div id="open-all-desktop-slot" class="open-all-desktop-slot">
+        <button type="button" id="open-all-tabs" class="open-all-tabs" disabled aria-label="Open all in new tabs">Open all in new tabs</button>
+      </div>
+    </div>
+    <p id="open-all-feedback" class="hint open-all-feedback" aria-live="polite" hidden></p>
+    <section id="tab-helper" class="tab-helper" hidden aria-live="polite">
+      <p class="tab-helper-title">Tab launch helper</p>
+      <p class="tab-helper-copy">Your browser blocked part of the batch. Open one per click or copy remaining links.</p>
+      <div class="tab-helper-actions">
+        <button type="button" id="open-next-tab" class="tab-helper-btn">Open next blocked tab</button>
+        <button type="button" id="copy-all-urls" class="tab-helper-btn">Copy remaining links</button>
+      </div>
+      <p id="tab-helper-progress" class="tab-helper-progress"></p>
+      <div id="tab-helper-list" class="tab-helper-list"></div>
+    </section>
     <section id="results" aria-live="polite"></section>
   </div>
 
@@ -415,6 +597,6 @@
       .catch(function () {});
   })();
   </script>
-  <script src="album_finder.js?v=7" defer></script>
+  <script src="album_finder.js?v=14" defer></script>
 </body>
 </html>
