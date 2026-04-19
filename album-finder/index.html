@@ -141,6 +141,24 @@
       margin-bottom: 16px;
     }
 
+    .credit {
+      width: 100%;
+      max-width: 720px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-top: 14px;
+      text-align: center;
+    }
+    .credit a {
+      color: #c4b5fd;
+      text-decoration: none;
+    }
+    .credit a:hover {
+      color: #f5d0fe;
+      text-decoration: underline;
+    }
+
     .search-row {
       position: relative;
       display: flex;
@@ -360,6 +378,8 @@
     <p class="results-label">Record stores</p>
     <section id="results" aria-live="polite"></section>
   </div>
+
+  <p class="credit">Based on an app developed by <a href="https://github.com/revolter" target="_blank" rel="noopener noreferrer">Iulian Onofrei (@revolter)</a>.</p>
   <script>
   (function () {
     var CACHE_KEY = "project_label:v1";
