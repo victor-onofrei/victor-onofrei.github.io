@@ -248,7 +248,7 @@ async function copyTextToClipboard(text) {
   return copied;
 }
 
-function placeOpenAllButton(openAllBtn, mobileSlot, desktopSlot) {
+function placeOpenAllButton(openAllBtn, mobileSlot, desktopSlot, openAllFeedbackEl) {
   if (!openAllBtn) {
     return;
   }
@@ -263,9 +263,12 @@ function placeOpenAllButton(openAllBtn, mobileSlot, desktopSlot) {
   if (openAllBtn.parentElement !== target) {
     target.appendChild(openAllBtn);
   }
+  if (openAllFeedbackEl) {
+    openAllBtn.after(openAllFeedbackEl);
+  }
 }
 
-function syncOpenAllButtonSize(openAllBtn, formatSelect) {
+function syncOpenAllButtonSize(openAllBtn, formatSelect, openAllFeedbackEl) {
   if (!openAllBtn || !formatSelect) {
     return;
   }
@@ -275,17 +278,27 @@ function syncOpenAllButtonSize(openAllBtn, formatSelect) {
     window.matchMedia("(max-width: 760px)").matches;
   if (isMobile) {
     openAllBtn.style.width = "100%";
+    if (openAllFeedbackEl) {
+      openAllFeedbackEl.style.width = "100%";
+    }
     return;
   }
   const customSelect = formatSelect.nextElementSibling;
   if (customSelect && customSelect.classList && customSelect.classList.contains("custom-select")) {
     const w = customSelect.getBoundingClientRect().width;
     if (w > 0) {
-      openAllBtn.style.width = `${Math.round(w)}px`;
+      const syncedWidth = `${Math.round(w)}px`;
+      openAllBtn.style.width = syncedWidth;
+      if (openAllFeedbackEl) {
+        openAllFeedbackEl.style.width = syncedWidth;
+      }
       return;
     }
   }
   openAllBtn.style.removeProperty("width");
+  if (openAllFeedbackEl) {
+    openAllFeedbackEl.style.removeProperty("width");
+  }
 }
 
 function syncOpenAllButton(button, query, formatSelect) {
@@ -716,8 +729,8 @@ function main() {
 
   applyStoredFormatToSelect(formatSelect);
   enhanceFormatSelect(formatSelect);
-  placeOpenAllButton(openAllBtn, openAllMobileSlot, openAllDesktopSlot);
-  syncOpenAllButtonSize(openAllBtn, formatSelect);
+  placeOpenAllButton(openAllBtn, openAllMobileSlot, openAllDesktopSlot, openAllFeedbackEl);
+  syncOpenAllButtonSize(openAllBtn, formatSelect, openAllFeedbackEl);
   loadShops(resultsEl, formatSelect, openAllBtn);
 
   let openAllPlacementResizeTimer = null;
@@ -727,8 +740,8 @@ function main() {
     }
     openAllPlacementResizeTimer = setTimeout(() => {
       openAllPlacementResizeTimer = null;
-      placeOpenAllButton(openAllBtn, openAllMobileSlot, openAllDesktopSlot);
-      syncOpenAllButtonSize(openAllBtn, formatSelect);
+      placeOpenAllButton(openAllBtn, openAllMobileSlot, openAllDesktopSlot, openAllFeedbackEl);
+      syncOpenAllButtonSize(openAllBtn, formatSelect, openAllFeedbackEl);
     }, 140);
   });
 
@@ -752,7 +765,7 @@ function main() {
           true
         );
       } else {
-        setOpenAllFeedback(openAllFeedbackEl, `Opened ${opened} tabs.`, false);
+        setOpenAllFeedback(openAllFeedbackEl, `Opened ${opened} tabs`, false);
         blockedEntries = [];
         setTabHelperState(tabHelperEl, tabHelperProgressEl, tabHelperListEl, blockedEntries);
       }

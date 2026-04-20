@@ -335,7 +335,9 @@
 
     .open-all-desktop-slot {
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
     }
 
     .open-all-tabs {
@@ -405,9 +407,13 @@
         inset 0 1px 0 rgba(255, 238, 255, 0.1),
         inset 0 -1px 0 rgba(17, 31, 44, 0.46);
     }
-    .open-all-feedback {
-      margin: 0 0 10px;
-      font-size: 0.8rem;
+    .open-all-feedback.hint {
+      margin: 4px 0 0;
+      font-size: 0.74rem;
+      text-align: center;
+      align-self: flex-end;
+      max-width: 100%;
+      opacity: 0.72;
     }
     .tab-helper {
       margin: 0 0 12px;
@@ -540,7 +546,9 @@
         min-height: 36px;
       }
       .open-all-mobile-slot {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         width: 100%;
       }
       .open-all-mobile-slot .open-all-tabs {
@@ -589,9 +597,9 @@
       <p class="results-label">Record stores</p>
       <div id="open-all-desktop-slot" class="open-all-desktop-slot">
         <button type="button" id="open-all-tabs" class="open-all-tabs" disabled aria-label="Open all in new tabs">Open all in new tabs</button>
+        <p id="open-all-feedback" class="hint open-all-feedback" aria-live="polite" hidden></p>
       </div>
     </div>
-    <p id="open-all-feedback" class="hint open-all-feedback" aria-live="polite" hidden></p>
     <section id="tab-helper" class="tab-helper" hidden aria-live="polite">
       <p class="tab-helper-title">Tab launch helper</p>
       <p class="tab-helper-copy">Your browser blocked part of the batch. Open one per click or copy remaining links.</p>
