@@ -472,12 +472,39 @@
       flex-direction: column;
       gap: 0.12rem;
     }
+    .shop-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      margin: 0.2rem 0;
+    }
+    .shop-group-label {
+      font-size: 0.86rem;
+      color: var(--text);
+      font-weight: 600;
+    }
     .shop-link {
       color: #c4b5fd;
       text-decoration: none;
       padding: 0.1rem 0;
       font-size: 0.92rem;
       line-height: 1.25;
+    }
+    .shop-link-variant {
+      font-size: 0.86rem;
+      color: #ddd6fe;
+      padding-left: 0.7rem;
+    }
+    .shop-link-variant::before {
+      content: "\2503";
+      color: rgba(221, 214, 254, 0.42);
+      margin-right: 0.2em;
+    }
+    .shop-group .shop-link-variant:first-of-type::before {
+      content: "\2523";
+    }
+    .shop-group .shop-link-variant:last-of-type::before {
+      content: "\2517";
     }
     .shop-link:hover {
       color: #f5d0fe;
@@ -612,6 +639,6 @@
       .catch(function () {});
   })();
   </script>
-  <script src="album_finder.js?v=14" defer></script>
+  <script src="album_finder.js?v=15" defer></script>
 </body>
 </html>

@@ -1,110 +1,146 @@
 {
-  "version": 2,
+  "version": 3,
   "shops": [
     {
       "label": "Niche Records",
-      "urlTemplateVinyl": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=vinyl_10-vinyl",
-      "urlTemplateCd": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=cd_10-cd"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=vinyl_10-vinyl" }],
+        "cd": [{ "urlTemplate": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=cd_sacd_hdcd_shm-cd_k2hd_uhdcd_xrcd_xrcd2_xrcd24_hqcd" }]
+      }
     },
     {
       "label": "Carturesti",
-      "urlTemplateVinyl": "https://carturesti.ro/product/search/{{q}}?suport=Vinyl,2Vinyl%20%2B%20CD&id_product_type=27",
-      "urlTemplateCd": "https://carturesti.ro/product/search/{{q}}?suport=CD&id_product_type=28"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://carturesti.ro/product/search/{{q}}?suport=Vinyl,2Vinyl%20%2B%20CD&id_product_type=27" }],
+        "cd": [{ "urlTemplate": "https://carturesti.ro/product/search/{{q}}?suport=CD%7CCD%2BDVD%7CVinyl%2BCD%7CCD%2BBlu-Ray%7CSACD%7CCD%2BDVD%2BBlu-ray%7CCD%2BBook%7CHybrid%20SACD%20-%20SACD%7CVinyl%2BCD%2BBlu-ray%7CVinyl%2BCD%2BDVD%7CHybrid%20SACD%7CVinyl%2BCD%2BCaseta%7CCD%2BMC%7CHybrid%20SACD%2BDVD%7CSACD%2BDVD%7CSACDH&id_product_type=27" }]
+      }
     },
     {
       "label": "Muziker",
-      "urlTemplateVinyl": "https://www.muziker.ro/search?category=2569&q={{q}}",
-      "urlTemplateCd": "https://www.muziker.ro/search?q={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.muziker.ro/search?category=2569&q={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.muziker.ro/search?q={{q}}&lb.f%5B%5D=Tip%3ACD&lb.qu=0" }]
+      }
     },
     {
       "label": "Ozone.ro",
-      "urlTemplateVinyl": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}",
-      "urlTemplateCd": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}&filters=Categorii,393" }]
+      }
     },
     {
       "label": "Muzica Gramada",
-      "urlTemplateVinyl": "https://www.muzicagramada.ro/search?q={{q}}",
-      "urlTemplateCd": "https://www.muzicagramada.ro/search?q={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.muzicagramada.ro/search?q={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.muzicagramada.ro/search?q={{q}}" }]
+      }
     },
     {
       "label": "grooves.land",
-      "urlTemplateVinyl": "https://www.grooves.land/advanced_search_result.php?categories_id=all&keywords={{q}}",
-      "urlTemplateCd": "https://www.grooves.land/advanced_search_result.php?categories_id=all&keywords={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.grooves.land/advanced_search_result.php?categories_id=all&keywords={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.grooves.land/advanced_search_result.php/categories_id/2/keywords/{{q}}/filtercat_id/2/cPath/2/top/100/filter_99999999/CD%7CCD%252BBlu-Ray%7CCD%252BDVD%7CCD%252BLP%7CCD%2BMaxi%7CSACD%252BCD" }]
+      }
     },
     {
       "label": "Bookcity",
-      "urlTemplateVinyl": "https://www.bookcity.ro/search/{{q}}/category/multimedia-2",
-      "urlTemplateCd": "https://www.bookcity.ro/search/{{q}}/category/multimedia-2"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.bookcity.ro/search/{{q}}/category/multimedia-2" }],
+        "cd": [{ "urlTemplate": "https://www.bookcity.ro/search/{{q}}/category/multimedia-2" }]
+      }
     },
     {
       "label": "iMusic",
-      "urlTemplateVinyl": "https://imusic.co/vinyl/search?query={{q}}",
-      "urlTemplateCd": "https://imusic.co/cd/search?query={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://imusic.co/vinyl/search?query={{q}}" }],
+        "cd": [{ "urlTemplate": "https://imusic.co/music/search?query={{q}}" }]
+      }
     },
     {
       "label": "HHV",
-      "urlTemplateVinyl": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N4S11?term={{q}}",
-      "urlTemplateCd": "https://www.hhv.de/en-RO-RON-eu/music/catalog/filter/search-N4S11?term={{q}}"
-    },
-    {
-      "label": "HHV - used",
-      "urlTemplateVinyl": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N5S11?term={{q}}",
-      "urlTemplateCd": "https://www.hhv.de/en-RO-RON-eu/music/catalog/filter/search-N5S11?term={{q}}"
+      "formats": {
+        "vinyl": [
+          { "label": "new", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N4S11?term={{q}}" },
+          { "label": "used", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N5S11?term={{q}}" }
+        ],
+        "cd": [{ "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-M71N4S11?term={{q}}" }]
+      }
     },
     {
       "label": "LAVinil",
-      "urlTemplateVinyl": "https://www.lavinil.ro/produse?c={{q}}",
-      "urlTemplateCd": "https://www.lavinil.ro/produse?c={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.lavinil.ro/produse?c={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.lavinil.ro/produse?c={{q}}" }]
+      }
     },
     {
       "label": "Musicplanet",
-      "urlTemplateVinyl": "https://musicplanet.ro/search?q={{q}}&filter.p.product_type=vinil",
-      "urlTemplateCd": "https://musicplanet.ro/search?q={{q}}&filter.p.product_type=cd"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://musicplanet.ro/search?q={{q}}&filter.p.product_type=vinil" }],
+        "cd": [{ "urlTemplate": "https://musicplanet.ro/search?q={{q}}&filter.p.product_type=cd" }]
+      }
     },
     {
-      "label": "Bazar de Muzica - new",
-      "urlTemplateVinyl": "https://www.bazardemuzica.ro/discuri-vinil-noi?c={{q}}",
-      "urlTemplateCd": "https://www.bazardemuzica.ro/cd-uri-noi?c={{q}}"
+      "label": "Bazar de Muzica",
+      "formats": {
+        "vinyl": [
+          { "label": "new", "urlTemplate": "https://www.bazardemuzica.ro/discuri-vinil-noi?c={{q}}" },
+          { "label": "used", "urlTemplate": "https://www.bazardemuzica.ro/discuri-vinil?c={{q}}" }
+        ],
+        "cd": [
+          { "label": "new", "urlTemplate": "https://www.bazardemuzica.ro/cd-uri-noi?c={{q}}" },
+          { "label": "used", "urlTemplate": "https://www.bazardemuzica.ro/cd-uri?c={{q}}" }
+        ]
+      }
     },
     {
-      "label": "Bazar de Muzica - used",
-      "urlTemplateVinyl": "https://www.bazardemuzica.ro/discuri-vinil?c={{q}}",
-      "urlTemplateCd": "https://www.bazardemuzica.ro/cd-uri?c={{q}}"
-    },
-    {
-      "label": "Music-box (cat 65)",
-      "urlTemplateVinyl": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=65&sub_category=true&description=true",
-      "urlTemplateCd": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=65&sub_category=true&description=true"
-    },
-    {
-      "label": "Music-box (cat 77)",
-      "urlTemplateVinyl": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=77&sub_category=true&description=true",
-      "urlTemplateCd": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=77&sub_category=true&description=true"
+      "label": "Music-box",
+      "formats": {
+        "vinyl": [
+          { "label": "music", "urlTemplate": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=65&sub_category=true&description=true" },
+          { "label": "special offers", "urlTemplate": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=77&sub_category=true&description=true" }
+        ],
+        "cd": [
+          { "label": "music", "urlTemplate": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=26&sub_category=true&description=true" },
+          { "label": "special offers", "urlTemplate": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=73&sub_category=true&description=true" }
+        ]
+      }
     },
     {
       "label": "AVstore",
-      "urlTemplateVinyl": "https://www.avstore.ro/cautare/?q={{q}}&id_category=203",
-      "urlTemplateCd": "https://www.avstore.ro/cautare/?q={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.avstore.ro/cautare/?q={{q}}&id_category=203" }],
+        "cd": [{ "urlTemplate": "https://www.avstore.ro/cautare/?q={{q}}&id_category=202" }]
+      }
     },
     {
       "label": "Two Sides Records",
-      "urlTemplateVinyl": "https://www.twosidesrecords.com/?q={{q}}",
-      "urlTemplateCd": "https://www.twosidesrecords.com/?q={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.twosidesrecords.com/?q={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.twosidesrecords.com/?q={{q}}" }]
+      }
     },
     {
       "label": "Vibes on Wax",
-      "urlTemplateVinyl": "https://www.vibesonwaxrecords.com/shop/?s={{q}}&post_type=product&filter_format=vinyl",
-      "urlTemplateCd": "https://www.vibesonwaxrecords.com/shop/?s={{q}}&post_type=product&filter_format=cd"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.vibesonwaxrecords.com/shop/?s={{q}}&post_type=product&filter_format=vinyl" }],
+        "cd": [{ "urlTemplate": "https://www.vibesonwaxrecords.com/shop/?s={{q}}&post_type=product&filter_format=cd" }]
+      }
     },
     {
       "label": "Fonoteca Paradis",
-      "urlTemplateVinyl": "https://fonotecaparadis.ro/cautare?controller=search&s={{q}}",
-      "urlTemplateCd": "https://fonotecaparadis.ro/cautare?controller=search&s={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://fonotecaparadis.ro/cautare?controller=search&s={{q}}" }],
+        "cd": [{ "urlTemplate": "https://fonotecaparadis.ro/cautare?controller=search&s={{q}}" }]
+      }
     },
     {
       "label": "Melo Melanj",
-      "urlTemplateVinyl": "https://melomelanj.ro/shop/?s={{q}}",
-      "urlTemplateCd": "https://melomelanj.ro/shop/?s={{q}}"
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://melomelanj.ro/shop/?s={{q}}" }],
+        "cd": []
+      }
     }
   ]
 }

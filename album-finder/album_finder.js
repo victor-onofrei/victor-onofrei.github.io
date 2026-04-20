@@ -9,6 +9,7 @@ const TAB_WINDOW_PREFIX = "album-finder-tab";
 let shops = [];
 let shopsLoaded = false;
 let debounceTimer = null;
+const SUPPORTED_FORMATS = ["vinyl", "cd"];
 
 function storeCountMetaEl() {
   return document.getElementById("store-count-meta");
@@ -75,14 +76,18 @@ function buildUrl(template, query) {
 }
 
 function templateForShop(shop, format) {
-  return format === "cd" ? shop.urlTemplateCd : shop.urlTemplateVinyl;
+  if (!shop || !shop.formats) {
+    return [];
+  }
+  const links = shop.formats[format];
+  return Array.isArray(links) ? links : [];
 }
 
 /**
  * Same URL list as link rendering: trimmed query, shops loaded, vinyl/cd format.
  * @param {string} query
  * @param {"vinyl" | "cd" | null} format
- * @returns {{label: string, url: string}[]}
+ * @returns {{storeLabel: string, label: string, linkLabel: string, url: string}[]}
  */
 function getStoreEntriesForQuery(query, format) {
   const trimmed = query.trim();
@@ -91,10 +96,16 @@ function getStoreEntriesForQuery(query, format) {
   }
   const entries = [];
   for (const shop of shops) {
-    entries.push({
-      label: shop.label,
-      url: buildUrl(templateForShop(shop, format), trimmed),
-    });
+    const links = templateForShop(shop, format);
+    for (const link of links) {
+      const linkLabel = link.linkLabel ? `${shop.label} - ${link.linkLabel}` : shop.label;
+      entries.push({
+        storeLabel: shop.label,
+        label: linkLabel,
+        linkLabel: link.linkLabel || "",
+        url: buildUrl(link.urlTemplate, trimmed),
+      });
+    }
   }
   return entries;
 }
@@ -283,14 +294,17 @@ function syncOpenAllButton(button, query, formatSelect) {
   }
   const format = getFormatFromSelect(formatSelect);
   const urls = getStoreUrlsForQuery(query, format);
+  const entries = getStoreEntriesForQuery(query, format);
   const canOpen = urls.length > 0;
   button.disabled = !canOpen;
   if (canOpen) {
     const n = urls.length;
-    const storeWord = n === 1 ? "record store" : "record stores";
+    const storeCount = new Set(entries.map((entry) => entry.storeLabel)).size;
+    const storeWord = storeCount === 1 ? "record store" : "record stores";
+    const linkWord = n === 1 ? "link" : "links";
     button.setAttribute(
       "aria-label",
-      `Open all ${n} ${storeWord} in new tabs`
+      `Open all ${n} ${linkWord} from ${storeCount} ${storeWord} in new tabs`
     );
   } else {
     button.setAttribute("aria-label", "Open all in new tabs");
@@ -333,14 +347,52 @@ function renderLinks(query, container, formatSelect, openAllBtn) {
     }
 
     const entries = getStoreEntriesForQuery(trimmed, format);
+    if (!entries.length) {
+      const hint = document.createElement("p");
+      hint.className = "hint";
+      hint.textContent = "No links configured for this format yet.";
+      container.appendChild(hint);
+      return;
+    }
+    const groups = new Map();
     for (const entry of entries) {
-      const a = document.createElement("a");
-      a.href = entry.url;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      a.textContent = entry.label;
-      a.className = "shop-link";
-      container.appendChild(a);
+      if (!groups.has(entry.storeLabel)) {
+        groups.set(entry.storeLabel, []);
+      }
+      groups.get(entry.storeLabel).push(entry);
+    }
+    for (const [storeLabel, storeEntries] of groups) {
+      if (storeEntries.length === 1 && !storeEntries[0].linkLabel) {
+        const a = document.createElement("a");
+        a.href = storeEntries[0].url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = storeLabel;
+        a.className = "shop-link";
+        container.appendChild(a);
+        continue;
+      }
+
+      const group = document.createElement("div");
+      group.className = "shop-group";
+
+      const title = document.createElement("p");
+      title.className = "shop-group-label";
+      title.textContent = storeLabel;
+      group.appendChild(title);
+
+      for (let i = 0; i < storeEntries.length; i++) {
+        const entry = storeEntries[i];
+        const a = document.createElement("a");
+        a.href = entry.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = entry.linkLabel || `link ${i + 1}`;
+        a.className = "shop-link shop-link-variant";
+        group.appendChild(a);
+      }
+
+      container.appendChild(group);
     }
   } finally {
     syncOpenAllButton(openAllBtn, query, formatSelect);
@@ -356,17 +408,77 @@ function setStatus(container, message, isError) {
 }
 
 function normalizeShopsList(list) {
+  function normalizeLink(rawLink) {
+    if (typeof rawLink === "string" && rawLink.trim()) {
+      return { linkLabel: "", urlTemplate: rawLink.trim() };
+    }
+    if (!rawLink || typeof rawLink !== "object") {
+      return null;
+    }
+    const template =
+      typeof rawLink.urlTemplate === "string" ? rawLink.urlTemplate.trim() : "";
+    if (!template) {
+      return null;
+    }
+    const rawLabel =
+      typeof rawLink.label === "string"
+        ? rawLink.label
+        : typeof rawLink.linkLabel === "string"
+          ? rawLink.linkLabel
+          : "";
+    const linkLabel = rawLabel.trim();
+    return { linkLabel, urlTemplate: template };
+  }
+
+  function normalizeLinksForFormat(rawValue) {
+    const source = Array.isArray(rawValue) ? rawValue : [rawValue];
+    const normalized = [];
+    for (const item of source) {
+      const parsed = normalizeLink(item);
+      if (parsed) {
+        normalized.push(parsed);
+      }
+    }
+    return normalized;
+  }
+
+  function linksFromLegacyField(shop, format) {
+    const key = format === "vinyl" ? "urlTemplateVinyl" : "urlTemplateCd";
+    const raw = shop[key];
+    if (typeof raw !== "string" || !raw.trim()) {
+      return [];
+    }
+    return [{ linkLabel: "", urlTemplate: raw.trim() }];
+  }
+
   const out = [];
   for (const s of list) {
-    if (!s || !s.label) {
+    if (!s || typeof s.label !== "string" || !s.label.trim()) {
       continue;
     }
-    const v = s.urlTemplateVinyl;
-    const c = s.urlTemplateCd;
-    if (typeof v === "string" && v.trim() && typeof c === "string" && c.trim()) {
-      out.push({ label: s.label, urlTemplateVinyl: v.trim(), urlTemplateCd: c.trim() });
+    const normalizedShop = {
+      label: s.label.trim(),
+      formats: {
+        vinyl: [],
+        cd: [],
+      },
+    };
+    for (const format of SUPPORTED_FORMATS) {
+      const rawFormatLinks =
+        s.formats && typeof s.formats === "object" ? s.formats[format] : undefined;
+      const links =
+        rawFormatLinks !== undefined
+          ? normalizeLinksForFormat(rawFormatLinks)
+          : linksFromLegacyField(s, format);
+      normalizedShop.formats[format] = links;
+    }
+    const hasAnyLinks = SUPPORTED_FORMATS.some(
+      (format) => normalizedShop.formats[format].length > 0
+    );
+    if (hasAnyLinks) {
+      out.push(normalizedShop);
     } else {
-      console.warn("Shop skipped (needs urlTemplateVinyl and urlTemplateCd):", s.label || s);
+      console.warn("Shop skipped (needs at least one valid format link):", s.label || s);
     }
   }
   return out;
@@ -388,7 +500,7 @@ async function loadShops(resultsEl, formatSelect, openAllBtn) {
     }
     shops = normalizeShopsList(list);
     if (shops.length === 0) {
-      throw new Error("No valid shops (each needs label, urlTemplateVinyl, urlTemplateCd)");
+      throw new Error("No valid shops (each needs label and at least one valid format link)");
     }
     shopsLoaded = true;
     setStoreCountMetaFromCount(shops.length);
