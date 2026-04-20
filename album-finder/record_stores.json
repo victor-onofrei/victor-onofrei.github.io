@@ -4,28 +4,28 @@
     {
       "label": "Niche Records",
       "formats": {
-        "vinyl": [{ "urlTemplate": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=vinyl_10-vinyl" }],
+        "vinyl": [{ "urlTemplate": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=vinyl_10-vinyl_7-single" }],
         "cd": [{ "urlTemplate": "https://www.nicherecords.ro/cauta.html?ce={{q}}&sort=relevance&suport=cd_sacd_hdcd_shm-cd_k2hd_uhdcd_xrcd_xrcd2_xrcd24_hqcd" }]
       }
     },
     {
       "label": "Carturesti",
       "formats": {
-        "vinyl": [{ "urlTemplate": "https://carturesti.ro/product/search/{{q}}?suport=Vinyl,2Vinyl%20%2B%20CD&id_product_type=27" }],
+        "vinyl": [{ "urlTemplate": "https://carturesti.ro/product/search/{{q}}?suport=Vinyl%7CVinyl%2BCD%7CVinyl%2BDVD%7CVinyl%2BBlu-ray%7CVinyl%2BCD%2BBlu-ray%7CVinyl%2BCD%2BDVD%7CVinyl%2BCD%2BCaseta%7CVinyl%20%2B%20Blu-Ray%7CVinyl%2BBlu-ray%2BDVD&id_product_type=27" }],
         "cd": [{ "urlTemplate": "https://carturesti.ro/product/search/{{q}}?suport=CD%7CCD%2BDVD%7CVinyl%2BCD%7CCD%2BBlu-Ray%7CSACD%7CCD%2BDVD%2BBlu-ray%7CCD%2BBook%7CHybrid%20SACD%20-%20SACD%7CVinyl%2BCD%2BBlu-ray%7CVinyl%2BCD%2BDVD%7CHybrid%20SACD%7CVinyl%2BCD%2BCaseta%7CCD%2BMC%7CHybrid%20SACD%2BDVD%7CSACD%2BDVD%7CSACDH&id_product_type=27" }]
       }
     },
     {
       "label": "Muziker",
       "formats": {
-        "vinyl": [{ "urlTemplate": "https://www.muziker.ro/search?category=2569&q={{q}}" }],
+        "vinyl": [{ "urlTemplate": "https://www.muziker.ro/search?q={{q}}&lb.f%5B%5D=Tip%3ALP&lb.f%5B%5D=Tip%3ALP%20disc&lb.qu=0" }],
         "cd": [{ "urlTemplate": "https://www.muziker.ro/search?q={{q}}&lb.f%5B%5D=Tip%3ACD&lb.qu=0" }]
       }
     },
     {
       "label": "Ozone.ro",
       "formats": {
-        "vinyl": [{ "urlTemplate": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}" }],
+        "vinyl": [{ "urlTemplate": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}&filters=Categorii,393" }],
         "cd": [{ "urlTemplate": "https://www.ozone.ro/instantsearchplus/result/?q={{q}}&filters=Categorii,393" }]
       }
     },
@@ -39,7 +39,7 @@
     {
       "label": "grooves.land",
       "formats": {
-        "vinyl": [{ "urlTemplate": "https://www.grooves.land/advanced_search_result.php?categories_id=all&keywords={{q}}" }],
+        "vinyl": [{ "urlTemplate": "https://www.grooves.land/advanced_search_result.php/categories_id/2/keywords/{{q}}/filtercat_id/2/cPath/2/top/100/filter_99999999/CD%252BLP%7CLP%7CVinyl%2BMaxi%7CVinyl%2BSingle" }],
         "cd": [{ "urlTemplate": "https://www.grooves.land/advanced_search_result.php/categories_id/2/keywords/{{q}}/filtercat_id/2/cPath/2/top/100/filter_99999999/CD%7CCD%252BBlu-Ray%7CCD%252BDVD%7CCD%252BLP%7CCD%2BMaxi%7CSACD%252BCD" }]
       }
     },
@@ -61,10 +61,13 @@
       "label": "HHV",
       "formats": {
         "vinyl": [
-          { "label": "new", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N4S11?term={{q}}" },
-          { "label": "used", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-N5S11?term={{q}}" }
+          { "label": "new", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-M65N4S11U9?term={{q}}" },
+          { "label": "used", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-M65N5S11?term={{q}}" }
         ],
-        "cd": [{ "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-M71N4S11?term={{q}}" }]
+        "cd": [
+          { "label": "new", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-M71N4S11U9?term={{q}}" },
+          { "label": "used", "urlTemplate": "https://www.hhv.de/en-RO-RON-eu/records/catalog/filter/search-M71N5S11?term={{q}}" }
+        ]
       }
     },
     {
@@ -95,7 +98,7 @@
       }
     },
     {
-      "label": "Music-box",
+      "label": "Music Box",
       "formats": {
         "vinyl": [
           { "label": "music", "urlTemplate": "https://music-box.ro/index.php?route=product/search&search={{q}}&category_id=65&sub_category=true&description=true" },
