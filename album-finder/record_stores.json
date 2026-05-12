@@ -18,7 +18,7 @@
     {
       "label": "Muziker",
       "formats": {
-        "vinyl": [{ "urlTemplate": "https://www.muziker.ro/search?q={{q}}&lb.f%5B%5D=Tip%3ALP&lb.f%5B%5D=Tip%3ALP%20disc&lb.qu=0" }],
+        "vinyl": [{ "urlTemplate": "https://www.muziker.ro/search?q={{q}}&lb.f%5B%5D=Tip%3ALP%20disc&lb.f%5B%5D=Tip%3ALP&lb.f%5B%5D=Tip%3A12%22%20disc%20de%20vinil&lb.f%5B%5D=Tip%3AEdi%C8%9Bie%20limitat%C4%83" }],
         "cd": [{ "urlTemplate": "https://www.muziker.ro/search?q={{q}}&lb.f%5B%5D=Tip%3ACD&lb.qu=0" }]
       }
     },
