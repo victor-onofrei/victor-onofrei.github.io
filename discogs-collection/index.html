@@ -326,6 +326,78 @@
       -webkit-appearance: menulist;
     }
 
+    .random-pick-wrap {
+      margin-left: auto;
+    }
+
+    .random-pick-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      min-height: 0;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--shell-border);
+      background: linear-gradient(
+        180deg,
+        rgba(93, 117, 147, 0.3) 0%,
+        rgba(63, 89, 116, 0.3) 46%,
+        rgba(30, 52, 72, 0.96) 100%
+      );
+      color: var(--accent);
+      cursor: pointer;
+      margin: 0;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 245, 255, 0.34),
+        inset 0 -1px 0 rgba(17, 31, 44, 0.56),
+        0 1px 0 rgba(13, 24, 35, 0.42),
+        0 7px 13px rgba(20, 34, 49, 0.2);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+    .random-pick-btn:hover:not(:disabled) {
+      border-color: rgba(244, 176, 246, 0.74);
+      color: #f5d0fe;
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 245, 255, 0.4),
+        inset 0 -1px 0 rgba(17, 31, 44, 0.54),
+        0 2px 0 rgba(13, 24, 35, 0.42),
+        0 9px 15px rgba(20, 34, 49, 0.24);
+    }
+    .random-pick-btn:focus-visible {
+      outline: none;
+      border-color: rgba(250, 211, 255, 0.95);
+      box-shadow:
+        0 0 0 2px rgba(218, 112, 214, 0.18),
+        inset 0 1px 0 rgba(255, 245, 255, 0.4),
+        inset 0 -1px 0 rgba(17, 31, 44, 0.54),
+        0 2px 0 rgba(13, 24, 35, 0.42),
+        0 9px 15px rgba(20, 34, 49, 0.24);
+    }
+    .random-pick-btn:active:not(:disabled) {
+      transform: translateY(1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 245, 255, 0.24),
+        inset 0 -1px 0 rgba(17, 31, 44, 0.56),
+        0 1px 0 rgba(13, 24, 35, 0.32),
+        0 3px 7px rgba(20, 34, 49, 0.16);
+    }
+    .random-pick-btn:disabled {
+      opacity: 0.58;
+      transform: none;
+      cursor: not-allowed;
+      border-color: var(--shell-border-soft);
+      color: rgba(218, 112, 214, 0.62);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 238, 255, 0.1),
+        inset 0 -1px 0 rgba(17, 31, 44, 0.46);
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -342,6 +414,14 @@
       overflow: hidden;
       transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
       box-shadow: 0 5px 16px rgba(6, 8, 14, 0.42), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .card.is-random-picked {
+      border-color: rgba(250, 211, 255, 0.95);
+      box-shadow:
+        0 0 0 2px rgba(218, 112, 214, 0.32),
+        0 8px 20px rgba(186, 85, 211, 0.28),
+        inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -742,6 +822,13 @@
         border-radius: 20px;
         padding: 14px 12px 18px;
       }
+      .random-pick-wrap {
+        margin-left: 0;
+        width: auto;
+      }
+      .random-pick-btn {
+        width: auto;
+      }
       .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
@@ -864,6 +951,9 @@
         </select>
       </div>
 <div class="folder-wrap"><label for="folder-filter">Folder</label><select id="folder-filter" aria-label="Filter by folder"><option value="">All (144)</option><option value="8774916">Vinyl (128)</option><option value="8774917">CD (16)</option></select></div>
+      <div class="random-pick-wrap">
+        <button type="button" id="random-pick-btn" class="random-pick-btn" aria-label="Pick a random album">Pick a random album</button>
+      </div>
     </div>
 
     <main class="grid" id="grid">
@@ -2479,6 +2569,7 @@
   var rail = document.getElementById("section-rail");
   var railInner = document.getElementById("section-rail-inner");
   var toTop = document.getElementById("to-top");
+  var randomPickBtn = document.getElementById("random-pick-btn");
   if (!grid || !select) return;
   var cards = [].slice.call(grid.querySelectorAll(".card"));
   var sections = [];
@@ -2487,6 +2578,7 @@
   var jumpPickerOpen = false;
   var railScrollSuppress = false;
   var toTopRaf = null;
+  var highlightedRandomCard = null;
   var sortKey = "discogs-collection-sort";
   var folderKey = "discogs-collection-folder";
   try {
@@ -2650,6 +2742,34 @@
       card.style.display = (value === "" || fid === value) ? "" : "none";
     });
     sortCards();
+  }
+
+  function getVisibleCards() {
+    return cards.filter(function(card) {
+      return card.style.display !== "none";
+    });
+  }
+
+  function clearRandomHighlight() {
+    if (!highlightedRandomCard) return;
+    highlightedRandomCard.classList.remove("is-random-picked");
+    highlightedRandomCard = null;
+  }
+
+  function updateRandomPickAvailability() {
+    if (!randomPickBtn) return;
+    randomPickBtn.disabled = getVisibleCards().length === 0;
+  }
+
+  function pickRandomAlbum() {
+    if (!randomPickBtn) return;
+    var visibleCards = getVisibleCards();
+    if (visibleCards.length === 0) return;
+    clearRandomHighlight();
+    var randomIndex = Math.floor(Math.random() * visibleCards.length);
+    highlightedRandomCard = visibleCards[randomIndex];
+    highlightedRandomCard.classList.add("is-random-picked");
+    highlightedRandomCard.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
   }
 
   if (folderSelect) {
@@ -2929,6 +3049,9 @@
       scrollToTopAnimated();
     });
   }
+  if (randomPickBtn) {
+    randomPickBtn.addEventListener("click", pickRandomAlbum);
+  }
   if (jumpOverlay) {
     jumpOverlay.addEventListener("click", function(e) {
       if (e.target === jumpOverlay) {
@@ -3024,6 +3147,10 @@
       setActiveSection(sections[0].id, true);
       detectActiveSection();
     }
+    if (highlightedRandomCard && highlightedRandomCard.style.display === "none") {
+      clearRandomHighlight();
+    }
+    updateRandomPickAvailability();
   }
 
   select.addEventListener("change", function() {
