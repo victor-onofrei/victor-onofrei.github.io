@@ -57,6 +57,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      /* Keep compositor layers ready during programmatic scroll on iOS. */
+      will-change: scroll-position;
     }
 
     .shell {
@@ -424,30 +426,6 @@
         0 10px 24px rgba(186, 85, 211, 0.32),
         inset 0 1px 0 rgba(255,255,255,0.08);
       transform: translateY(-1px);
-      animation: random-picked-flash 0.4s ease-out 1 forwards;
-    }
-
-    @keyframes random-picked-flash {
-      0% {
-        box-shadow:
-          0 0 0 4px rgba(245, 208, 254, 0.85),
-          0 0 0 10px rgba(218, 112, 214, 0.3),
-          0 14px 30px rgba(186, 85, 211, 0.48),
-          inset 0 1px 0 rgba(255,255,255,0.14);
-      }
-      100% {
-        box-shadow:
-          0 0 0 2px rgba(218, 112, 214, 0.44),
-          0 0 0 5px rgba(218, 112, 214, 0.16),
-          0 10px 24px rgba(186, 85, 211, 0.32),
-          inset 0 1px 0 rgba(255,255,255,0.08);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card.is-random-picked {
-        animation: none;
-      }
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -2798,7 +2776,11 @@
     var viewH = window.innerHeight || document.documentElement.clientHeight || 0;
     var mostlyVisible = rect.top >= 0 && rect.bottom <= viewH + rect.height * 0.3;
     if (!mostlyVisible) {
-      highlightedRandomCard.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+      // animateScrollTo cancels any in-flight rAF (back-to-top etc.) before starting,
+      // so the two scroll drivers never run concurrently.
+      var targetY = Math.max(0, Math.round(getScrollY() + rect.top + rect.height / 2 - viewH / 2));
+      var distance = Math.abs(targetY - getScrollY());
+      animateScrollTo(targetY, Math.min(1200, Math.max(520, distance * 0.42)));
     }
   }
 
@@ -2984,8 +2966,9 @@
     function step(now) {
       var elapsed = now - start;
       var t = Math.min(1, elapsed / ms);
-      // Quicker start to avoid the "laggy takeoff" feeling on mobile.
-      var eased = 1 - Math.pow(1 - t, 3);
+      // Sine ease-in-out: gradual start and end, no initial velocity spike
+      // that could outpace iOS tile rendering and expose the page background.
+      var eased = (1 - Math.cos(t * Math.PI)) / 2;
       window.scrollTo(0, Math.round(startY + distance * eased));
       if (t < 1) {
         toTopRaf = requestAnimationFrame(step);
