@@ -419,9 +419,35 @@
     .card.is-random-picked {
       border-color: rgba(250, 211, 255, 0.95);
       box-shadow:
-        0 0 0 2px rgba(218, 112, 214, 0.32),
-        0 8px 20px rgba(186, 85, 211, 0.28),
+        0 0 0 2px rgba(218, 112, 214, 0.44),
+        0 0 0 5px rgba(218, 112, 214, 0.16),
+        0 10px 24px rgba(186, 85, 211, 0.32),
         inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+      animation: random-picked-pulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes random-picked-pulse {
+      from {
+        box-shadow:
+          0 0 0 2px rgba(218, 112, 214, 0.4),
+          0 0 0 5px rgba(218, 112, 214, 0.14),
+          0 10px 22px rgba(186, 85, 211, 0.28),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+      to {
+        box-shadow:
+          0 0 0 2px rgba(245, 208, 254, 0.74),
+          0 0 0 7px rgba(218, 112, 214, 0.22),
+          0 12px 26px rgba(186, 85, 211, 0.36),
+          inset 0 1px 0 rgba(255,255,255,0.12);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card.is-random-picked {
+        animation: none;
+      }
     }
 
     @media (hover: hover) and (pointer: fine) {
