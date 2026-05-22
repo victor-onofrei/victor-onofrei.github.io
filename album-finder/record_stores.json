@@ -144,6 +144,13 @@
         "vinyl": [{ "urlTemplate": "https://melomelanj.ro/shop/?s={{q}}" }],
         "cd": []
       }
+    },
+    {
+      "label": "NearMint",
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://nearmint.ro/magazin/_media-vinyl/?post_types=product&s={{q}}" }],
+        "cd": [{ "urlTemplate": "https://nearmint.ro/magazin/_media-cd/?post_types=product&s={{q}}" }]
+      }
     }
   ]
 }
