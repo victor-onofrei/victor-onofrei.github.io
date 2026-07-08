@@ -151,6 +151,13 @@
         "vinyl": [{ "urlTemplate": "https://nearmint.ro/magazin/_media-vinyl/?post_types=product&s={{q}}" }],
         "cd": [{ "urlTemplate": "https://nearmint.ro/magazin/_media-cd/?post_types=product&s={{q}}" }]
       }
+    },
+    {
+      "label": "Libristo",
+      "formats": {
+        "vinyl": [{ "urlTemplate": "https://www.libristo.ro/ro/cautare?binding%5B0%5D=AC&t={{q}}" }],
+        "cd": [{ "urlTemplate": "https://www.libristo.ro/ro/cautare?binding%5B0%5D=AA&t={{q}}" }]
+      }
     }
   ]
 }
