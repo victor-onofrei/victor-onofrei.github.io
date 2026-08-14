@@ -83,6 +83,28 @@ function templateForShop(shop, format) {
   return Array.isArray(links) ? links : [];
 }
 
+function countShopsForFormat(format) {
+  if (!shopsLoaded || (format !== "vinyl" && format !== "cd")) {
+    return 0;
+  }
+  let count = 0;
+  for (const shop of shops) {
+    if (templateForShop(shop, format).length > 0) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+function syncStoreCountMeta(formatSelect) {
+  if (!shopsLoaded) {
+    return;
+  }
+  const format = getFormatFromSelect(formatSelect);
+  const count = format ? countShopsForFormat(format) : shops.length;
+  setStoreCountMetaFromCount(count);
+}
+
 /**
  * Same URL list as link rendering: trimmed query, shops loaded, vinyl/cd format.
  * @param {string} query
@@ -516,7 +538,7 @@ async function loadShops(resultsEl, formatSelect, openAllBtn) {
       throw new Error("No valid shops (each needs label and at least one valid format link)");
     }
     shopsLoaded = true;
-    setStoreCountMetaFromCount(shops.length);
+    syncStoreCountMeta(formatSelect);
     const input = document.getElementById("query");
     renderLinks(input.value, resultsEl, formatSelect, openAllBtn);
   } catch (e) {
@@ -871,6 +893,7 @@ function main() {
       clearTimeout(debounceTimer);
       debounceTimer = null;
     }
+    syncStoreCountMeta(formatSelect);
     renderLinks(input.value, resultsEl, formatSelect, openAllBtn);
   });
 }
