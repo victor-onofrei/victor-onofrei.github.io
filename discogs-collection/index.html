@@ -2912,12 +2912,36 @@
     });
   }
 
+  function artistNameParts(name) {
+    var a = (name || "").trim();
+    if (!a) return { section: "#", tier: 0, sort: "" };
+    var theMatch = /^the\s+/i.test(a);
+    var forSection = theMatch ? a.replace(/^the\s+/i, "").trim() : a;
+    if (!forSection) {
+      var ch0 = a.charAt(0).toUpperCase();
+      return { section: /[0-9]/.test(ch0) ? "#" : ch0, tier: theMatch ? 1 : 0, sort: a.toLowerCase() };
+    }
+    var ch = forSection.charAt(0).toUpperCase();
+    return {
+      section: /[0-9]/.test(ch) ? "#" : ch,
+      tier: theMatch ? 1 : 0,
+      sort: (theMatch ? forSection : a).toLowerCase()
+    };
+  }
+
+  function compareArtistNames(aName, bName) {
+    var pa = artistNameParts(aName);
+    var pb = artistNameParts(bName);
+    if (pa.section !== pb.section) return pa.section < pb.section ? -1 : 1;
+    if (pa.tier !== pb.tier) return pa.tier - pb.tier;
+    if (pa.sort < pb.sort) return -1;
+    if (pa.sort > pb.sort) return 1;
+    return 0;
+  }
+
   function getSepKey(card, key) {
     if (key === "artist") {
-      var a = (card.getAttribute("data-artist") || "").trim();
-      if (!a) return "#";
-      var ch = a.charAt(0).toUpperCase();
-      return /[0-9]/.test(ch) ? "#" : ch;
+      return artistNameParts(card.getAttribute("data-artist") || "").section;
     }
     if (key === "release") {
       return card.getAttribute("data-release-year") || "?";
@@ -3217,9 +3241,10 @@
     cards.sort(function(a, b) {
       var va, vb;
       if (key === "artist") {
-        va = (a.getAttribute("data-artist") || "").toLowerCase();
-        vb = (b.getAttribute("data-artist") || "").toLowerCase();
-        return (va < vb ? -1 : va > vb ? 1 : 0) * dir;
+        return compareArtistNames(
+          a.getAttribute("data-artist") || "",
+          b.getAttribute("data-artist") || ""
+        ) * dir;
       }
       if (key === "release") {
         va = a.getAttribute("data-release-year") || "";
